@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kiharu Technical & Vocational College</title>
+<style>
+  /* Colors sampled from the provided logo */
+  :root{
+    --maroon: #6a1830;       /* ribbon */
+    --logo-blue: #85c0ea;    /* shield sky blue */
+    --logo-orange: #f26b2a;  /* diagonal/tool accent */
+    --logo-dark: #0a0a0a;    /* outline / deep text */
+    --bg: #f6f7f9;           /* light page background */
+    --card-white: #ffffff;
+    --muted: #6b6b6b;
+  }
+
+  /* Base */
+  html,body{height:100%;}
+  body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,var(--bg), #ffffff 40%);
+    color: var(--logo-dark);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+  }
+
+  /* Header */
+  header {
+    display:flex;
+    align-items:center;
+    gap:18px;
+    justify-content:space-between;
+    padding:16px 20px;
+    max-width:1200px;
+    margin:18px auto;
+    background:transparent;
+  }
+
+  .brand-left {
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+
+  img.logo {
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    border-radius:8px;
+    border:3px solid rgba(133,192,234,0.18);
+    background: white;
+    box-shadow: 0 6px 20px rgba(10,10,10,0.07);
+  }
+
+  .site-title {
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+  }
+  .site-title .main {
+    font-size:20px;
+    font-weight:800;
+    color:var(--maroon);
+    letter-spacing:0.6px;
+  }
+  .site-title .sub {
+    font-size:13px;
+    color:var(--muted);
+    margin-top:6px;
+  }
+
+  /* Small contact / badge on right */
+  .header-right {
+    text-align:right;
+    min-width:220px;
+  }
+  .badge {
+    display:inline-block;
+    background: linear-gradient(90deg,var(--logo-blue), #6fb7ea);
+    color:var(--card-white);
+    padding:8px 12px;
+    border-radius:8px;
+    font-weight:700;
+    box-shadow:0 6px 18px rgba(106,24,48,0.08);
+    border:2px solid rgba(0,0,0,0.03);
+  }
+  .contact {
+    margin-top:8px;
+    font-size:13px;
+    color:var(--muted);
+  }
+
+  /* Carousel */
+  .carousel-wrap {
+    max-width:1200px;
+    margin: 8px auto 22px;
+    padding: 0 20px;
+  }
+
+  .carousel {
+    overflow: hidden;
+    width: 100%;
+    height: 240px;
+    background: linear-gradient(180deg,var(--logo-blue), #083a6a 120%);
+    border-radius:12px;
+    box-shadow: 0 18px 40px rgba(10,10,10,0.06);
+    position:relative;
+  }
+
+  .carousel-track {
+    display:flex;
+    width: calc(320px * 8);
+    animation: slide 28s linear infinite;
+    align-items:center;
+    height:100%;
+    gap:12px;
+    padding: 12px;
+    box-sizing:border-box;
+  }
+
+  .carousel-track img {
+    width: 320px;
+    height: 216px;
+    object-fit: cover;
+    border-radius:8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    border: 6px solid white;
+    flex: 0 0 auto;
+    background: #e9eef6;
+  }
+
+  @keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Pause animation when user hovers or focuses inside carousel */
+  .carousel:hover .carousel-track,
+  .carousel:focus-within .carousel-track {
+    animation-play-state: paused;
+  }
+
+  /* Main container */
+  main{
+    max-width:1200px;
+    margin:22px auto;
+    padding:0 20px 60px;
+  }
+
+  .section {
+    background:var(--card-white);
+    padding:18px;
+    border-radius:12px;
+    box-shadow: 0 10px 30px rgba(20,20,20,0.04);
+    border-left:6px solid rgba(133,192,234,0.18);
+  }
+
+  h2 {
+    margin:0 0 8px 0;
+    color:var(--maroon);
+    font-size:20px;
+  }
+  p.lead { color:var(--muted); margin-top:6px; }
+
+  /* Courses grid (image + visible name overlay) */
+  .courses-grid{
+    margin-top:16px;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap:18px;
+  }
+
+  .course-card{
+    display:block;
+    border-radius:12px;
+    overflow:hidden;
+    background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
+    border:1px solid rgba(10,10,10,0.03);
+    transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: 0 6px 20px rgba(12,12,12,0.04);
+    position:relative;
+    text-decoration:none;
+    color:inherit;
+  }
+
+  .course-card:focus,
+  .course-card:hover{
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 18px 40px rgba(10,10,10,0.12);
+    outline: none;
+  }
+
+  .course-image{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    display:block;
+    background:#e9eef6;
+    transition: opacity .22s ease, transform .22s ease;
+  }
+
+  /* visible name bar - appears on the image bottom */
+  .name-bar {
+    position:absolute;
+    left:0; right:0;
+    bottom:0;
+    padding:10px 12px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(10,10,10,0.55));
+    color: #fff;
+    font-weight:700;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    align-self:flex-end;
+  }
+
+  .name-bar .pill {
+    margin-left:auto;
+    background: rgba(255,255,255,0.12);
+    padding:4px 8px;
+    border-radius:999px;
+    font-size:12px;
+    color:#fff;
+  }
+
+  .course-caption {
+    padding:12px;
+    font-size:13px;
+    color:var(--muted);
+  }
+
+  /* Fees button */
+  .fees-btn {
+    display:inline-block;
+    background:var(--maroon);
+    color:white;
+    padding:10px 16px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    border:2px solid rgba(133,192,234,0.06);
+  }
+
+  /* Footer */
+  footer {
+    max-width:1200px;
+    margin:26px auto;
+    padding:18px 20px;
+    text-align:center;
+    color:#fff;
+    background: linear-gradient(90deg,var(--maroon), #5b1428);
+    border-radius:12px;
+    box-shadow: 0 18px 40px rgba(10,10,10,0.08);
+  }
+
+  /* Responsive tweaks */
+  @media (max-width:720px){
+    header { padding:12px; gap:12px; }
+    img.logo { width:74px; height:74px; }
+    .course-image { height:140px; }
+    .carousel { height:160px; }
+    .carousel-track img { width:220px; height:120px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand-left">
+    <!-- Kiharu logo (replace this file with your exact logo) -->
+    <img src="kiharu_logo.png" alt="Kiharu TVC logo" class="logo">
+    <div class="site-title">
+      <div class="main">KIHARU TECHNICAL &amp; VOCATIONAL COLLEGE</div>
+      <div class="sub">Home of technology and innovation — Gaturi Ward, Kiambugi</div>
+    </div>
+  </div>
+
+  <div class="header-right" aria-hidden="false">
+    <div class="badge">KIHARU TVC</div>
+    <div class="contact">P.O. BOX 29-10200 • Tel: 0720657630</div>
+  </div>
+</header>
+
+<!-- Carousel -->
+<div class="carousel-wrap" aria-hidden="false">
+  <div class="carousel" role="region" aria-label="Campus images">
+    <div class="carousel-track" tabindex="-1" aria-hidden="true">
+      <!-- repeat images twice for smooth infinite effect -->
+      <img src="kiharu.jpg" alt="Students learning on campus" />
+      <img src="kiharu 2.jpg" alt="Workshop practical session" />
+      <img src="kiharu 3.jpg" alt="College block and entrance" />
+      <img src="kiharu4.jpg" alt="Laboratory practical demonstration" />
+      <img src="kiharu 5.jpg" alt="" />
+      <img src="kiharu 6.jpg" alt="" />
+      <img src="kiharu 7.jpg" alt="" />
+      <img src="" alt="" />
+    </div>
+  </div>
+</div>
+
+<main>
+  <section class="section" aria-labelledby="longCoursesHeading">
+    <h2 id="longCoursesHeading">Long Courses Offered</h2>
+    <p class="lead">Click any course image (or name) to open modules (Modules 1–6). Each card now displays the course name on the image as requested.</p>
+
+    <div class="courses-grid" id="coursesGrid" role="list">
+      <!-- JS will populate course cards -->
+    </div>
+
+    <div style="margin-top:14px;">
+      <a class="fees-btn" href="fees.pdf" target="_blank" rel="noopener">View Fees Structure (PDF)</a>
+    </div>
+  </section>
+
+  <section class="section" style="margin-top:18px;">
+    <h2>Short Courses Offered</h2>
+    <p class="lead">Available short courses — contact admissions for schedules.</p>
+    <ul style="margin:12px 0 0 18px; color:var(--muted);">
+      <li>Painting</li>
+      <li>Web Design</li>
+      <li>Cyber Security &amp; Use of AI Tools</li>
+      <li>Barbering</li>
+      <li>Graphic Design</li>
+      <li>Pizza Making</li>
+      <li>Computer Packages</li>
+      <li>Cake Making</li>
+      <li>Computer Repair &amp; Maintenance</li>
+      <li>Welding &amp; Fabrication</li>
+      <li>Tiling &amp; Flooring</li>
+      <li>Glazing</li>
+      <li>Pipe Fitting &amp; Installation</li>
+      <li>Photovoltaic Solar Installer</li>
+      <li>AutoCAD / ArchiCAD</li>
+      <li>Basic Cookery Skills</li>
+      <li>Manicure &amp; Pedicure</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  © 2026 Kiharu Technical &amp; Vocational College — All rights reserved
+</footer>
+
+<script>
+  // Course data (images + visible name)
+  const longCourses = [
+    { name: "Building & Civil Engineering", slug: "building-civil-engineering", image: "building.jpg", caption: "Practical building & surveying" },
+    { name: "Business & Liberal Studies", slug: "business-liberal-studies", image: "images/courses/business.jpg", caption: "Business, accounting & management" },
+    { name: "Mechanical & Automotive Engineering", slug: "mechanical-automotive-engineering", image: "mechanic.jpg", caption: "Engines, fabrication & maintenance" },
+    { name: "Electrical & Electronics Engineering", slug: "electrical-electronics-engineering", image: "electric.jpg", caption: "Wiring, electronics & power systems" },
+    { name: "Computing & Informatics", slug: "computing-informatics", image: "ict 2.jpg", caption: "Programming, networking & IT support" },
+    { name: "Fashion & Design", slug: "fashion-design", image: "fashion.jpg", caption: "Garment making & textile design" },
+    { name: "Cosmetology", slug: "cosmetology", image: "images/courses/cosmetology.jpg", caption: "Beauty therapy & salon operations" },
+    { name: "Hospitality", slug: "hospitality", image: "hopitality.jpg", caption: "Hotel operations & cookery" },
+    { name: "Social Work", slug: "social-work", image: "images/courses/socialwork.jpg", caption: "Community development & counseling" },
+    { name: "Tourism Management", slug: "tourism-management", image: "images/courses/tourism.jpg", caption: "Tourism operations & guiding" }
+  ];
+
+  const placeholder = 'images/placeholder.png'; // add placeholder file for missing images
+  const grid = document.getElementById('coursesGrid');
+
+  longCourses.forEach(c => {
+    const a = document.createElement('a');
+    a.href = `course.html?course=${encodeURIComponent(c.slug)}`;
+    a.className = 'course-card';
+    a.setAttribute('aria-label', c.name);
+    a.setAttribute('role', 'listitem');
+    a.title = c.name;
+
+    // image element
+    const img = document.createElement('img');
+    img.className = 'course-image';
+    img.src = c.image || placeholder;
+    img.alt = ''; // link has aria-label, so we keep image alt empty to avoid redundancy
+    img.loading = 'lazy';
+    img.onerror = function(){
+      console.warn('Image failed to load:', c.image);
+      this.onerror = null;
+      this.src = placeholder;
+      this.style.opacity = '0.9';
+    };
+
+    // name bar overlay (visible)
+    const nameBar = document.createElement('div');
+    nameBar.className = 'name-bar';
+    nameBar.innerHTML = `<span class="name-text">${c.name}</span><span class="pill">Long</span>`;
+
+    // optional caption area under image (non-overlay)
+    const caption = document.createElement('div');
+    caption.className = 'course-caption';
+    caption.textContent = c.caption || '';
+
+    // assemble
+    a.appendChild(img);
+    a.appendChild(nameBar);
+    a.appendChild(caption);
+
+    grid.appendChild(a);
+  });
+
+  // If you'd like to stop carousel on small screens or tweak speeds, change CSS keyframes or use JS to toggle animation.
+  // Quick accessibility improvement: allow keyboard focus within the carousel to pause animation.
+  (function enableCarouselKeyboardPause(){
+    const carousel = document.querySelector('.carousel');
+    if(!carousel) return;
+    carousel.addEventListener('focusin', ()=> {
+      const track = carousel.querySelector('.carousel-track');
+      if(track) track.style.animationPlayState = 'paused';
+    });
+    carousel.addEventListener('focusout', ()=> {
+      const track = carousel.querySelector('.carousel-track');
+      if(track) track.style.animationPlayState = 'running';
+    });
+  })();
+</script>
+
+</body>
+</html>
