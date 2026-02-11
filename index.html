@@ -137,7 +137,6 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* Pause animation when user hovers or focuses inside carousel */
   .carousel:hover .carousel-track,
   .carousel:focus-within .carousel-track {
     animation-play-state: paused;
@@ -165,7 +164,6 @@
   }
   p.lead { color:var(--muted); margin-top:6px; }
 
-  /* Courses grid (image + visible name overlay) */
   .courses-grid{
     margin-top:16px;
     display:grid;
@@ -203,7 +201,6 @@
     transition: opacity .22s ease, transform .22s ease;
   }
 
-  /* visible name bar - appears on the image bottom */
   .name-bar {
     position:absolute;
     left:0; right:0;
@@ -234,7 +231,6 @@
     color:var(--muted);
   }
 
-  /* Fees button */
   .fees-btn {
     display:inline-block;
     background:var(--maroon);
@@ -246,7 +242,6 @@
     border:2px solid rgba(133,192,234,0.06);
   }
 
-  /* Footer */
   footer {
     max-width:1200px;
     margin:26px auto;
@@ -258,7 +253,6 @@
     box-shadow: 0 18px 40px rgba(10,10,10,0.08);
   }
 
-  /* Responsive tweaks */
   @media (max-width:720px){
     header { padding:12px; gap:12px; }
     img.logo { width:74px; height:74px; }
@@ -272,7 +266,6 @@
 
 <header>
   <div class="brand-left">
-    <!-- Kiharu logo (replace this file with your exact logo) -->
     <img src="kiharu-logo.png" alt="Kiharu TVC logo" class="logo">
     <div class="site-title">
       <div class="main">KIHARU TECHNICAL &amp; VOCATIONAL COLLEGE</div>
@@ -286,11 +279,9 @@
   </div>
 </header>
 
-<!-- Carousel -->
 <div class="carousel-wrap" aria-hidden="false">
   <div class="carousel" role="region" aria-label="Campus images">
     <div class="carousel-track" tabindex="-1" aria-hidden="true">
-      <!-- repeat images twice for smooth infinite effect -->
       <img src="kiharu-1.jpg" alt="Students learning on campus" />
       <img src="kiharu-2.jpg" alt="Workshop practical session" />
       <img src="kiharu-3.jpg" alt="College block and entrance" />
@@ -346,14 +337,14 @@
   © 2026 Kiharu Technical &amp; Vocational College — All rights reserved
 </footer>
 
+<!-- JS for courses -->
 <script>
-  // Course data (images + visible name)
   const longCourses = [
     { name: "Building & Civil Engineering", slug: "images/building.jpg", image: "building.jpg", caption: "Practical building & surveying" },
     { name: "Business & Liberal Studies", slug: "business-liberal-studies", image: "business.jpg", caption: "Business, accounting & management" },
     { name: "Mechanical & Automotive Engineering", slug: "mechanical-automotive-engineering", image: "mechanic.jpg", caption: "Engines, fabrication & maintenance" },
     { name: "Electrical & Electronics Engineering", slug: "electrical-electronics-engineering", image: "electric.jpg", caption: "Wiring, electronics & power systems" },
-    { name: "Computing & Informatics", slug: "computing-informatics", image: "ict-2.jpg", caption: "Proimages/mechanic.jpggramming, networking & IT support" },
+    { name: "Computing & Informatics", slug: "computing-informatics", image: "ict-2.jpg", caption: "Programming, networking & IT support" },
     { name: "Fashion & Design", slug: "fashion-design", image: "fashion.jpg", caption: "Garment making & textile design" },
     { name: "Cosmetology", slug: "cosmetology", image: "cosmetology.jpg", caption: "Beauty therapy & salon operations" },
     { name: "Hospitality", slug: "hospitality", image: "hopitality.jpg", caption: "Hotel operations & cookery" },
@@ -361,7 +352,7 @@
     { name: "Tourism Management", slug: "tourism-management", image: "tourism.jpg", caption: "Tourism operations & guiding" }
   ];
 
-  const placeholder = 'images/placeholder.png'; // add placeholder file for missing images
+  const placeholder = 'images/placeholder.png'; 
   const grid = document.getElementById('coursesGrid');
 
   longCourses.forEach(c => {
@@ -372,30 +363,25 @@
     a.setAttribute('role', 'listitem');
     a.title = c.name;
 
-    // image element
     const img = document.createElement('img');
     img.className = 'course-image';
     img.src = c.image || placeholder;
-    img.alt = ''; // link has aria-label, so we keep image alt empty to avoid redundancy
+    img.alt = '';
     img.loading = 'lazy';
     img.onerror = function(){
-      console.warn('Image failed to load:', c.image);
       this.onerror = null;
       this.src = placeholder;
       this.style.opacity = '0.9';
     };
 
-    // name bar overlay (visible)
     const nameBar = document.createElement('div');
     nameBar.className = 'name-bar';
     nameBar.innerHTML = `<span class="name-text">${c.name}</span><span class="pill">Long</span>`;
 
-    // optional caption area under image (non-overlay)
     const caption = document.createElement('div');
     caption.className = 'course-caption';
     caption.textContent = c.caption || '';
 
-    // assemble
     a.appendChild(img);
     a.appendChild(nameBar);
     a.appendChild(caption);
@@ -403,8 +389,6 @@
     grid.appendChild(a);
   });
 
-  // If you'd like to stop carousel on small screens or tweak speeds, change CSS keyframes or use JS to toggle animation.
-  // Quick accessibility improvement: allow keyboard focus within the carousel to pause animation.
   (function enableCarouselKeyboardPause(){
     const carousel = document.querySelector('.carousel');
     if(!carousel) return;
@@ -417,6 +401,58 @@
       if(track) track.style.animationPlayState = 'running';
     });
   })();
+</script>
+
+<!-- AI Chat Box -->
+<div id="aiChatContainer" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    max-width: 90%;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    z-index: 9999;
+    font-family: Inter, sans-serif;
+">
+    <div style="background: var(--maroon); color:white; padding:10px 12px; border-radius:12px 12px 0 0; font-weight:700;">
+        AI Assistant
+    </div>
+    <div id="aiMessages" style="height:200px; overflow-y:auto; padding:10px; font-size:14px; color:#333;"></div>
+    <div style="display:flex; border-top:1px solid #eee;">
+        <input type="text" id="aiInput" placeholder="Ask a question..." style="flex:1; border:none; padding:10px; border-radius:0 0 0 12px; outline:none;">
+        <button onclick="sendAIMessage()" style="background:var(--maroon); color:white; border:none; padding:0 16px; cursor:pointer; border-radius:0 0 12px 0;">Send</button>
+    </div>
+</div>
+
+<script>
+async function sendAIMessage(){
+    const input = document.getElementById("aiInput");
+    const msg = input.value.trim();
+    if(!msg) return;
+
+    const messagesDiv = document.getElementById("aiMessages");
+    messagesDiv.innerHTML += "<p><b>You:</b> " + msg + "</p>";
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+    input.value = "";
+
+    try {
+        const response = await fetch("https://college-ai-assistance.onrender.com", { // <-- Replace with your Render URL
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: msg })
+        });
+
+        const data = await response.json();
+        messagesDiv.innerHTML += "<p><b>AI:</b> " + data.reply + "</p>";
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    } catch (err) {
+        console.error(err);
+        messagesDiv.innerHTML += "<p><b>AI:</b> Sorry, something went wrong.</p>";
+    }
+}
 </script>
 
 </body>
