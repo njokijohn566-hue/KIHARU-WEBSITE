@@ -5,18 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Kiharu Technical & Vocational College</title>
 <style>
-  /* Colors sampled from the provided logo */
   :root{
-    --maroon: #6a1830;       /* ribbon */
-    --logo-blue: #85c0ea;    /* shield sky blue */
-    --logo-orange: #f26b2a;  /* diagonal/tool accent */
-    --logo-dark: #0a0a0a;    /* outline / deep text */
-    --bg: #f6f7f9;           /* light page background */
+    --maroon: #6a1830;
+    --logo-blue: #85c0ea;
+    --logo-orange: #f26b2a;
+    --logo-dark: #0a0a0a;
+    --bg: #f6f7f9;
     --card-white: #ffffff;
     --muted: #6b6b6b;
   }
 
-  /* Base */
   html,body{height:100%;}
   body {
     margin: 0;
@@ -27,7 +25,6 @@
     line-height:1.45;
   }
 
-  /* Header */
   header {
     display:flex;
     align-items:center;
@@ -39,227 +36,40 @@
     background:transparent;
   }
 
-  .brand-left {
-    display:flex;
-    align-items:center;
-    gap:14px;
-  }
+  .brand-left { display:flex; align-items:center; gap:14px; }
+  img.logo { width:90px; height:90px; object-fit:contain; border-radius:8px; border:3px solid rgba(133,192,234,0.18); background: white; box-shadow: 0 6px 20px rgba(10,10,10,0.07); }
+  .site-title { display:flex; flex-direction:column; line-height:1; }
+  .site-title .main { font-size:20px; font-weight:800; color:var(--maroon); letter-spacing:0.6px; }
+  .site-title .sub { font-size:13px; color:var(--muted); margin-top:6px; }
 
-  img.logo {
-    width:90px;
-    height:90px;
-    object-fit:contain;
-    border-radius:8px;
-    border:3px solid rgba(133,192,234,0.18);
-    background: white;
-    box-shadow: 0 6px 20px rgba(10,10,10,0.07);
-  }
+  .header-right { text-align:right; min-width:220px; }
+  .badge { display:inline-block; background: linear-gradient(90deg,var(--logo-blue), #6fb7ea); color:var(--card-white); padding:8px 12px; border-radius:8px; font-weight:700; box-shadow:0 6px 18px rgba(106,24,48,0.08); border:2px solid rgba(0,0,0,0.03); }
+  .contact { margin-top:8px; font-size:13px; color:var(--muted); }
 
-  .site-title {
-    display:flex;
-    flex-direction:column;
-    line-height:1;
-  }
-  .site-title .main {
-    font-size:20px;
-    font-weight:800;
-    color:var(--maroon);
-    letter-spacing:0.6px;
-  }
-  .site-title .sub {
-    font-size:13px;
-    color:var(--muted);
-    margin-top:6px;
-  }
+  .carousel-wrap { max-width:1200px; margin: 8px auto 22px; padding: 0 20px; }
+  .carousel { overflow: hidden; width: 100%; height: 240px; background: linear-gradient(180deg,var(--logo-blue), #083a6a 120%); border-radius:12px; box-shadow: 0 18px 40px rgba(10,10,10,0.06); position:relative; }
+  .carousel-track { display:flex; width: calc(320px * 8); animation: slide 28s linear infinite; align-items:center; height:100%; gap:12px; padding: 12px; box-sizing:border-box; }
+  .carousel-track img { width: 320px; height: 216px; object-fit: cover; border-radius:8px; box-shadow: 0 6px 18px rgba(0,0,0,0.25); border: 6px solid white; flex: 0 0 auto; background: #e9eef6; }
 
-  /* Small contact / badge on right */
-  .header-right {
-    text-align:right;
-    min-width:220px;
-  }
-  .badge {
-    display:inline-block;
-    background: linear-gradient(90deg,var(--logo-blue), #6fb7ea);
-    color:var(--card-white);
-    padding:8px 12px;
-    border-radius:8px;
-    font-weight:700;
-    box-shadow:0 6px 18px rgba(106,24,48,0.08);
-    border:2px solid rgba(0,0,0,0.03);
-  }
-  .contact {
-    margin-top:8px;
-    font-size:13px;
-    color:var(--muted);
-  }
+  @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .carousel:hover .carousel-track, .carousel:focus-within .carousel-track { animation-play-state: paused; }
 
-  /* Carousel */
-  .carousel-wrap {
-    max-width:1200px;
-    margin: 8px auto 22px;
-    padding: 0 20px;
-  }
-
-  .carousel {
-    overflow: hidden;
-    width: 100%;
-    height: 240px;
-    background: linear-gradient(180deg,var(--logo-blue), #083a6a 120%);
-    border-radius:12px;
-    box-shadow: 0 18px 40px rgba(10,10,10,0.06);
-    position:relative;
-  }
-
-  .carousel-track {
-    display:flex;
-    width: calc(320px * 8);
-    animation: slide 28s linear infinite;
-    align-items:center;
-    height:100%;
-    gap:12px;
-    padding: 12px;
-    box-sizing:border-box;
-  }
-
-  .carousel-track img {
-    width: 320px;
-    height: 216px;
-    object-fit: cover;
-    border-radius:8px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-    border: 6px solid white;
-    flex: 0 0 auto;
-    background: #e9eef6;
-  }
-
-  @keyframes slide {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .carousel:hover .carousel-track,
-  .carousel:focus-within .carousel-track {
-    animation-play-state: paused;
-  }
-
-  /* Main container */
-  main{
-    max-width:1200px;
-    margin:22px auto;
-    padding:0 20px 60px;
-  }
-
-  .section {
-    background:var(--card-white);
-    padding:18px;
-    border-radius:12px;
-    box-shadow: 0 10px 30px rgba(20,20,20,0.04);
-    border-left:6px solid rgba(133,192,234,0.18);
-  }
-
-  h2 {
-    margin:0 0 8px 0;
-    color:var(--maroon);
-    font-size:20px;
-  }
+  main{ max-width:1200px; margin:22px auto; padding:0 20px 60px; }
+  .section { background:var(--card-white); padding:18px; border-radius:12px; box-shadow: 0 10px 30px rgba(20,20,20,0.04); border-left:6px solid rgba(133,192,234,0.18); }
+  h2 { margin:0 0 8px 0; color:var(--maroon); font-size:20px; }
   p.lead { color:var(--muted); margin-top:6px; }
 
-  .courses-grid{
-    margin-top:16px;
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap:18px;
-  }
+  .courses-grid{ margin-top:16px; display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:18px; }
+  .course-card{ display:block; border-radius:12px; overflow:hidden; background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01)); border:1px solid rgba(10,10,10,0.03); transition: transform .18s ease, box-shadow .18s ease; box-shadow: 0 6px 20px rgba(12,12,12,0.04); position:relative; text-decoration:none; color:inherit; cursor:pointer; }
+  .course-card:focus, .course-card:hover{ transform: translateY(-6px) scale(1.01); box-shadow: 0 18px 40px rgba(10,10,10,0.12); outline: none; }
+  .course-image{ width:100%; height:180px; object-fit:cover; display:block; background:#e9eef6; transition: opacity .22s ease, transform .22s ease; }
+  .name-bar { position:absolute; left:0; right:0; bottom:0; padding:10px 12px; background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(10,10,10,0.55)); color: #fff; font-weight:700; font-size:15px; display:flex; align-items:center; gap:8px; align-self:flex-end; }
+  .name-bar .pill { margin-left:auto; background: rgba(255,255,255,0.12); padding:4px 8px; border-radius:999px; font-size:12px; color:#fff; }
+  .course-caption { padding:12px; font-size:13px; color:var(--muted); }
+  .fees-btn { display:inline-block; background:var(--maroon); color:white; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:700; border:2px solid rgba(133,192,234,0.06); }
+  footer { max-width:1200px; margin:26px auto; padding:18px 20px; text-align:center; color:#fff; background: linear-gradient(90deg,var(--maroon), #5b1428); border-radius:12px; box-shadow: 0 18px 40px rgba(10,10,10,0.08); }
 
-  .course-card{
-    display:block;
-    border-radius:12px;
-    overflow:hidden;
-    background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
-    border:1px solid rgba(10,10,10,0.03);
-    transition: transform .18s ease, box-shadow .18s ease;
-    box-shadow: 0 6px 20px rgba(12,12,12,0.04);
-    position:relative;
-    text-decoration:none;
-    color:inherit;
-    cursor:pointer;
-  }
-
-  .course-card:focus,
-  .course-card:hover{
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 18px 40px rgba(10,10,10,0.12);
-    outline: none;
-  }
-
-  .course-image{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    display:block;
-    background:#e9eef6;
-    transition: opacity .22s ease, transform .22s ease;
-  }
-
-  .name-bar {
-    position:absolute;
-    left:0; right:0;
-    bottom:0;
-    padding:10px 12px;
-    background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(10,10,10,0.55));
-    color: #fff;
-    font-weight:700;
-    font-size:15px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    align-self:flex-end;
-  }
-
-  .name-bar .pill {
-    margin-left:auto;
-    background: rgba(255,255,255,0.12);
-    padding:4px 8px;
-    border-radius:999px;
-    font-size:12px;
-    color:#fff;
-  }
-
-  .course-caption {
-    padding:12px;
-    font-size:13px;
-    color:var(--muted);
-  }
-
-  .fees-btn {
-    display:inline-block;
-    background:var(--maroon);
-    color:white;
-    padding:10px 16px;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:700;
-    border:2px solid rgba(133,192,234,0.06);
-  }
-
-  footer {
-    max-width:1200px;
-    margin:26px auto;
-    padding:18px 20px;
-    text-align:center;
-    color:#fff;
-    background: linear-gradient(90deg,var(--maroon), #5b1428);
-    border-radius:12px;
-    box-shadow: 0 18px 40px rgba(10,10,10,0.08);
-  }
-
-  @media (max-width:720px){
-    header { padding:12px; gap:12px; }
-    img.logo { width:74px; height:74px; }
-    .course-image { height:140px; }
-    .carousel { height:160px; }
-    .carousel-track img { width:220px; height:120px; }
-  }
+  @media (max-width:720px){ header { padding:12px; gap:12px; } img.logo { width:74px; height:74px; } .course-image { height:140px; } .carousel { height:160px; } .carousel-track img { width:220px; height:120px; } }
 </style>
 </head>
 <body>
@@ -298,11 +108,7 @@
   <section class="section" aria-labelledby="longCoursesHeading">
     <h2 id="longCoursesHeading">Long Courses Offered</h2>
     <p class="lead">Click any course image (or name) to view modules (Modules 1–6).</p>
-
-    <div class="courses-grid" id="coursesGrid" role="list">
-      <!-- JS will populate course cards -->
-    </div>
-
+    <div class="courses-grid" id="coursesGrid" role="list"></div>
     <div style="margin-top:14px;">
       <a class="fees-btn" href="feesstructure.pdf" target="_blank" rel="noopener">View Fees Structure (PDF)</a>
     </div>
@@ -351,10 +157,8 @@
     { name: "Social Work", slug: "social-work", image: "socialwork.jpg", caption: "Community development & counseling" },
     { name: "Tourism Management", slug: "tourism-management", image: "tourism.jpg", caption: "Tourism operations & guiding" }
   ];
-
   const placeholder = 'images/placeholder.png'; 
   const grid = document.getElementById('coursesGrid');
-
   longCourses.forEach(c => {
     const a = document.createElement('a');
     a.href = `course-detail.html?course=${encodeURIComponent(c.slug)}`;
@@ -368,89 +172,59 @@
     img.src = c.image || placeholder;
     img.alt = '';
     img.loading = 'lazy';
-    img.onerror = function(){
-      this.onerror = null;
-      this.src = placeholder;
-      this.style.opacity = '0.9';
-    };
+    img.onerror = function(){ this.onerror=null; this.src=placeholder; this.style.opacity='0.9'; };
 
     const nameBar = document.createElement('div');
-    nameBar.className = 'name-bar';
-    nameBar.innerHTML = `<span class="name-text">${c.name}</span><span class="pill">Long</span>`;
+    nameBar.className='name-bar';
+    nameBar.innerHTML=`<span class="name-text">${c.name}</span><span class="pill">Long</span>`;
+    const caption = document.createElement('div'); caption.className='course-caption'; caption.textContent=c.caption||'';
 
-    const caption = document.createElement('div');
-    caption.className = 'course-caption';
-    caption.textContent = c.caption || '';
-
-    a.appendChild(img);
-    a.appendChild(nameBar);
-    a.appendChild(caption);
-
-    grid.appendChild(a);
+    a.appendChild(img); a.appendChild(nameBar); a.appendChild(caption); grid.appendChild(a);
   });
 
   (function enableCarouselKeyboardPause(){
-    const carousel = document.querySelector('.carousel');
-    if(!carousel) return;
-    carousel.addEventListener('focusin', ()=> {
-      const track = carousel.querySelector('.carousel-track');
-      if(track) track.style.animationPlayState = 'paused';
-    });
-    carousel.addEventListener('focusout', ()=> {
-      const track = carousel.querySelector('.carousel-track');
-      if(track) track.style.animationPlayState = 'running';
-    });
+    const carousel=document.querySelector('.carousel');
+    if(!carousel)return;
+    carousel.addEventListener('focusin',()=>{ const track=carousel.querySelector('.carousel-track'); if(track)track.style.animationPlayState='paused'; });
+    carousel.addEventListener('focusout',()=>{ const track=carousel.querySelector('.carousel-track'); if(track)track.style.animationPlayState='running'; });
   })();
 </script>
 
-<!-- AI Chat Box -->
-<div id="aiChatContainer" style="
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 300px;
-    max-width: 90%;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    z-index: 9999;
-    font-family: Inter, sans-serif;
-">
-    <div style="background: var(--maroon); color:white; padding:10px 12px; border-radius:12px 12px 0 0; font-weight:700;">
-        AI Assistant
-    </div>
-    <div id="aiMessages" style="height:200px; overflow-y:auto; padding:10px; font-size:14px; color:#333;"></div>
+<!-- AI Floating Icon -->
+<div id="aiWidget" style="position: fixed; bottom: 20px; right: 20px; z-index:9999; font-family: Inter, sans-serif;">
+  <button id="aiToggle" style="width:56px; height:56px; border-radius:50%; border:none; background:#6a1830; color:white; cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,0.2); font-size:28px; display:flex; align-items:center; justify-content:center;">🤖</button>
+  <div id="aiChatWindow" style="display:none; width:300px; max-width:90vw; height:350px; background:white; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.2); margin-bottom:10px; flex-direction:column; overflow:hidden;">
+    <div style="background:#6a1830; color:white; padding:10px 12px; font-weight:700;">AI Assistant</div>
+    <div id="aiMessages" style="flex:1; padding:10px; overflow-y:auto; font-size:14px; color:#333;"></div>
     <div style="display:flex; border-top:1px solid #eee;">
-        <input type="text" id="aiInput" placeholder="Ask a question..." style="flex:1; border:none; padding:10px; border-radius:0 0 0 12px; outline:none;">
-        <button onclick="sendAIMessage()" style="background:var(--maroon); color:white; border:none; padding:0 16px; cursor:pointer; border-radius:0 0 12px 0;">Send</button>
+      <input type="text" id="aiInput" placeholder="Ask a question..." style="flex:1; border:none; padding:10px; outline:none;">
+      <button onclick="sendAIMessage()" style="background:#6a1830; color:white; border:none; padding:0 16px; cursor:pointer;">Send</button>
     </div>
+  </div>
 </div>
 
 <script>
+const aiToggle=document.getElementById("aiToggle");
+const aiWindow=document.getElementById("aiChatWindow");
+aiToggle.addEventListener("click",()=>{ aiWindow.style.display=(aiWindow.style.display==="none"?"flex":"none"); });
+
 async function sendAIMessage(){
-    const input = document.getElementById("aiInput");
-    const msg = input.value.trim();
-    if(!msg) return;
-
-    const messagesDiv = document.getElementById("aiMessages");
-    messagesDiv.innerHTML += "<p><b>You:</b> " + msg + "</p>";
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-    input.value = "";
-
-    try {
-        const response = await fetch("https://college-ai-assistance.onrender.com", { // <-- Replace with your Render URL
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: msg })
-        });
-
-        const data = await response.json();
-        messagesDiv.innerHTML += "<p><b>AI:</b> " + data.reply + "</p>";
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    } catch (err) {
+    const input=document.getElementById("aiInput");
+    const msg=input.value.trim();
+    if(!msg)return;
+    const messagesDiv=document.getElementById("aiMessages");
+    messagesDiv.innerHTML+="<p><b>You:</b> "+msg+"</p>";
+    messagesDiv.scrollTop=messagesDiv.scrollHeight;
+    input.value="";
+    try{
+        const response=await fetch("https://college-ai-assistance.onrender.com",{ method:"POST", headers:{ "Content-Type":"application/json" }, body:JSON.stringify({ message:msg }) });
+        const data=await response.json();
+        messagesDiv.innerHTML+="<p><b>AI:</b> "+data.reply+"</p>";
+        messagesDiv.scrollTop=messagesDiv.scrollHeight;
+    }catch(err){
         console.error(err);
-        messagesDiv.innerHTML += "<p><b>AI:</b> Sorry, something went wrong.</p>";
+        messagesDiv.innerHTML+="<p><b>AI:</b> Sorry, something went wrong.</p>";
+        messagesDiv.scrollTop=messagesDiv.scrollHeight;
     }
 }
 </script>
