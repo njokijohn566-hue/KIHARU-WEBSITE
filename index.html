@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Kiharu Technical & Vocational College</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
 <style>
 :root{
@@ -962,7 +963,7 @@ footer{
 
 /* Mobile nav drawer */
 .mobile-drawer{
-  display:none;
+  display:block;
   position:fixed;
   top:0;right:0;
   width:300px;height:100vh;
@@ -972,8 +973,9 @@ footer{
   overflow-y:auto;
   transform:translateX(100%);
   transition:transform .35s cubic-bezier(.4,0,.2,1);
+  visibility:hidden;
 }
-.mobile-drawer.open{transform:translateX(0);}
+.mobile-drawer.open{transform:translateX(0);visibility:visible;}
 .mobile-overlay{
   display:none;
   position:fixed;inset:0;
@@ -1016,7 +1018,26 @@ footer{
   border-bottom:1px solid #f0f0f0;
 }
 
-.drawer-join{
+/* Lucide icon sizing */
+.lucide{display:inline-block;vertical-align:middle;}
+.info-card-icon .lucide,.dropdown-icon .lucide,.contact-detail-icon .lucide,.rh-icon .lucide{width:24px;height:24px;stroke:var(--maroon);}
+.contact-detail-icon .lucide{stroke:white;}
+.rh-icon .lucide{width:48px;height:48px;stroke:white;}
+.modal-option .icon .lucide{width:28px;height:28px;stroke:var(--maroon);}
+.advert-img-placeholder .lucide{width:48px;height:48px;stroke:white;}
+.advert-date .lucide{width:13px;height:13px;stroke:var(--muted);}
+.hero-badge .lucide{width:14px;height:14px;stroke:white;}
+.topbar .lucide{width:13px;height:13px;stroke:rgba(255,255,255,0.75);vertical-align:-2px;}
+.drawer-close .lucide{width:18px;height:18px;stroke:white;}
+.short-course-icon .lucide{width:16px;height:16px;stroke:var(--maroon);}
+.prog-icon .lucide{width:22px;height:22px;stroke:var(--maroon);}
+.course-caption .lucide{width:16px;height:16px;stroke:var(--maroon);vertical-align:-2px;}
+.fees-btn .lucide{width:16px;height:16px;stroke:white;}
+.submit-btn .lucide{width:16px;height:16px;stroke:white;vertical-align:-2px;}
+.foundation-banner h2 .lucide{width:26px;height:26px;stroke:white;}
+.campus-tag .lucide{width:14px;height:14px;stroke:var(--maroon);vertical-align:-2px;}
+.join-btn .lucide{width:15px;height:15px;stroke:white;}
+
   margin:20px;
   display:block;
   text-align:center;
@@ -1035,8 +1056,8 @@ footer{
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <span>📍 Gaturi Ward, Kiambugi | P.O. BOX 29-10200 | Tel: <a href="tel:0720657630">0720 657 630</a></span>
-  <span>🎓 KNEC Approved Institution</span>
+  <span><i data-lucide="map-pin"></i> Gaturi Ward, Kiambugi | P.O. BOX 29-10200 | Tel: <a href="tel:0720657630">0720 657 630</a></span>
+  <span><i data-lucide="graduation-cap"></i> KNEC Approved Institution</span>
 </div>
 
 <!-- HEADER -->
@@ -1055,7 +1076,7 @@ footer{
     <nav>
       <!-- HOME -->
       <div class="nav-item">
-        <a class="nav-link active" onclick="showPage('home')">🏠 Home</a>
+        <a class="nav-link active" onclick="showPage('home')"><i data-lucide="home"></i> Home</a>
       </div>
 
       <!-- APPLICANTS & STUDENTS -->
@@ -1066,10 +1087,10 @@ footer{
         </button>
         <div class="dropdown">
           <div class="dropdown-header">Applicants & Students</div>
-          <a onclick="showPage('apply')"><div class="dropdown-icon">📋</div>How to Apply</a>
-          <a onclick="showPage('registrar')"><div class="dropdown-icon">🏢</div>Registrar Department</a>
-          <a onclick="showPage('quicklinks')"><div class="dropdown-icon">🔗</div>Quick Links</a>
-          <a onclick="showPage('counselling')"><div class="dropdown-icon">💬</div>Counselling Services</a>
+          <a onclick="showPage('apply')"><div class="dropdown-icon"><i data-lucide="clipboard-list"></i></div>How to Apply</a>
+          <a onclick="showPage('registrar')"><div class="dropdown-icon"><i data-lucide="building-2"></i></div>Registrar Department</a>
+          <a onclick="showPage('quicklinks')"><div class="dropdown-icon"><i data-lucide="link"></i></div>Quick Links</a>
+          <a onclick="showPage('counselling')"><div class="dropdown-icon"><i data-lucide="message-circle"></i></div>Counselling Services</a>
         </div>
       </div>
 
@@ -1081,9 +1102,9 @@ footer{
         </button>
         <div class="dropdown">
           <div class="dropdown-header">Academics</div>
-          <a onclick="showPage('undergraduate')"><div class="dropdown-icon">🎓</div>Undergraduate Programmes</a>
-          <a onclick="showPage('postgraduate')"><div class="dropdown-icon">📚</div>Postgraduate Programmes</a>
-          <a onclick="showPage('schools')"><div class="dropdown-icon">🏫</div>Schools & Campuses</a>
+          <a onclick="showPage('undergraduate')"><div class="dropdown-icon"><i data-lucide="graduation-cap"></i></div>Undergraduate Programmes</a>
+          <a onclick="showPage('postgraduate')"><div class="dropdown-icon"><i data-lucide="book-open"></i></div>Postgraduate Programmes</a>
+          <a onclick="showPage('schools')"><div class="dropdown-icon"><i data-lucide="school"></i></div>Schools & Campuses</a>
         </div>
       </div>
 
@@ -1105,7 +1126,7 @@ footer{
 
     <!-- Join Us Button -->
     <button class="join-btn" onclick="openModal()">
-      ✦ Join Us
+      <i data-lucide="star"></i> Join Us
     </button>
 
     <!-- Hamburger -->
@@ -1122,23 +1143,23 @@ footer{
 <div class="mobile-drawer" id="mobileDrawer">
   <div class="drawer-head">
     <span class="title">KIHARU TVC</span>
-    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    <button class="drawer-close" onclick="closeDrawer()"><i data-lucide="x"></i></button>
   </div>
-  <a class="drawer-link" onclick="showPage('home');closeDrawer()">🏠 Home</a>
+  <a class="drawer-link" onclick="showPage('home');closeDrawer()"><i data-lucide="home"></i> Home</a>
   <div class="drawer-section">Applicants & Students</div>
-  <a class="drawer-link" onclick="showPage('apply');closeDrawer()">📋 How to Apply</a>
-  <a class="drawer-link" onclick="showPage('registrar');closeDrawer()">🏢 Registrar Department</a>
-  <a class="drawer-link" onclick="showPage('quicklinks');closeDrawer()">🔗 Quick Links</a>
-  <a class="drawer-link" onclick="showPage('counselling');closeDrawer()">💬 Counselling Services</a>
+  <a class="drawer-link" onclick="showPage('apply');closeDrawer()"><i data-lucide="clipboard-list"></i> How to Apply</a>
+  <a class="drawer-link" onclick="showPage('registrar');closeDrawer()"><i data-lucide="building-2"></i> Registrar Department</a>
+  <a class="drawer-link" onclick="showPage('quicklinks');closeDrawer()"><i data-lucide="link"></i> Quick Links</a>
+  <a class="drawer-link" onclick="showPage('counselling');closeDrawer()"><i data-lucide="message-circle"></i> Counselling Services</a>
   <div class="drawer-section">Academics</div>
-  <a class="drawer-link" onclick="showPage('undergraduate');closeDrawer()">🎓 Undergraduate Programmes</a>
-  <a class="drawer-link" onclick="showPage('postgraduate');closeDrawer()">📚 Postgraduate Programmes</a>
-  <a class="drawer-link" onclick="showPage('schools');closeDrawer()">🏫 Schools & Campuses</a>
+  <a class="drawer-link" onclick="showPage('undergraduate');closeDrawer()"><i data-lucide="graduation-cap"></i> Undergraduate Programmes</a>
+  <a class="drawer-link" onclick="showPage('postgraduate');closeDrawer()"><i data-lucide="book-open"></i> Postgraduate Programmes</a>
+  <a class="drawer-link" onclick="showPage('schools');closeDrawer()"><i data-lucide="school"></i> Schools & Campuses</a>
   <div class="drawer-section">More</div>
-  <a class="drawer-link" onclick="showPage('research');closeDrawer()">🔬 Research</a>
-  <a class="drawer-link" onclick="showPage('foundation');closeDrawer()">❤️ Foundation</a>
-  <a class="drawer-link" onclick="showPage('contact');closeDrawer()">📞 Contact Us</a>
-  <a class="drawer-join" onclick="openModal();closeDrawer()">✦ Join Us</a>
+  <a class="drawer-link" onclick="showPage('research');closeDrawer()"><i data-lucide="flask-conical"></i> Research</a>
+  <a class="drawer-link" onclick="showPage('foundation');closeDrawer()"><i data-lucide="heart"></i> Foundation</a>
+  <a class="drawer-link" onclick="showPage('contact');closeDrawer()"><i data-lucide="phone"></i> Contact Us</a>
+  <a class="drawer-join" onclick="openModal();closeDrawer()"><i data-lucide="star"></i> Join Us</a>
 </div>
 
 <!-- ================================================
@@ -1149,7 +1170,7 @@ footer{
   <!-- HERO -->
   <div class="hero">
     <div class="hero-inner">
-      <div class="hero-badge">🎓 KNEC Accredited Institution — Est. 2005</div>
+      <div class="hero-badge"><i data-lucide="shield-check"></i> KNEC Accredited Institution — Est. 2005</div>
       <h1>Empowering Through<br>Technical Excellence</h1>
       <p>Kiharu Technical & Vocational College — nurturing skilled professionals through hands-on training, innovation and community impact.</p>
       <div class="hero-actions">
@@ -1212,39 +1233,39 @@ footer{
 
     <div class="adverts-grid">
       <div class="advert-card">
-        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,var(--maroon),#8a2040);">🎓</div>
+        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,var(--maroon),#8a2040);"><i data-lucide="graduation-cap"></i></div>
         <div class="advert-body">
           <span class="advert-tag tag-admission">Admissions</span>
           <h3>2025/2026 Intake Now Open</h3>
           <p>Applications are now open for all undergraduate and certificate programmes. Secure your place today.</p>
-          <div class="advert-date">📅 June 5, 2026</div>
+          <div class="advert-date"><i data-lucide="calendar-days"></i> June 5, 2026</div>
         </div>
       </div>
       <div class="advert-card">
-        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,var(--orange),#c0450a);">🏆</div>
+        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,var(--orange),#c0450a);"><i data-lucide="trophy"></i></div>
         <div class="advert-body">
           <span class="advert-tag tag-award">Achievement</span>
           <h3>Kiharu TVC Wins Regional Skills Competition</h3>
           <p>Our students clinched first place in Mechanical Engineering at the Central Kenya Technical Skills Contest.</p>
-          <div class="advert-date">📅 May 22, 2026</div>
+          <div class="advert-date"><i data-lucide="calendar-days"></i> May 22, 2026</div>
         </div>
       </div>
       <div class="advert-card">
-        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,var(--blue-dark),#1565c0);">📅</div>
+        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,var(--blue-dark),#1565c0);"><i data-lucide="calendar"></i></div>
         <div class="advert-body">
           <span class="advert-tag tag-event">Event</span>
           <h3>Annual Graduation Ceremony — July 2026</h3>
           <p>The college will hold its annual graduation on 18th July 2026. All students and parents are invited.</p>
-          <div class="advert-date">📅 July 18, 2026</div>
+          <div class="advert-date"><i data-lucide="calendar-days"></i> July 18, 2026</div>
         </div>
       </div>
       <div class="advert-card">
-        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,#1a7a30,#2d9e48);">💡</div>
+        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,#1a7a30,#2d9e48);"><i data-lucide="lightbulb"></i></div>
         <div class="advert-body">
           <span class="advert-tag tag-news">News</span>
           <h3>New Solar PV & AI Short Courses Launched</h3>
           <p>Register now for our new Solar Photovoltaic Installer and Cyber Security & AI Tools short courses.</p>
-          <div class="advert-date">📅 May 10, 2026</div>
+          <div class="advert-date"><i data-lucide="calendar-days"></i> May 10, 2026</div>
         </div>
       </div>
     </div>
@@ -1277,7 +1298,7 @@ footer{
       <h2>Long Courses Offered</h2>
     </div>
     <div class="courses-grid" id="coursesGrid"></div>
-    <a class="fees-btn" href="feesstructure.pdf" target="_blank">📄 View Fees Structure (PDF)</a>
+    <a class="fees-btn" href="feesstructure.pdf" target="_blank"><i data-lucide="file-text"></i> View Fees Structure (PDF)</a>
 
     <!-- SHORT COURSES -->
     <div class="section-head" style="margin-top:40px;">
@@ -1285,23 +1306,23 @@ footer{
     </div>
     <div style="background:white;border-radius:18px;padding:28px;box-shadow:0 8px 28px rgba(0,0,0,0.07);">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🎨 Painting</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🌐 Web Design</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🔐 Cyber Security & Use of AI Tools</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">✂️ Barbering</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🖌️ Graphic Design</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🍕 Pizza Making</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">💻 Computer Packages</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🎂 Cake Making</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🔧 Computer Repair & Maintenance</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">⚙️ Welding & Fabrication</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🏠 Tiling & Flooring</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🪟 Glazing</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🔩 Pipe Fitting & Installation</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">☀️ Photovoltaic Solar Installer</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">📐 AutoCAD / ArchiCAD</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">🍳 Basic Cookery Skills</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;">💅 Manicure & Pedicure</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="paintbrush"></i></span> Painting</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="globe"></i></span> Web Design</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="shield"></i></span> Cyber Security & Use of AI Tools</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="scissors"></i></span> Barbering</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="pen-tool"></i></span> Graphic Design</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="utensils"></i></span> Pizza Making</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="monitor"></i></span> Computer Packages</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="cake"></i></span> Cake Making</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="wrench"></i></span> Computer Repair & Maintenance</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="settings"></i></span> Welding & Fabrication</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="home"></i></span> Tiling & Flooring</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="layout-grid"></i></span> Glazing</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="pipe"></i></span> Pipe Fitting & Installation</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="sun"></i></span> Photovoltaic Solar Installer</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="ruler"></i></span> AutoCAD / ArchiCAD</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="flame"></i></span> Basic Cookery Skills</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="sparkles"></i></span> Manicure & Pedicure</div>
       </div>
     </div>
   </div>
@@ -1348,7 +1369,7 @@ footer{
 
     <div class="info-grid" style="margin-top:40px;">
       <div class="info-card">
-        <div class="info-card-icon">📋</div>
+        <div class="info-card-icon"><i data-lucide="clipboard-list"></i></div>
         <h3>Entry Requirements</h3>
         <ul>
           <li>KCSE Mean Grade D+ and above for certificate courses</li>
@@ -1358,7 +1379,7 @@ footer{
         </ul>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">💰</div>
+        <div class="info-card-icon"><i data-lucide="banknote"></i></div>
         <h3>Application Fees</h3>
         <p>A non-refundable application fee of <strong>KES 500</strong> is payable at the accounts office or via M-Pesa Paybill.</p>
         <ul style="margin-top:10px;">
@@ -1368,7 +1389,7 @@ footer{
         </ul>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">📅</div>
+        <div class="info-card-icon"><i data-lucide="calendar"></i></div>
         <h3>Intake Dates</h3>
         <ul>
           <li>January Intake — Applications: Oct–Dec</li>
@@ -1392,12 +1413,12 @@ footer{
   <div class="page-content">
     <div class="info-grid">
       <div class="info-card">
-        <div class="info-card-icon">🏢</div>
+        <div class="info-card-icon"><i data-lucide="building-2"></i></div>
         <h3>About the Registrar's Office</h3>
         <p>The Registrar's Office is the official custodian of all student academic records and manages enrolment, certification and compliance with KNEC and TVETA regulations.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">📝</div>
+        <div class="info-card-icon"><i data-lucide="file-pen-line"></i></div>
         <h3>Services Offered</h3>
         <ul>
           <li>Student registration & enrolment</li>
@@ -1409,7 +1430,7 @@ footer{
         </ul>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🕐</div>
+        <div class="info-card-icon"><i data-lucide="clock"></i></div>
         <h3>Office Hours & Contact</h3>
         <ul>
           <li>Monday – Friday: 8:00 AM – 5:00 PM</li>
@@ -1419,7 +1440,7 @@ footer{
         </ul>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">📄</div>
+        <div class="info-card-icon"><i data-lucide="file-text"></i></div>
         <h3>Required Documents</h3>
         <ul>
           <li>National ID / Passport / Birth Certificate</li>
@@ -1445,38 +1466,38 @@ footer{
     <div class="info-grid">
       <!-- 🚀 STUDENT PORTAL -->
       <a href="student-portal.html" class="info-card" style="text-decoration:none;cursor:pointer;border:2px solid var(--maroon);background:linear-gradient(135deg,#fdf5f7,#fff);">
-        <div class="info-card-icon">🎓</div>
+        <div class="info-card-icon"><i data-lucide="graduation-cap"></i></div>
         <h3 style="color:var(--maroon);">Student Portal</h3>
         <p>Access your grades, register units, pay fees, and submit assignments — all in one place.</p>
         <div style="margin-top:12px;display:inline-block;padding:6px 16px;background:var(--maroon);color:white;border-radius:8px;font-size:12.5px;font-weight:700;">Login to Portal →</div>
       </a>
       <a href="feesstructure.pdf" target="_blank" class="info-card" style="text-decoration:none;cursor:pointer;">
-        <div class="info-card-icon">💰</div>
+        <div class="info-card-icon"><i data-lucide="banknote"></i></div>
         <h3>Fees Structure</h3>
         <p>Download the current fees structure for all programmes (PDF).</p>
       </a>
       <div class="info-card" style="cursor:pointer;" onclick="showPage('apply')">
-        <div class="info-card-icon">📋</div>
+        <div class="info-card-icon"><i data-lucide="clipboard-list"></i></div>
         <h3>Apply Online</h3>
         <p>Start your application for the current intake.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">📊</div>
+        <div class="info-card-icon"><i data-lucide="bar-chart-2"></i></div>
         <h3>KNEC Portal</h3>
         <p>Access the Kenya National Examinations Council portal for results and exam entry.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🏛️</div>
+        <div class="info-card-icon"><i data-lucide="landmark"></i></div>
         <h3>TVETA Portal</h3>
         <p>Technical and Vocational Education and Training Authority — accreditation and compliance.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">💳</div>
+        <div class="info-card-icon"><i data-lucide="credit-card"></i></div>
         <h3>Pay Fees via M-Pesa</h3>
         <p>Paybill: <strong>522 533</strong> — Account: Your Student ID / Full Name.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">📅</div>
+        <div class="info-card-icon"><i data-lucide="calendar"></i></div>
         <h3>Academic Calendar</h3>
         <p>View term dates, exam schedules, and college events for 2026.</p>
       </div>
@@ -1495,27 +1516,27 @@ footer{
   <div class="page-content">
     <div class="info-grid">
       <div class="info-card">
-        <div class="info-card-icon">💬</div>
+        <div class="info-card-icon"><i data-lucide="message-circle"></i></div>
         <h3>Personal Counselling</h3>
         <p>Confidential one-on-one sessions with our trained counsellors to help students navigate personal, emotional and social challenges.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🎯</div>
+        <div class="info-card-icon"><i data-lucide="target"></i></div>
         <h3>Career Guidance</h3>
         <p>Career assessment, internship placement, CV writing workshops and employer linkage programmes to boost your employability.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">👥</div>
+        <div class="info-card-icon"><i data-lucide="users"></i></div>
         <h3>Group Therapy & Mentorship</h3>
         <p>Peer support groups, mentorship programmes with industry professionals and student leadership development initiatives.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">📞</div>
+        <div class="info-card-icon"><i data-lucide="phone"></i></div>
         <h3>Crisis Support</h3>
         <p>24-hour crisis support line for students in distress. Call the Dean of Students office at <strong>0720 657 630</strong> any time.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🕐</div>
+        <div class="info-card-icon"><i data-lucide="clock"></i></div>
         <h3>Walk-In Hours</h3>
         <ul>
           <li>Monday – Friday: 8AM – 5PM</li>
@@ -1525,7 +1546,7 @@ footer{
         </ul>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🏅</div>
+        <div class="info-card-icon"><i data-lucide="award"></i></div>
         <h3>Student Welfare Fund</h3>
         <p>Financial assistance available for students facing hardship. Applications are reviewed monthly by the Welfare Committee.</p>
       </div>
@@ -1545,7 +1566,7 @@ footer{
     <h2 style="font-family:'Playfair Display',serif;color:var(--maroon);margin-bottom:6px;">Certificate & Diploma Programmes</h2>
     <p style="color:var(--muted);margin-bottom:20px;">All programmes are registered with KNEC and TVETA. Students sit national examinations at the end of each stage.</p>
     <div class="programmes-grid" id="ugGrid"></div>
-    <a class="fees-btn" href="feesstructure.pdf" target="_blank">📄 View Fees Structure</a>
+    <a class="fees-btn" href="feesstructure.pdf" target="_blank"><i data-lucide="file-text"></i> View Fees Structure</a>
   </div>
 </div>
 
@@ -1560,22 +1581,22 @@ footer{
   <div class="page-content">
     <div class="info-grid">
       <div class="info-card">
-        <div class="info-card-icon">🎓</div>
+        <div class="info-card-icon"><i data-lucide="graduation-cap"></i></div>
         <h3>Higher National Diploma (HND)</h3>
         <p>Two-year advanced technical programmes available in Engineering, Business and ICT for diploma holders seeking career advancement.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">📚</div>
+        <div class="info-card-icon"><i data-lucide="book-open"></i></div>
         <h3>Professional Certifications</h3>
         <p>Industry-recognised certifications in partnership with professional bodies — CPA, CIPS, CISCO, CompTIA and more.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🔬</div>
+        <div class="info-card-icon"><i data-lucide="flask-conical"></i></div>
         <h3>Research & Innovation</h3>
         <p>Postgraduate students can engage in applied research projects in collaboration with industry partners and the Mozzira Foundation.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🌍</div>
+        <div class="info-card-icon"><i data-lucide="globe"></i></div>
         <h3>Bridging Programmes</h3>
         <p>Bridging courses enabling diploma graduates to join degree programmes at partnering universities in Kenya and abroad.</p>
       </div>
@@ -1594,22 +1615,22 @@ footer{
   <div class="page-content">
     <div class="info-grid">
       <div class="info-card" style="border-color:var(--orange);">
-        <div class="info-card-icon">⚙️</div>
+        <div class="info-card-icon"><i data-lucide="settings-2"></i></div>
         <h3>School of Engineering</h3>
         <p>Mechanical & Automotive, Electrical & Electronics, Building & Civil Engineering. Equipped workshops and modern labs.</p>
       </div>
       <div class="info-card" style="border-color:#1565c0;">
-        <div class="info-card-icon">💻</div>
+        <div class="info-card-icon"><i data-lucide="monitor"></i></div>
         <h3>School of ICT & Business</h3>
         <p>Computing & Informatics, Business & Liberal Studies. Modern computer labs with high-speed internet.</p>
       </div>
       <div class="info-card" style="border-color:#1a7a30;">
-        <div class="info-card-icon">🍽️</div>
+        <div class="info-card-icon"><i data-lucide="utensils"></i></div>
         <h3>School of Hospitality & Tourism</h3>
         <p>Hospitality, Tourism Management, Fashion & Design. Fully equipped training kitchen and restaurant.</p>
       </div>
       <div class="info-card" style="border-color:#6a0dad;">
-        <div class="info-card-icon">🤝</div>
+        <div class="info-card-icon"><i data-lucide="handshake"></i></div>
         <h3>School of Social Sciences</h3>
         <p>Social Work, Cosmetology. Community outreach programmes and professional practicum placements.</p>
       </div>
@@ -1619,9 +1640,9 @@ footer{
       <h3 style="font-family:'Playfair Display',serif;color:var(--maroon);font-size:20px;margin-bottom:16px;">Main Campus — Gaturi Ward, Kiambugi</h3>
       <p style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:16px;">Our main campus is located in Gaturi Ward, Kiambugi, Murang'a County. The campus features modern workshops, ICT labs, a library, sports grounds, a cafeteria and student accommodation.</p>
       <div style="display:flex;gap:16px;flex-wrap:wrap;">
-        <div style="background:#fdf5f7;padding:12px 18px;border-radius:10px;font-size:13px;"><strong>📍</strong> Gaturi Ward, Kiambugi</div>
-        <div style="background:#fdf5f7;padding:12px 18px;border-radius:10px;font-size:13px;"><strong>📮</strong> P.O. Box 29-10200</div>
-        <div style="background:#fdf5f7;padding:12px 18px;border-radius:10px;font-size:13px;"><strong>📞</strong> 0720 657 630</div>
+        <div style="background:#fdf5f7;padding:12px 18px;border-radius:10px;font-size:13px;"><strong class="campus-tag"><i data-lucide="map-pin"></i></strong> Gaturi Ward, Kiambugi</div>
+        <div style="background:#fdf5f7;padding:12px 18px;border-radius:10px;font-size:13px;"><strong class="campus-tag"><i data-lucide="mailbox"></i></strong> P.O. Box 29-10200</div>
+        <div style="background:#fdf5f7;padding:12px 18px;border-radius:10px;font-size:13px;"><strong class="campus-tag"><i data-lucide="phone"></i></strong> 0720 657 630</div>
       </div>
     </div>
   </div>
@@ -1637,7 +1658,7 @@ footer{
   </div>
   <div class="page-content">
     <div class="research-highlight">
-      <div class="rh-icon">🔬</div>
+      <div class="rh-icon"><i data-lucide="flask-conical"></i></div>
       <div class="rh-text">
         <h3>Our Research Philosophy</h3>
         <p>At Kiharu TVC, we believe that technical education must be rooted in real-world application. Our research programme connects students, faculty and industry to solve practical problems in engineering, ICT, agriculture and community development.</p>
@@ -1645,22 +1666,22 @@ footer{
     </div>
     <div class="info-grid">
       <div class="info-card">
-        <div class="info-card-icon">⚡</div>
+        <div class="info-card-icon"><i data-lucide="zap"></i></div>
         <h3>Renewable Energy Research</h3>
         <p>Student-led projects in solar PV installation, biogas systems and energy-efficient building design in collaboration with local communities.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🤖</div>
+        <div class="info-card-icon"><i data-lucide="bot"></i></div>
         <h3>Digital Innovation Lab</h3>
         <p>An ICT innovation hub where students develop apps, automation systems and cybersecurity solutions for local businesses and institutions.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🌱</div>
+        <div class="info-card-icon"><i data-lucide="leaf"></i></div>
         <h3>Community Applied Research</h3>
         <p>Partnering with NGOs and county government on water, sanitation, construction and social welfare projects in Murang'a County.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">📰</div>
+        <div class="info-card-icon"><i data-lucide="newspaper"></i></div>
         <h3>Student Publications</h3>
         <p>Annual technical journal showcasing final-year student projects, innovations and applied research across all schools.</p>
       </div>
@@ -1678,28 +1699,28 @@ footer{
   </div>
   <div class="page-content">
     <div class="foundation-banner">
-      <h2>❤️ The Mozzira Foundation</h2>
+      <h2><i data-lucide="heart"></i> The Mozzira Foundation</h2>
       <p>The Mozzira Foundation is the social arm of Kiharu TVC, dedicated to expanding access to quality technical and vocational training for disadvantaged youth and communities across Murang'a County and beyond.</p>
       <button class="btn-primary" onclick="openModal()">Support the Foundation</button>
     </div>
     <div class="info-grid">
       <div class="info-card">
-        <div class="info-card-icon">🎓</div>
+        <div class="info-card-icon"><i data-lucide="graduation-cap"></i></div>
         <h3>Scholarship Programme</h3>
         <p>Annual scholarships for academically deserving but financially disadvantaged students. Applications open every October.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">👩‍💼</div>
+        <div class="info-card-icon"><i data-lucide="user-check"></i></div>
         <h3>Women in Tech Initiative</h3>
         <p>Sponsoring girls and women from marginalised backgrounds to enroll in STEM programmes at Kiharu TVC.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🏘️</div>
+        <div class="info-card-icon"><i data-lucide="map-pin"></i></div>
         <h3>Community Skills Drive</h3>
         <p>Mobile skills training units that visit rural communities to offer free short courses in plumbing, solar, cookery and digital literacy.</p>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">🤝</div>
+        <div class="info-card-icon"><i data-lucide="handshake"></i></div>
         <h3>Corporate Partnerships</h3>
         <p>Partner with us through CSR funding, equipment donations, internship slots or mentorship of our students and graduates.</p>
       </div>
@@ -1720,23 +1741,23 @@ footer{
       <div class="contact-info">
         <h3>Get in Touch</h3>
         <div class="contact-detail">
-          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-icon"><i data-lucide="map-pin"></i></div>
           <div><div class="label">Physical Address</div><div class="value">Gaturi Ward, Kiambugi, Murang'a County</div></div>
         </div>
         <div class="contact-detail">
-          <div class="contact-detail-icon">📮</div>
+          <div class="contact-detail-icon"><i data-lucide="mailbox"></i></div>
           <div><div class="label">Postal Address</div><div class="value">P.O. Box 29-10200</div></div>
         </div>
         <div class="contact-detail">
-          <div class="contact-detail-icon">📞</div>
+          <div class="contact-detail-icon"><i data-lucide="phone"></i></div>
           <div><div class="label">Phone</div><div class="value">0720 657 630</div></div>
         </div>
         <div class="contact-detail">
-          <div class="contact-detail-icon">🕐</div>
+          <div class="contact-detail-icon"><i data-lucide="clock"></i></div>
           <div><div class="label">Office Hours</div><div class="value">Mon–Fri 8AM–5PM | Sat 9AM–1PM</div></div>
         </div>
         <div class="contact-detail">
-          <div class="contact-detail-icon">🎓</div>
+          <div class="contact-detail-icon"><i data-lucide="graduation-cap"></i></div>
           <div><div class="label">Accreditation</div><div class="value">KNEC & TVETA Approved</div></div>
         </div>
       </div>
@@ -1772,7 +1793,7 @@ footer{
           <label>Message</label>
           <textarea placeholder="How can we help you?"></textarea>
         </div>
-        <button class="submit-btn">📨 Send Message</button>
+        <button class="submit-btn"><i data-lucide="send"></i> Send Message</button>
       </div>
     </div>
   </div>
@@ -1821,29 +1842,29 @@ footer{
 <div class="modal-overlay" id="joinModal">
   <div class="modal">
     <div class="modal-head">
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal()"><i data-lucide="x"></i></button>
       <h2>Join Kiharu TVC</h2>
       <p>Choose how you'd like to be part of our community</p>
     </div>
     <div class="modal-body">
       <div class="modal-options">
         <a class="modal-option" onclick="showPage('apply');closeModal()">
-          <div class="icon">🎓</div>
+          <div class="icon"><i data-lucide="graduation-cap"></i></div>
           <h4>Apply as Student</h4>
           <p>Enrol in a certificate or diploma programme</p>
         </a>
         <a class="modal-option" href="mailto:info@kiharutvc.ac.ke">
-          <div class="icon">👨‍🏫</div>
+          <div class="icon"><i data-lucide="user-square-2"></i></div>
           <h4>Join as Staff</h4>
           <p>Teaching & non-teaching vacancies</p>
         </a>
         <a class="modal-option" onclick="showPage('foundation');closeModal()">
-          <div class="icon">❤️</div>
+          <div class="icon"><i data-lucide="heart"></i></div>
           <h4>Support Foundation</h4>
           <p>Donate or partner with Mozzira Foundation</p>
         </a>
         <a class="modal-option" href="tel:0720657630">
-          <div class="icon">📞</div>
+          <div class="icon"><i data-lucide="phone"></i></div>
           <h4>Call Us Directly</h4>
           <p>Speak to admissions: 0720 657 630</p>
         </a>
@@ -1859,16 +1880,16 @@ footer{
 <script>
 /* ===== LONG COURSES DATA ===== */
 const longCourses=[
-  {name:"Building & Civil Engineering",slug:"building",image:"building.jpg",icon:"🏗️"},
-  {name:"Business & Liberal Studies",slug:"business-liberal-studies",image:"business.jpg",icon:"📊"},
-  {name:"Mechanical & Automotive Engineering",slug:"mechanical-automotive-engineering",image:"mechanic.jpg",icon:"⚙️"},
-  {name:"Electrical & Electronics Engineering",slug:"electrical-electronics-engineering",image:"electric.jpg",icon:"⚡"},
-  {name:"Computing & Informatics",slug:"computing-informatics",image:"ict-2.jpg",icon:"💻"},
-  {name:"Fashion & Design",slug:"fashion-design",image:"fashion.jpg",icon:"👗"},
-  {name:"Cosmetology",slug:"cosmetology",image:"cosmetology.jpg",icon:"💄"},
-  {name:"Hospitality",slug:"hospitality",image:"hopitality.jpg",icon:"🍽️"},
-  {name:"Social Work",slug:"social-work",image:"socialwork.jpg",icon:"🤝"},
-  {name:"Tourism Management",slug:"tourism-management",image:"tourism.jpg",icon:"✈️"}
+  {name:"Building & Civil Engineering",slug:"building",image:"building.jpg",icon:"hard-hat"},
+  {name:"Business & Liberal Studies",slug:"business-liberal-studies",image:"business.jpg",icon:"briefcase"},
+  {name:"Mechanical & Automotive Engineering",slug:"mechanical-automotive-engineering",image:"mechanic.jpg",icon:"settings-2"},
+  {name:"Electrical & Electronics Engineering",slug:"electrical-electronics-engineering",image:"electric.jpg",icon:"zap"},
+  {name:"Computing & Informatics",slug:"computing-informatics",image:"ict-2.jpg",icon:"monitor"},
+  {name:"Fashion & Design",slug:"fashion-design",image:"fashion.jpg",icon:"scissors"},
+  {name:"Cosmetology",slug:"cosmetology",image:"cosmetology.jpg",icon:"sparkles"},
+  {name:"Hospitality",slug:"hospitality",image:"hopitality.jpg",icon:"utensils"},
+  {name:"Social Work",slug:"social-work",image:"socialwork.jpg",icon:"handshake"},
+  {name:"Tourism Management",slug:"tourism-management",image:"tourism.jpg",icon:"plane"}
 ];
 
 const grid=document.getElementById("coursesGrid");
@@ -1876,29 +1897,29 @@ longCourses.forEach(c=>{
   const a=document.createElement("a");
   a.href=`course-detail.html?course=${c.slug}`;
   a.className="course-card";
-  a.innerHTML=`<img class="course-image" src="${c.image}" alt="${c.name}"><div class="course-caption">${c.icon} ${c.name}</div>`;
+  a.innerHTML=`<img class="course-image" src="${c.image}" alt="${c.name}"><div class="course-caption"><i data-lucide="${c.icon}"></i> ${c.name}</div>`;
   grid.appendChild(a);
 });
 
 /* ===== UNDERGRADUATE GRID ===== */
 const ugCourses=[
-  {name:"Building & Civil Engineering",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"🏗️"},
-  {name:"Mechanical & Automotive Engineering",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"⚙️"},
-  {name:"Electrical & Electronics Engineering",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"⚡"},
-  {name:"Computing & Informatics",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"💻"},
-  {name:"Business & Liberal Studies",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"📊"},
-  {name:"Fashion & Design",duration:"2 yrs Certificate",icon:"👗"},
-  {name:"Cosmetology",duration:"2 yrs Certificate",icon:"💄"},
-  {name:"Hospitality",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"🍽️"},
-  {name:"Social Work",duration:"3 yrs Diploma",icon:"🤝"},
-  {name:"Tourism Management",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"✈️"}
+  {name:"Building & Civil Engineering",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"hard-hat"},
+  {name:"Mechanical & Automotive Engineering",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"settings-2"},
+  {name:"Electrical & Electronics Engineering",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"zap"},
+  {name:"Computing & Informatics",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"monitor"},
+  {name:"Business & Liberal Studies",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"briefcase"},
+  {name:"Fashion & Design",duration:"2 yrs Certificate",icon:"scissors"},
+  {name:"Cosmetology",duration:"2 yrs Certificate",icon:"sparkles"},
+  {name:"Hospitality",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"utensils"},
+  {name:"Social Work",duration:"3 yrs Diploma",icon:"handshake"},
+  {name:"Tourism Management",duration:"3 yrs Diploma / 2 yrs Certificate",icon:"plane"}
 ];
 
 const ugGrid=document.getElementById("ugGrid");
 ugCourses.forEach(c=>{
   const d=document.createElement("div");
   d.className="programme-item";
-  d.innerHTML=`<div class="prog-icon">${c.icon}</div><div><h4>${c.name}</h4><p>${c.duration}</p></div>`;
+  d.innerHTML=`<div class="prog-icon"><i data-lucide="${c.icon}"></i></div><div><h4>${c.name}</h4><p>${c.duration}</p></div>`;
   ugGrid.appendChild(d);
 });
 
@@ -1930,6 +1951,9 @@ function closeDrawer(){
   document.getElementById("mobileDrawer").classList.remove("open");
   document.getElementById("mobileOverlay").classList.remove("open");
 }
+
+/* ===== INIT LUCIDE ===== */
+lucide.createIcons();
 </script>
 
 </body>
