@@ -1065,27 +1065,6 @@ footer{
   object-fit:cover;
   display:block;
 }
-.club-upload-label{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-  cursor:pointer;
-  color:var(--muted);
-  transition:background .2s,color .2s;
-}
-.club-upload-label:hover{background:rgba(106,24,48,0.06);color:var(--maroon);}
-.club-upload-label .lucide{width:28px;height:28px;stroke:currentColor;}
-.club-upload-label span{font-size:12.5px;font-weight:600;letter-spacing:.3px;}
-.club-change-btn{
-  position:absolute;bottom:8px;right:8px;
-  display:flex;align-items:center;justify-content:center;
-  width:32px;height:32px;
-  background:rgba(0,0,0,0.5);
-  border:none;border-radius:50%;
-  cursor:pointer;
-  transition:background .2s;
-}
-.club-change-btn:hover{background:rgba(0,0,0,0.75);}
-.club-change-btn .lucide{width:15px;height:15px;stroke:white;}
 
 /* ===== JOB ADVERT PAGE ===== */
 .job-card{
@@ -1199,42 +1178,11 @@ footer{
 
 /* ===== SERVICE CHARTER IMAGE UPLOAD ===== */
 .charter-img-wrap{margin-bottom:40px;}
-.charter-upload-zone{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-  border:2px dashed rgba(106,24,48,0.25);
-  border-radius:18px;
-  padding:56px 24px;
-  background:white;
-  cursor:pointer;
-  transition:all .25s;
-  text-align:center;
-}
-.charter-upload-zone:hover{border-color:var(--maroon);background:#fdf5f7;}
-.charter-upload-zone .lucide{width:44px;height:44px;stroke:rgba(106,24,48,0.35);}
-.charter-upload-zone:hover .lucide{stroke:var(--maroon);}
-.cuz-title{font-size:15px;font-weight:600;color:var(--maroon);}
-.cuz-sub{font-size:12.5px;color:var(--muted);}
 #charterImg{
   width:100%;border-radius:14px;
   box-shadow:0 10px 40px rgba(0,0,0,0.12);
   display:block;
 }
-.charter-img-actions{
-  display:flex;gap:10px;margin-top:14px;justify-content:flex-end;
-}
-.charter-change-btn,.charter-remove-btn{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;
-  cursor:pointer;text-decoration:none;transition:all .2s;
-  font-family:inherit;border:none;
-}
-.charter-change-btn{background:var(--maroon);color:white;}
-.charter-change-btn:hover{background:var(--maroon-light);}
-.charter-remove-btn{background:white;color:#c0392b;border:2px solid #f5c6c6;}
-.charter-remove-btn:hover{background:#fff0f0;}
-.charter-change-btn .lucide,.charter-remove-btn .lucide{width:13px;height:13px;}
-.charter-change-btn .lucide{stroke:white;}
-.charter-remove-btn .lucide{stroke:#c0392b;}
 </style>
 </head>
 
@@ -1522,13 +1470,7 @@ footer{
     <div class="adverts-grid">
       <div class="advert-card">
         <div class="club-img-slot" id="club-slot-0">
-          <img class="club-photo" id="club-photo-0" src="" alt="" style="display:none;">
-          <label class="club-upload-label" id="club-label-0" for="club-input-0">
-            <i data-lucide="image-plus"></i>
-            <span>Add photo</span>
-          </label>
-          <input type="file" id="club-input-0" accept="image/*" style="display:none;" onchange="loadClubPhoto(0,this)">
-          <button class="club-change-btn" id="club-change-0" style="display:none;" onclick="document.getElementById('club-input-0').click()"><i data-lucide="camera"></i></button>
+          <img class="club-photo" src="0Z0A5965.jpg" alt="Football & Athletics" style="display:block;" onerror="this.style.display='none'">
         </div>
         <div class="advert-body">
           <span class="advert-tag tag-event">Sports</span>
@@ -1539,13 +1481,7 @@ footer{
       </div>
       <div class="advert-card">
         <div class="club-img-slot" id="club-slot-1">
-          <img class="club-photo" id="club-photo-1" src="" alt="" style="display:none;">
-          <label class="club-upload-label" id="club-label-1" for="club-input-1">
-            <i data-lucide="image-plus"></i>
-            <span>Add photo</span>
-          </label>
-          <input type="file" id="club-input-1" accept="image/*" style="display:none;" onchange="loadClubPhoto(1,this)">
-          <button class="club-change-btn" id="club-change-1" style="display:none;" onclick="document.getElementById('club-input-1').click()"><i data-lucide="camera"></i></button>
+          <img class="club-photo" src="drama.jpg" alt="Drama & Music Club" style="display:block;" onerror="this.style.display='none'">
         </div>
         <div class="advert-body">
           <span class="advert-tag" style="background:rgba(106,13,173,0.1);color:#6a0dad;">Culture</span>
@@ -1556,13 +1492,7 @@ footer{
       </div>
       <div class="advert-card">
         <div class="club-img-slot" id="club-slot-2">
-          <img class="club-photo" id="club-photo-2" src="" alt="" style="display:none;">
-          <label class="club-upload-label" id="club-label-2" for="club-input-2">
-            <i data-lucide="image-plus"></i>
-            <span>Add photo</span>
-          </label>
-          <input type="file" id="club-input-2" accept="image/*" style="display:none;" onchange="loadClubPhoto(2,this)">
-          <button class="club-change-btn" id="club-change-2" style="display:none;" onclick="document.getElementById('club-input-2').click()"><i data-lucide="camera"></i></button>
+          <img class="club-photo" src="ict-2.jpg" alt="ICT & Innovation Society" style="display:block;" onerror="this.style.display='none'">
         </div>
         <div class="advert-body">
           <span class="advert-tag tag-news">Tech Club</span>
@@ -1573,13 +1503,7 @@ footer{
       </div>
       <div class="advert-card">
         <div class="club-img-slot" id="club-slot-3">
-          <img class="club-photo" id="club-photo-3" src="" alt="" style="display:none;">
-          <label class="club-upload-label" id="club-label-3" for="club-input-3">
-            <i data-lucide="image-plus"></i>
-            <span>Add photo</span>
-          </label>
-          <input type="file" id="club-input-3" accept="image/*" style="display:none;" onchange="loadClubPhoto(3,this)">
-          <button class="club-change-btn" id="club-change-3" style="display:none;" onclick="document.getElementById('club-input-3').click()"><i data-lucide="camera"></i></button>
+          <img class="club-photo" src="council.jpg" alt="Student Council & Welfare" style="display:block;" onerror="this.style.display='none'">
         </div>
         <div class="advert-body">
           <span class="advert-tag tag-award">Community</span>
@@ -1599,19 +1523,9 @@ footer{
       <p>A student of Kiharu TVC is exposed to quality service. <br>As you walk about in the corridors of the institute,<br>be sure you will encounter skilled and competent staff to attend your needs.<br>The vibrancy of our environment serves to give learners maximum anjoyment experience in their academic journey.</p>
     </div>
 
-    <!-- Charter image upload area -->
-    <div class="charter-img-wrap" id="charterImgWrap">
-      <img id="charterImg" src="" alt="Service Charter" style="display:none;">
-      <label class="charter-upload-zone" id="charterUploadZone" for="charterFileInput">
-        <i data-lucide="image-plus"></i>
-        <span class="cuz-title">Click to upload Service Charter image</span>
-        <span class="cuz-sub">PNG, JPG or PDF scan — recommended width 1200px+</span>
-      </label>
-      <input type="file" id="charterFileInput" accept="image/*" style="display:none;" onchange="loadCharterImage(event)">
-      <div class="charter-img-actions" id="charterImgActions" style="display:none;">
-        <label for="charterFileInput" class="charter-change-btn"><i data-lucide="refresh-cw"></i> Change Image</label>
-        <button onclick="removeCharterImage()" class="charter-remove-btn"><i data-lucide="trash-2"></i> Remove</button>
-      </div>
+    <!-- Charter image -->
+    <div class="charter-img-wrap">
+      <img src="charterImg" src="charter.jpeg" alt="Service Charter" onerror="this.style.display='none'">
     </div>
 
   </div><!-- /.home-extra-wrap -->
@@ -2418,71 +2332,10 @@ function closeLightbox(e){
   }
 }
 
-/* ===== CLUB PHOTO UPLOAD ===== */
-function loadClubPhoto(i, input){
-  const file = input.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(ev){
-    const photo = document.getElementById('club-photo-'+i);
-    photo.src = ev.target.result;
-    photo.style.display = 'block';
-    document.getElementById('club-label-'+i).style.display = 'none';
-    document.getElementById('club-change-'+i).style.display = 'flex';
-    try{ localStorage.setItem('kiharuClubPhoto'+i, ev.target.result); }catch(e){}
-  };
-  reader.readAsDataURL(file);
-}
-(function(){
-  for(let i=0;i<4;i++){
-    try{
-      const stored = localStorage.getItem('kiharuClubPhoto'+i);
-      if(stored){
-        const photo = document.getElementById('club-photo-'+i);
-        photo.src = stored;
-        photo.style.display = 'block';
-        document.getElementById('club-label-'+i).style.display = 'none';
-        document.getElementById('club-change-'+i).style.display = 'flex';
-      }
-    }catch(e){}
-  }
-})();
 
 
-function loadCharterImage(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(ev){
-    const img = document.getElementById('charterImg');
-    img.src = ev.target.result;
-    img.style.display = 'block';
-    document.getElementById('charterUploadZone').style.display = 'none';
-    document.getElementById('charterImgActions').style.display = 'flex';
-    try{ localStorage.setItem('kiharuCharterImg', ev.target.result); }catch(e){}
-  };
-  reader.readAsDataURL(file);
-}
-function removeCharterImage(){
-  document.getElementById('charterImg').src='';
-  document.getElementById('charterImg').style.display='none';
-  document.getElementById('charterUploadZone').style.display='flex';
-  document.getElementById('charterImgActions').style.display='none';
-  document.getElementById('charterFileInput').value='';
-  try{ localStorage.removeItem('kiharuCharterImg'); }catch(e){}
-}
-(function(){
-  try{
-    const stored = localStorage.getItem('kiharuCharterImg');
-    if(stored){
-      const img = document.getElementById('charterImg');
-      img.src = stored;
-      img.style.display = 'block';
-      document.getElementById('charterUploadZone').style.display = 'none';
-      document.getElementById('charterImgActions').style.display = 'flex';
-    }
-  }catch(e){}
-})();
+
+
 
 /* ===== INIT LUCIDE ===== */
 lucide.createIcons();
