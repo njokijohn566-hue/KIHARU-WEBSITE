@@ -19,6 +19,24 @@
   --muted:#6b6b6b;
   --white:#ffffff;
   --gradient:linear-gradient(135deg,#6a1830,#f26b2a,#85c0ea);
+  /* surface tokens */
+  --surface:#ffffff;
+  --surface2:#f4f1ee;
+  --text-main:#1a1a1a;
+  --text-sub:#444444;
+  --border:#e8e0e0;
+  --card-shadow:0 8px 30px rgba(0,0,0,0.07);
+}
+
+[data-theme="dark"]{
+  --bg:#141218;
+  --surface:#1e1a24;
+  --surface2:#251f2e;
+  --text-main:#f0eaf6;
+  --text-sub:#b8afc8;
+  --muted:#8a8099;
+  --border:#2e2840;
+  --card-shadow:0 8px 30px rgba(0,0,0,0.35);
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -26,8 +44,9 @@
 html,body{
   font-family:'DM Sans',system-ui,sans-serif;
   background:var(--bg);
-  color:#1a1a1a;
+  color:var(--text-main);
   overflow-x:hidden;
+  transition:background .3s, color .3s;
 }
 
 /* ===== TOP BAR ===== */
@@ -356,6 +375,23 @@ nav{display:flex;align-items:center;gap:4px;}
 
 /* ===== CAROUSEL ===== */
 .carousel-wrap{max-width:1280px;margin:0 auto;padding:30px 24px 0;}
+.carousel-controls{
+  display:flex;align-items:center;justify-content:flex-end;gap:10px;
+  margin-bottom:10px;
+}
+.carousel-speed-label{
+  display:flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:600;color:var(--muted);
+}
+.carousel-speed-label .lucide{width:13px;height:13px;stroke:var(--muted);}
+.carousel-speed-btns{display:flex;gap:4px;}
+.spd-btn{
+  padding:4px 13px;border-radius:50px;font-size:11.5px;font-weight:700;
+  border:1.5px solid #d8d0d0;background:white;color:#888;
+  cursor:pointer;font-family:inherit;transition:all .2s;
+}
+.spd-btn:hover{border-color:var(--maroon);color:var(--maroon);}
+.spd-btn.spd-active{background:var(--maroon);color:white;border-color:var(--maroon);}
 .carousel{
   overflow:hidden;
   height:280px;
@@ -367,7 +403,11 @@ nav{display:flex;align-items:center;gap:4px;}
   display:flex;
   gap:16px;
   padding:16px;
-  animation:scroll 40s linear infinite;
+  animation:scroll var(--carousel-speed, 25s) linear infinite;
+}
+
+.carousel:hover .carousel-track{
+  animation-play-state:paused;
 }
 
 @keyframes scroll{
@@ -1038,9 +1078,13 @@ footer{
 .campus-tag .lucide{width:14px;height:14px;stroke:var(--maroon);vertical-align:-2px;}
 .join-btn .lucide{width:15px;height:15px;stroke:white;}
 
+/* drawer join button */
+.drawer-join{
   margin:20px;
-  display:block;
-  text-align:center;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  justify-content:center;
   padding:14px;
   background:var(--orange);
   color:white;
@@ -1048,23 +1092,217 @@ footer{
   border-radius:12px;
   text-decoration:none;
   cursor:pointer;
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:14px;
+}
+.drawer-join:hover{background:#d45a20;}
+.drawer-join .lucide{width:15px;height:15px;stroke:white;}
+
+/* New icon context rules */
+.stat-icon .lucide{width:22px;height:22px;stroke:var(--maroon);margin-bottom:6px;}
+.notice-type-icon .lucide{width:15px;height:15px;stroke:var(--muted);}
+.section-icon .lucide{width:20px;height:20px;stroke:var(--maroon);vertical-align:-4px;margin-right:6px;}
+.footer-link-icon .lucide{width:13px;height:13px;stroke:rgba(255,255,255,0.55);vertical-align:-2px;margin-right:5px;}
+.footer-contact-icon .lucide{width:13px;height:13px;stroke:rgba(255,255,255,0.55);vertical-align:-2px;margin-right:4px;}
+.btn-icon .lucide{width:15px;height:15px;vertical-align:-2px;margin-right:4px;}
+.li-icon .lucide{width:14px;height:14px;stroke:var(--maroon);vertical-align:-2px;flex-shrink:0;}
+.view-all-icon .lucide{width:13px;height:13px;stroke:var(--orange);vertical-align:-2px;}
+.filter-icon .lucide{width:13px;height:13px;vertical-align:-2px;margin-right:3px;}
+.td-label-icon .lucide{width:12px;height:12px;stroke:var(--muted);vertical-align:-2px;margin-right:3px;}
+.form-label-icon .lucide{width:12px;height:12px;stroke:var(--muted);vertical-align:-2px;margin-right:3px;}
+.notice-tag .lucide{width:12px;height:12px;vertical-align:-2px;margin-right:3px;}
+
+/* stat icon */
+.stat-icon{display:flex;justify-content:center;margin-bottom:6px;}
+.stat-icon .lucide{width:22px;height:22px;stroke:var(--maroon);}
+
+/* li icon alignment */
+.info-card ul,.step-card ul,.job-card ul{list-style:none;padding-left:0;}
+.info-card ul li,.step-card ul li,.job-card ul li{display:flex;align-items:baseline;gap:7px;}
+
+/* dark mode - section icons */
+[data-theme="dark"] .section-icon .lucide{stroke:var(--maroon-light);}
+[data-theme="dark"] .stat-icon .lucide{stroke:var(--maroon-light);}
+[data-theme="dark"] .li-icon .lucide{stroke:var(--maroon-light);}
+[data-theme="dark"] .footer-link-icon .lucide{stroke:rgba(255,255,255,0.45);}
+[data-theme="dark"] .notice-board{background:var(--surface);}
+[data-theme="dark"] .notice-board{border-color:var(--border);}
+[data-theme="dark"] .step-card{background:var(--surface);color:var(--text-main);}
+[data-theme="dark"] .step-card h3{color:var(--text-main);}
+[data-theme="dark"] .step-card p{color:var(--text-sub);}
+[data-theme="dark"] .notice-text h4{color:var(--text-main);}
+[data-theme="dark"] .modal{background:var(--surface);}
+[data-theme="dark"] .modal-option{border-color:var(--border);color:var(--text-main);}
+[data-theme="dark"] .modal-option h4{color:var(--text-main);}
+[data-theme="dark"] .contact-form{background:var(--surface);}
+[data-theme="dark"] .contact-form h3{color:var(--maroon-light);}
+[data-theme="dark"] .form-group label{color:var(--text-sub);}
+[data-theme="dark"] .programme-item{background:var(--surface);color:var(--text-main);}
+[data-theme="dark"] .programme-item h4{color:var(--text-main);}
+[data-theme="dark"] .stats{background:var(--surface);border-color:var(--border);}
+[data-theme="dark"] .stat-item{border-color:var(--border);}
+[data-theme="dark"] header{background:var(--surface);border-color:var(--maroon-dark);}
+[data-theme="dark"] .nav-link{color:var(--text-sub);}
+[data-theme="dark"] .dropdown{background:var(--surface);border-color:var(--border);}
+[data-theme="dark"] .dropdown a{color:var(--text-main);border-color:var(--border);}
+[data-theme="dark"] .drawer-section{background:var(--surface2);}
+[data-theme="dark"] .notice-item{border-color:var(--border);}
+[data-theme="dark"] .job-footer{border-color:var(--border);}
+[data-theme="dark"] .tender-footer{border-color:var(--border);}
+[data-theme="dark"] .job-card ul li,.info-card ul li{color:var(--text-sub);}
+[data-theme="dark"] .info-card ul li span{color:var(--text-sub);}
+[data-theme="dark"] .charter-intro h3{color:var(--text-main);}
+
+/* section-icon is inline so lucide size set inline */
+i.section-icon[data-lucide]{display:inline-block;width:20px;height:20px;vertical-align:-4px;margin-right:6px;stroke:var(--maroon);}
+i.view-all-icon[data-lucide]{display:inline-block;width:13px;height:13px;vertical-align:-2px;stroke:var(--orange);}
+i.filter-icon[data-lucide]{display:inline-block;width:13px;height:13px;vertical-align:-2px;margin-right:3px;}
+.filter-btn.active i.filter-icon[data-lucide]{stroke:white;}
+i.footer-link-icon[data-lucide]{display:inline-block;width:13px;height:13px;vertical-align:-2px;margin-right:5px;stroke:rgba(255,255,255,0.55);}
+i.form-label-icon[data-lucide]{display:inline-block;width:12px;height:12px;vertical-align:-2px;margin-right:3px;stroke:var(--muted);}
+i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-align:-2px;margin-right:3px;stroke:var(--muted);}
+.btn-icon[data-lucide]{display:inline-block;vertical-align:-2px;margin-right:4px;}
+.btn-primary .btn-icon[data-lucide]{stroke:var(--maroon);}
+.btn-outline .btn-icon[data-lucide]{stroke:white;}
+.theme-toggle{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:0 16px;height:38px;
+  border-radius:50px;
+  border:2px solid rgba(255,255,255,0.6);
+  background:rgba(255,255,255,0.14);
+  color:white;
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:.3px;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:background .22s,border-color .22s,transform .18s;
+}
+.theme-toggle:hover{
+  background:rgba(255,255,255,0.28);
+  border-color:white;
+  transform:scale(1.06);
+}
+.theme-toggle:active{transform:scale(0.96);}
+.theme-toggle .lucide{width:18px;height:18px;stroke:white;flex-shrink:0;}
+.theme-toggle-label{white-space:nowrap;}
+
+/* Gold accent when in dark mode so button pops against dark nav */
+[data-theme="dark"] .theme-toggle{
+  background:rgba(255,210,70,0.18);
+  border-color:rgba(255,210,70,0.7);
+  color:#ffd24d;
+}
+[data-theme="dark"] .theme-toggle:hover{background:rgba(255,210,70,0.32);border-color:#ffd24d;}
+[data-theme="dark"] .theme-toggle .lucide{stroke:#ffd24d;}
+
+/* On small screens hide text, keep icon */
+@media(max-width:900px){
+  .theme-toggle-label{display:none;}
+  .theme-toggle{padding:0 11px;width:38px;justify-content:center;}
 }
 
-/* ===== SPORTS / CLUBS / SERVICE CHARTER (home page sections) ===== */
+/* ===== DARK MODE SURFACE OVERRIDES ===== */
+[data-theme="dark"] body{background:var(--bg);}
+
+[data-theme="dark"] .advert-card,
+[data-theme="dark"] .info-card,
+[data-theme="dark"] .prog-card,
+[data-theme="dark"] .job-card,
+[data-theme="dark"] .tender-card,
+[data-theme="dark"] .charter-upload-zone,
+[data-theme="dark"] .mobile-drawer,
+[data-theme="dark"] .join-modal .modal-box{
+  background:var(--surface);
+  border-color:var(--border);
+  color:var(--text-main);
+}
+
+[data-theme="dark"] .advert-card h3,
+[data-theme="dark"] .info-card h3,
+[data-theme="dark"] .job-card-head h3,
+[data-theme="dark"] .tender-card-head h3,
+[data-theme="dark"] .section-head h2,
+[data-theme="dark"] .page-hero h1,
+[data-theme="dark"] h1,h2,h3,h4{color:var(--text-main);}
+
+[data-theme="dark"] .advert-card p,
+[data-theme="dark"] .advert-date,
+[data-theme="dark"] .job-desc,
+[data-theme="dark"] .tender-desc,
+[data-theme="dark"] .job-meta-item,
+[data-theme="dark"] .tender-deadline,
+[data-theme="dark"] p{color:var(--text-sub);}
+
+[data-theme="dark"] .content-wrap,
+[data-theme="dark"] .page-content,
+[data-theme="dark"] .home-extra-wrap{background:transparent;}
+
+[data-theme="dark"] .short-courses-box,
+[data-theme="dark"] .gallery-upload-slot,
+[data-theme="dark"] .charter-table,
+[data-theme="dark"] .tender-detail-item,
+[data-theme="dark"] .charter-table td{
+  background:var(--surface);
+  color:var(--text-main);
+  border-color:var(--border);
+}
+
+[data-theme="dark"] .charter-table tr:hover td{background:var(--surface2);}
+[data-theme="dark"] .charter-table thead{background:var(--maroon-dark);}
+
+[data-theme="dark"] .filter-btn{
+  background:var(--surface);
+  color:var(--text-sub);
+  border-color:var(--border);
+}
+[data-theme="dark"] .filter-btn.active,[data-theme="dark"] .filter-btn:hover{
+  background:var(--maroon);color:white;border-color:var(--maroon);
+}
+
+[data-theme="dark"] .prog-icon{background:rgba(255,255,255,0.06);}
+[data-theme="dark"] .dropdown-icon{background:rgba(255,255,255,0.06);}
+
+[data-theme="dark"] .footer-col a,[data-theme="dark"] footer p{color:rgba(255,255,255,0.6);}
+[data-theme="dark"] .modal-option .icon{background:rgba(255,255,255,0.06);}
+
+[data-theme="dark"] .nav-link{color:rgba(255,255,255,0.85);}
+[data-theme="dark"] .nav-dropdown{background:var(--surface);border-color:var(--border);}
+[data-theme="dark"] .nav-dropdown a{color:var(--text-main);}
+[data-theme="dark"] .nav-dropdown a:hover{background:var(--surface2);}
+
+[data-theme="dark"] .drawer-link{color:var(--text-main);}
+[data-theme="dark"] .drawer-link:hover{background:var(--surface2);}
+[data-theme="dark"] .drawer-section{color:var(--muted);}
+
+[data-theme="dark"] .gallery-upload-slot{
+  background:var(--surface);
+  border-color:var(--border);
+}
+[data-theme="dark"] .gallery-upload-slot:hover{background:var(--surface2);border-color:var(--maroon);}
+
+[data-theme="dark"] .spd-btn{background:var(--surface2);color:var(--text-sub);border-color:var(--border);}
+[data-theme="dark"] .spd-btn:hover{border-color:var(--maroon);color:var(--maroon);}
+[data-theme="dark"] .spd-btn.spd-active{background:var(--maroon);color:white;border-color:var(--maroon);}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select{
+  background:var(--surface2)!important;
+  color:var(--text-main)!important;
+  border-color:var(--border)!important;
+}
+
+[data-theme="dark"] .page-hero{
+  background:linear-gradient(160deg,var(--maroon-dark) 0%,#2a1040 60%,#0a1a3a 100%);
+}
+
+/* smooth transitions on key surfaces */
+.advert-card,.info-card,.job-card,.tender-card,.mobile-drawer,
+.gallery-upload-slot,.filter-btn,.nav-dropdown,.spd-btn,
+.short-courses-box,.charter-upload-zone{
+  transition:background .3s,border-color .3s,color .3s,box-shadow .3s;
+}
 .home-extra-wrap{max-width:1280px;margin:0 auto;padding:0 24px 40px;}
-
-/* Club card photo slots */
-.club-img-slot{
-  position:relative;
-  width:100%;height:180px;
-  background:#f4f1ee;
-  overflow:hidden;
-}
-.club-photo{
-  width:100%;height:100%;
-  object-fit:cover;
-  display:block;
-}
 
 /* ===== JOB ADVERT PAGE ===== */
 .job-card{
@@ -1178,11 +1416,42 @@ footer{
 
 /* ===== SERVICE CHARTER IMAGE UPLOAD ===== */
 .charter-img-wrap{margin-bottom:40px;}
+.charter-upload-zone{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  border:2px dashed rgba(106,24,48,0.25);
+  border-radius:18px;
+  padding:56px 24px;
+  background:white;
+  cursor:pointer;
+  transition:all .25s;
+  text-align:center;
+}
+.charter-upload-zone:hover{border-color:var(--maroon);background:#fdf5f7;}
+.charter-upload-zone .lucide{width:44px;height:44px;stroke:rgba(106,24,48,0.35);}
+.charter-upload-zone:hover .lucide{stroke:var(--maroon);}
+.cuz-title{font-size:15px;font-weight:600;color:var(--maroon);}
+.cuz-sub{font-size:12.5px;color:var(--muted);}
 #charterImg{
   width:100%;border-radius:14px;
   box-shadow:0 10px 40px rgba(0,0,0,0.12);
   display:block;
 }
+.charter-img-actions{
+  display:flex;gap:10px;margin-top:14px;justify-content:flex-end;
+}
+.charter-change-btn,.charter-remove-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;
+  cursor:pointer;text-decoration:none;transition:all .2s;
+  font-family:inherit;border:none;
+}
+.charter-change-btn{background:var(--maroon);color:white;}
+.charter-change-btn:hover{background:var(--maroon-light);}
+.charter-remove-btn{background:white;color:#c0392b;border:2px solid #f5c6c6;}
+.charter-remove-btn:hover{background:#fff0f0;}
+.charter-change-btn .lucide,.charter-remove-btn .lucide{width:13px;height:13px;}
+.charter-change-btn .lucide{stroke:white;}
+.charter-remove-btn .lucide{stroke:#c0392b;}
 </style>
 </head>
 
@@ -1254,6 +1523,12 @@ footer{
       <i data-lucide="star"></i> Join Us
     </button>
 
+    <!-- Dark / Light Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Switch to dark mode">
+      <i data-lucide="moon"></i>
+      <span class="theme-toggle-label">Dark</span>
+    </button>
+
     <!-- Hamburger -->
     <button class="hamburger" onclick="openDrawer()">
       <span></span><span></span><span></span>
@@ -1284,8 +1559,8 @@ footer{
   <a class="drawer-link" onclick="showPage('research');closeDrawer()"><i data-lucide="flask-conical"></i> Research</a>
   <a class="drawer-link" onclick="showPage('foundation');closeDrawer()"><i data-lucide="heart"></i> Foundation</a>
   <a class="drawer-link" onclick="showPage('jobs');closeDrawer()"><i data-lucide="briefcase"></i> Job Adverts</a>
-  <a class="drawer-link" onclick="showPage('tenders');closeDrawer()"><i data-lucide="file-badge"></i> Tenders</a>
-  <a class="drawer-link" onclick="showPage('gallery');closeDrawer()"><i data-lucide="images"></i> Gallery</a>
+  <a class="drawer-link" onclick="showPage('tenders');closeDrawer()"><i data-lucide="file-check"></i> Tenders</a>
+  <a class="drawer-link" onclick="showPage('gallery');closeDrawer()"><i data-lucide="image"></i> Gallery</a>
   <a class="drawer-link" onclick="showPage('contact');closeDrawer()"><i data-lucide="phone"></i> Contact Us</a>
   <a class="drawer-join" onclick="openModal();closeDrawer()"><i data-lucide="star"></i> Join Us</a>
 </div>
@@ -1302,23 +1577,31 @@ footer{
       <h1>Skills to Equip<br>& Empower</h1>
       <p>Kiharu Technical & Vocational College — perfecting skills, building character and nuturing talents.</p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="showPage('apply')">Apply Now</button>
-        <button class="btn-outline" onclick="showPage('undergraduate')">Explore Courses</button>
+        <button class="btn-primary" onclick="showPage('apply')"><i data-lucide="clipboard-list" class="btn-icon"></i> Apply Now</button>
+        <button class="btn-outline" onclick="showPage('undergraduate')"><i data-lucide="book-open" class="btn-icon"></i> Explore Courses</button>
       </div>
     </div>
   </div>
 
   <!-- STATS -->
   <div class="stats">
-    <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label"> Programmes</div></div>
-    <div class="stat-item"><div class="stat-num">30+</div><div class="stat-label">Short Courses</div></div>
-    <div class="stat-item"><div class="stat-num">2200+</div><div class="stat-label">Active Students</div></div>
-    <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">TVETA Approved</div></div>
+    <div class="stat-item"><div class="stat-icon"><i data-lucide="book-open"></i></div><div class="stat-num">50+</div><div class="stat-label"> Programmes</div></div>
+    <div class="stat-item"><div class="stat-icon"><i data-lucide="clock"></i></div><div class="stat-num">30+</div><div class="stat-label">Short Courses</div></div>
+    <div class="stat-item"><div class="stat-icon"><i data-lucide="users"></i></div><div class="stat-num">2200+</div><div class="stat-label">Active Students</div></div>
+    <div class="stat-item"><div class="stat-icon"><i data-lucide="shield-check"></i></div><div class="stat-num">100%</div><div class="stat-label">TVETA Approved</div></div>
   </div>
 
   <!-- CAROUSEL -->
   <div class="carousel-wrap">
-    <div class="carousel">
+    <div class="carousel-controls">
+      <span class="carousel-speed-label"><i data-lucide="gauge"></i> Speed</span>
+      <div class="carousel-speed-btns">
+        <button class="spd-btn" onclick="setCarouselSpeed(45,event)">Slow</button>
+        <button class="spd-btn spd-active" onclick="setCarouselSpeed(25,event)">Normal</button>
+        <button class="spd-btn" onclick="setCarouselSpeed(12,event)">Fast</button>
+      </div>
+    </div>
+    <div class="carousel" id="mainCarousel">
       <div class="carousel-track">
         <div class="carousel-item"><img src="Board.JPG" alt="Board"><div class="carousel-title">THE BOARD</div></div>
         <div class="carousel-item"><img src="principal.jpg" alt="Principal"><div class="carousel-title">OUR PRINCIPAL</div></div>
@@ -1357,8 +1640,8 @@ footer{
   <div class="content-wrap">
 
     <div class="section-head">
-      <h2>Latest News & Announcements</h2>
-      <a href="#" class="view-all">View All →</a>
+      <h2><i class="section-icon" data-lucide="newspaper"></i>Latest News & Announcements</h2>
+      <a href="#" class="view-all"><i class="view-all-icon" data-lucide="arrow-right"></i> View All</a>
     </div>
 
     <div class="adverts-grid">
@@ -1368,7 +1651,7 @@ footer{
           <span class="advert-tag tag-admission">Admissions</span>
           <h3>2026 Intake Now Open</h3>
           <p>Applications are now open for all programmes. Secure your place today.</p>
-          <div class="advert-date"><i data-lucide="calendar-days"></i></div>
+          <div class="advert-date"><i data-lucide="calendar-days"></i> Jun 5, 2026</div>
         </div>
       </div>
       <div class="advert-card">
@@ -1377,7 +1660,7 @@ footer{
           <span class="advert-tag tag-award">Achievement</span>
           <h3>Kiharu TVC Wins Regional Skills Competition</h3>
           <p>Our students clinched first place in Mechanical Engineering at the Central Kenya Technical Skills Contest.</p>
-          <div class="advert-date"><i data-lucide="calendar-days"></i></div>
+          <div class="advert-date"><i data-lucide="calendar-days"></i> May 22, 2026</div>
         </div>
       </div>
       <div class="advert-card">
@@ -1385,8 +1668,8 @@ footer{
         <div class="advert-body">
           <span class="advert-tag tag-event">Event</span>
           <h3>Annual Graduation Ceremony — July 2026</h3>
-          <p>The college will hold its annual graduation on July 2026. All students and parents are invited.</p>
-          <div class="advert-date"><i data-lucide="calendar-days"></i> </div>
+          <p>The college will hold its annual graduation on 18th July 2026. All students and parents are invited.</p>
+          <div class="advert-date"><i data-lucide="calendar-days"></i> Jul 18, 2026</div>
         </div>
       </div>
       <div class="advert-card">
@@ -1395,44 +1678,44 @@ footer{
           <span class="advert-tag tag-news">News</span>
           <h3>New Solar PV & AI Short Courses Launched</h3>
           <p>Register now for our new Solar Photovoltaic Installer and Cyber Security & AI Tools short courses.</p>
-          <div class="advert-date"><i data-lucide="calendar-days"></i></div>
+          <div class="advert-date"><i data-lucide="calendar-days"></i> May 10, 2026</div>
         </div>
       </div>
     </div>
 
     <!-- NOTICE BOARD -->
     <div class="section-head">
-      <h2>Notice Board</h2>
+      <h2><i class="section-icon" data-lucide="bell"></i>Notice Board</h2>
     </div>
     <div class="notice-board">
       <div class="notice-item">
         <div class="notice-date-box"><div class="day">18</div><div class="month">JUL</div></div>
-        <div class="notice-text"><h4>Caltural Ceremony 2026</h4><p>The ceremony shall start on 22nd to 26th June 2026.</p></div>
+        <div class="notice-text"><h4><i class="notice-tag" data-lucide="mic-2"></i>Cultural Ceremony 2026</h4><p>The ceremony shall start on 22nd to 26th June 2026.</p></div>
       </div>
       <div class="notice-item">
         <div class="notice-date-box"><div class="day">10</div><div class="month">JUN</div></div>
-        <div class="notice-text"><h4>Fees Deadline — Semester 2</h4><p>All students must clear their semester 2 fees by 10th June 2026 to avoid deregistration.</p></div>
+        <div class="notice-text"><h4><i class="notice-tag" data-lucide="banknote"></i>Fees Deadline — Semester 2</h4><p>All students must clear their semester 2 fees by 10th June 2026 to avoid deregistration.</p></div>
       </div>
       <div class="notice-item">
         <div class="notice-date-box"><div class="day">05</div><div class="month">JUN</div></div>
-        <div class="notice-text"><h4>TVET Examinations Timetable Released</h4><p>The July 2026 TVET examination timetable is available at the academics office and on the notice board.</p></div>
+        <div class="notice-text"><h4><i class="notice-tag" data-lucide="file-text"></i>TVET Examinations Timetable Released</h4><p>The July 2026 TVET examination timetable is available at the academics office and on the notice board.</p></div>
       </div>
       <div class="notice-item">
         <div class="notice-date-box"><div class="day">30</div><div class="month">MAY</div></div>
-        <div class="notice-text"><h4>Sports Day — Postponed</h4><p>Annual Sports Day has been rescheduled to 25th June 2026. More details to follow.</p></div>
+        <div class="notice-text"><h4><i class="notice-tag" data-lucide="trophy"></i>Sports Day — Postponed</h4><p>Annual Sports Day has been rescheduled to 25th June 2026. More details to follow.</p></div>
       </div>
     </div>
 
     <!-- LONG COURSES -->
     <div class="section-head" style="margin-top:10px;">
-      <h2>Courses Offered</h2>
+      <h2><i class="section-icon" data-lucide="graduation-cap"></i>Courses Offered</h2>
     </div>
     <div class="courses-grid" id="coursesGrid"></div>
     <a class="fees-btn" href="feesstructure.pdf" target="_blank"><i data-lucide="file-text"></i> View Fees Structure (PDF)</a>
 
     <!-- SHORT COURSES -->
     <div class="section-head" style="margin-top:40px;">
-      <h2>Short Courses Offered</h2>
+      <h2><i class="section-icon" data-lucide="zap"></i>Short Courses Offered</h2>
     </div>
     <div style="background:white;border-radius:18px;padding:28px;box-shadow:0 8px 28px rgba(0,0,0,0.07);">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
@@ -1443,12 +1726,12 @@ footer{
         <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="pen-tool"></i></span> Graphic Design</div>
         <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="utensils"></i></span> Pizza Making</div>
         <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="monitor"></i></span> Computer Packages</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="cake"></i></span> Cake Making</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="cake-slice"></i></span> Cake Making</div>
         <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="wrench"></i></span> Computer Repair & Maintenance</div>
         <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="settings"></i></span> Welding & Fabrication</div>
         <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="home"></i></span> Tiling & Flooring</div>
         <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="layout-grid"></i></span> Glazing</div>
-        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="pipe"></i></span> Pipe Fitting & Installation</div>
+        <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="cable"></i></span> Pipe Fitting & Installation</div>
         <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="sun"></i></span> Photovoltaic Solar Installer</div>
         <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="ruler"></i></span> AutoCAD / ArchiCAD</div>
         <div style="padding:10px 14px;background:#fdf5f7;border-radius:10px;border-left:3px solid var(--maroon);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:8px;"><span class="short-course-icon"><i data-lucide="flame"></i></span> Basic Cookery Skills</div>
@@ -1464,14 +1747,12 @@ footer{
 
     <!-- SPORTS, CLUBS & SOCIETIES -->
     <div class="section-head" style="margin-top:40px;">
-      <h2>Sports, Clubs & Societies</h2>
-      <a href="#" class="view-all">View All →</a>
+      <h2><i class="section-icon" data-lucide="trophy"></i>Sports, Clubs & Societies</h2>
+      <a href="#" class="view-all"><i class="view-all-icon" data-lucide="arrow-right"></i> View All</a>
     </div>
     <div class="adverts-grid">
       <div class="advert-card">
-        <div class="club-img-slot" id="club-slot-0">
-          <img class="club-photo" src="0Z0A5965.jpg" alt="Football & Athletics" style="display:block;" onerror="this.style.display='none'">
-        </div>
+        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,#0a3a6a,#1565c0);"><i data-lucide="trophy"></i></div>
         <div class="advert-body">
           <span class="advert-tag tag-event">Sports</span>
           <h3>Football & Athletics</h3>
@@ -1480,9 +1761,7 @@ footer{
         </div>
       </div>
       <div class="advert-card">
-        <div class="club-img-slot" id="club-slot-1">
-          <img class="club-photo" src="drama.jpg" alt="Drama & Music Club" style="display:block;" onerror="this.style.display='none'">
-        </div>
+        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,#6a0dad,#9c27b0);"><i data-lucide="music"></i></div>
         <div class="advert-body">
           <span class="advert-tag" style="background:rgba(106,13,173,0.1);color:#6a0dad;">Culture</span>
           <h3>Drama & Music Club</h3>
@@ -1491,9 +1770,7 @@ footer{
         </div>
       </div>
       <div class="advert-card">
-        <div class="club-img-slot" id="club-slot-2">
-          <img class="club-photo" src="ict-2.jpg" alt="ICT & Innovation Society" style="display:block;" onerror="this.style.display='none'">
-        </div>
+        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,#1a7a30,#2d9e48);"><i data-lucide="cpu"></i></div>
         <div class="advert-body">
           <span class="advert-tag tag-news">Tech Club</span>
           <h3>ICT & Innovation Society</h3>
@@ -1502,9 +1779,7 @@ footer{
         </div>
       </div>
       <div class="advert-card">
-        <div class="club-img-slot" id="club-slot-3">
-          <img class="club-photo" src="council.jpg" alt="Student Council & Welfare" style="display:block;" onerror="this.style.display='none'">
-        </div>
+        <div class="advert-img-placeholder" style="background:linear-gradient(135deg,var(--orange),#c0450a);"><i data-lucide="handshake"></i></div>
         <div class="advert-body">
           <span class="advert-tag tag-award">Community</span>
           <h3>Student Council & Welfare</h3>
@@ -1516,20 +1791,33 @@ footer{
 
     <!-- SERVICE CHARTER -->
     <div class="section-head" style="margin-top:44px;">
-      <h2>Service Charter</h2>
+      <h2><i class="section-icon" data-lucide="file-badge-2"></i>Kiharu TVC Service Charter</h2>
     </div>
     <div class="charter-intro">
-      <h3>Our Commitment to Service Excellence</h3>
-      <p>A student of Kiharu TVC is exposed to quality service. <br>As you walk about in the corridors of the institute,<br>be sure you will encounter skilled and competent staff to attend your needs.<br>The vibrancy of our environment serves to give learners maximum anjoyment experience in their academic journey.</p>
+      <h3><i data-lucide="star" style="width:18px;height:18px;stroke:var(--maroon);vertical-align:-3px;margin-right:6px;"></i>Our Commitment to Service Excellence</h3>
+      <p>A student of Kiharu TVC is exposed to quality service.<br> As you walk about in the carridors of the institute,<br> be sure you will encounter skilled an competent staff to attend your needs. <br>The vibrancy of our goverment serves to give learners maximum enjoyable experience in their academic journey.</p>
     </div>
 
-    <!-- Charter image -->
-    <div class="charter-img-wrap">
-      <img src="charterImg" src="charter.jpeg" alt="Service Charter" onerror="this.style.display='none'">
+    <!-- Charter image upload area -->
+    <div class="charter-img-wrap" id="charterImgWrap">
+      <img id="charterImg" src="" alt="Service Charter" style="display:none;">
+      <label class="charter-upload-zone" id="charterUploadZone" for="charterFileInput">
+        <i data-lucide="image-plus"></i>
+        <span class="cuz-title">Click to upload Service Charter image</span>
+        <span class="cuz-sub">PNG, JPG or PDF scan — recommended width 1200px+</span>
+      </label>
+      <input type="file" id="charterFileInput" accept="image/*" style="display:none;" onchange="loadCharterImage(event)">
+      <div class="charter-img-actions" id="charterImgActions" style="display:none;">
+        <label for="charterFileInput" class="charter-change-btn"><i data-lucide="refresh-cw"></i> Change Image</label>
+        <button onclick="removeCharterImage()" class="charter-remove-btn"><i data-lucide="trash-2"></i> Remove</button>
+      </div>
     </div>
 
   </div><!-- /.home-extra-wrap -->
 </div><!-- /#page-home -->
+
+<!-- ================================================
+     PAGE: HOW TO APPLY
 ================================================ -->
 <div class="page" id="page-apply">
   <div class="page-hero">
@@ -1542,26 +1830,31 @@ footer{
     <div class="apply-steps">
       <div class="step-card">
         <div class="step-num">1</div>
+        <div style="margin:10px auto 12px;color:var(--maroon);"><i data-lucide="search" style="width:26px;height:26px;stroke:var(--maroon);"></i></div>
         <h3>Choose Your Programme</h3>
         <p>Browse our undergraduate and certificate programmes and select the one that aligns with your career goals.</p>
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
+        <div style="margin:10px auto 12px;color:var(--maroon);"><i data-lucide="file-down" style="width:26px;height:26px;stroke:var(--maroon);"></i></div>
         <h3>Collect Application Form</h3>
         <p>Pick up a physical application form at the Registrar's Office or download one from our website.</p>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
+        <div style="margin:10px auto 12px;color:var(--maroon);"><i data-lucide="upload" style="width:26px;height:26px;stroke:var(--maroon);"></i></div>
         <h3>Submit Documents</h3>
         <p>Submit KCSE certificate / result slip, National ID / Birth Certificate, 2 passport photos and application fee receipt.</p>
       </div>
       <div class="step-card">
         <div class="step-num">4</div>
+        <div style="margin:10px auto 12px;color:var(--maroon);"><i data-lucide="mail-open" style="width:26px;height:26px;stroke:var(--maroon);"></i></div>
         <h3>Await Admission Letter</h3>
         <p>Successful applicants will receive an official admission letter within 5 working days.</p>
       </div>
       <div class="step-card">
         <div class="step-num">5</div>
+        <div style="margin:10px auto 12px;color:var(--maroon);"><i data-lucide="badge-check" style="width:26px;height:26px;stroke:var(--maroon);"></i></div>
         <h3>Report & Register</h3>
         <p>On the reporting date, clear fees, collect your student ID and officially register for your programme.</p>
       </div>
@@ -1572,10 +1865,10 @@ footer{
         <div class="info-card-icon"><i data-lucide="clipboard-list"></i></div>
         <h3>Entry Requirements</h3>
         <ul>
-          <li>KCSE Mean Grade D+ and above for certificate courses</li>
-          <li>KCSE Mean Grade C- and above for diploma programmes</li>
-          <li>Relevant craft certificate for artisan upgrading</li>
-          <li>Mature age entry (25+) considered on merit</li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>KCSE Mean Grade D+ and above for certificate courses</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>KCSE Mean Grade C- and above for diploma programmes</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Relevant craft certificate for artisan upgrading</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Mature age entry (25+) considered on merit</span></li>
         </ul>
       </div>
       <div class="info-card">
@@ -1583,19 +1876,19 @@ footer{
         <h3>Application Fees</h3>
         <p>A non-refundable application fee of <strong>KES 500</strong> is payable at the accounts office or via M-Pesa Paybill.</p>
         <ul style="margin-top:10px;">
-          <li>M-Pesa Paybill: <strong>522 533</strong></li>
-          <li>Account No: Student ID / Name</li>
-          <li>Office hours: Mon–Fri, 8AM–5PM</li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>M-Pesa Paybill: <strong>522 533</strong></span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Account No: Student ID / Name</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Office hours: Mon–Fri, 8AM–5PM</span></li>
         </ul>
       </div>
       <div class="info-card">
         <div class="info-card-icon"><i data-lucide="calendar"></i></div>
         <h3>Intake Dates</h3>
         <ul>
-          <li>January Intake — Applications: Oct–Dec</li>
-          <li>May Intake — Applications: Feb–Apr</li>
-          <li>September Intake — Applications: Jun–Aug</li>
-          <li>Rolling admissions for short courses</li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>January Intake — Applications: Oct–Dec</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>May Intake — Applications: Feb–Apr</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>September Intake — Applications: Jun–Aug</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Rolling admissions for short courses</span></li>
         </ul>
       </div>
     </div>
@@ -1621,33 +1914,33 @@ footer{
         <div class="info-card-icon"><i data-lucide="file-pen-line"></i></div>
         <h3>Services Offered</h3>
         <ul>
-          <li>Student registration & enrolment</li>
-          <li>Issuance of student ID cards</li>
-          <li>Transcripts & academic letters</li>
-          <li>Examination entry & results</li>
-          <li>Certificate collection</li>
-          <li>Transfer & deferral processing</li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Student registration & enrolment</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Issuance of student ID cards</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Transcripts & academic letters</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Examination entry & results</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Certificate collection</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Transfer & deferral processing</span></li>
         </ul>
       </div>
       <div class="info-card">
         <div class="info-card-icon"><i data-lucide="clock"></i></div>
         <h3>Office Hours & Contact</h3>
         <ul>
-          <li>Monday – Friday: 8:00 AM – 5:00 PM</li>
-          <li>Saturday: 9:00 AM – 1:00 PM (Exam seasons)</li>
-          <li>Phone: 0720 657 630</li>
-          <li>Location: Admin Block, Ground Floor</li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Monday – Friday: 8:00 AM – 5:00 PM</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Saturday: 9:00 AM – 1:00 PM (Exam seasons)</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Phone: 0720 657 630</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Location: Admin Block, Ground Floor</span></li>
         </ul>
       </div>
       <div class="info-card">
         <div class="info-card-icon"><i data-lucide="file-text"></i></div>
         <h3>Required Documents</h3>
         <ul>
-          <li>National ID / Passport / Birth Certificate</li>
-          <li>KCSE Certificate or Result Slip</li>
-          <li>2 Passport-size Photographs</li>
-          <li>Previous certificates (where applicable)</li>
-          <li>Fees payment receipt</li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>National ID / Passport / Birth Certificate</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>KCSE Certificate or Result Slip</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>2 Passport-size Photographs</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Previous certificates (where applicable)</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Fees payment receipt</span></li>
         </ul>
       </div>
     </div>
@@ -1683,8 +1976,8 @@ footer{
       </div>
       <div class="info-card">
         <div class="info-card-icon"><i data-lucide="bar-chart-2"></i></div>
-        <h3>TVET Portal</h3>
-        <p>Access the Technical and Vocational Education and Training portal for results and exam entry.</p>
+        <h3>KNEC Portal</h3>
+        <p>Access the Kenya National Examinations Council portal for results and exam entry.</p>
       </div>
       <div class="info-card">
         <div class="info-card-icon"><i data-lucide="landmark"></i></div>
@@ -1739,10 +2032,10 @@ footer{
         <div class="info-card-icon"><i data-lucide="clock"></i></div>
         <h3>Walk-In Hours</h3>
         <ul>
-          <li>Monday – Friday: 8AM – 5PM</li>
-          <li>Location: Student Centre, Room 4</li>
-          <li>No appointment necessary for walk-ins</li>
-          <li>Scheduled sessions available on request</li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Monday – Friday: 8AM – 5PM</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Location: Student Centre, Room 4</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>No appointment necessary for walk-ins</span></li>
+          <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Scheduled sessions available on request</span></li>
         </ul>
       </div>
       <div class="info-card">
@@ -1788,24 +2081,24 @@ footer{
         </div>
       </div>
 
-      <div class="contact-form">
-        <h3>Send Us a Message</h3>
+        <div class="contact-form">
+        <h3><i data-lucide="message-square" style="width:20px;height:20px;stroke:var(--maroon);vertical-align:-4px;margin-right:6px;"></i>Send Us a Message</h3>
         <div class="form-row">
           <div class="form-group">
-            <label>Full Name</label>
+            <label><i class="form-label-icon" data-lucide="user"></i> Full Name</label>
             <input type="text" placeholder="Your name">
           </div>
           <div class="form-group">
-            <label>Phone Number</label>
+            <label><i class="form-label-icon" data-lucide="phone"></i> Phone Number</label>
             <input type="tel" placeholder="07XX XXX XXX">
           </div>
         </div>
         <div class="form-group">
-          <label>Email Address</label>
+          <label><i class="form-label-icon" data-lucide="mail"></i> Email Address</label>
           <input type="email" placeholder="your@email.com">
         </div>
         <div class="form-group">
-          <label>Subject</label>
+          <label><i class="form-label-icon" data-lucide="tag"></i> Subject</label>
           <select>
             <option>General Enquiry</option>
             <option>Admissions</option>
@@ -1816,7 +2109,7 @@ footer{
           </select>
         </div>
         <div class="form-group">
-          <label>Message</label>
+          <label><i class="form-label-icon" data-lucide="message-circle"></i> Message</label>
           <textarea placeholder="How can we help you?"></textarea>
         </div>
         <button class="submit-btn"><i data-lucide="send"></i> Send Message</button>
@@ -1849,10 +2142,10 @@ footer{
       </div>
       <p class="job-desc">We are seeking a qualified and experienced Lecturer in Computing & Informatics to deliver TVET CDACC and KNEC programmes. The successful candidate will teach programming, networking, database management and cyber security modules, and contribute to departmental research and community engagement activities.</p>
       <ul style="font-size:13.5px;color:#444;line-height:1.9;padding-left:20px;margin-bottom:16px;">
-        <li>Diploma or Degree in Computer Science, Information Technology or a related field</li>
-        <li>TVET instructor certificate or equivalent teaching qualification</li>
-        <li>Minimum 2 years teaching or industry experience</li>
-        <li>Registered with TVETA as a trainer (added advantage)</li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Diploma or Degree in Computer Science, Information Technology or a related field</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>TVET instructor certificate or equivalent teaching qualification</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Minimum 2 years teaching or industry experience</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Registered with TVETA as a trainer (added advantage)</span></li>
       </ul>
       <div class="job-footer">
         <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 July 2026</span>
@@ -1873,10 +2166,10 @@ footer{
       </div>
       <p class="job-desc">We are looking for a hands-on Mechanical & Automotive Engineering Instructor to train students in workshop practice, engine overhaul, fabrication and automotive systems. The candidate must be comfortable working with workshop equipment and guiding students through practical assessments.</p>
       <ul style="font-size:13.5px;color:#444;line-height:1.9;padding-left:20px;margin-bottom:16px;">
-        <li>Diploma in Mechanical or Automotive Engineering (Degree preferred)</li>
-        <li>Minimum Grade Test II / Craft Certificate in the relevant trade</li>
-        <li>At least 3 years workshop or industry experience</li>
-        <li>TVET instructor registration is an advantage</li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Diploma in Mechanical or Automotive Engineering (Degree preferred)</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Minimum Grade Test II / Craft Certificate in the relevant trade</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>At least 3 years workshop or industry experience</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>TVET instructor registration is an advantage</span></li>
       </ul>
       <div class="job-footer">
         <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 July 2026</span>
@@ -1897,10 +2190,10 @@ footer{
       </div>
       <p class="job-desc">The Accounts Assistant will support the Finance Office in day-to-day financial transactions, student fees receipting, bank reconciliations and preparation of financial reports. The role reports directly to the Bursar.</p>
       <ul style="font-size:13.5px;color:#444;line-height:1.9;padding-left:20px;margin-bottom:16px;">
-        <li>CPA Part II or Diploma in Accounting / Finance</li>
-        <li>Proficiency in accounting software (QuickBooks or similar)</li>
-        <li>Strong attention to detail and integrity</li>
-        <li>At least 1 year relevant experience in a similar institution</li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>CPA Part II or Diploma in Accounting / Finance</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Proficiency in accounting software (QuickBooks or similar)</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>Strong attention to detail and integrity</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon);flex-shrink:0;margin-top:2px;"></i><span>At least 1 year relevant experience in a similar institution</span></li>
       </ul>
       <div class="job-footer">
         <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 25 July 2026</span>
@@ -1938,10 +2231,10 @@ footer{
       <div class="tender-ref">Tender No: KTVC/ICT/2026/001</div>
       <p class="tender-desc">The college invites sealed bids from reputable suppliers for the supply and delivery of desktop computers, UPS units, networking equipment and computer lab furniture to the ICT Department. Items must meet TVET CDACC laboratory specifications.</p>
       <div class="tender-details">
-        <div class="tender-detail-item"><div class="td-label">Category</div><div class="td-value">Supply of Goods</div></div>
-        <div class="tender-detail-item"><div class="td-label">Eligibility</div><div class="td-value">Registered suppliers — Class B & above</div></div>
-        <div class="tender-detail-item"><div class="td-label">Tender Fee</div><div class="td-value">KES 1,000 (non-refundable)</div></div>
-        <div class="tender-detail-item"><div class="td-label">Bid Bond</div><div class="td-value">KES 50,000</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="tag" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Category</div><div class="td-value">Supply of Goods</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="user-check" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Eligibility</div><div class="td-value">Registered suppliers — Class B & above</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="banknote" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Tender Fee</div><div class="td-value">KES 1,000 (non-refundable)</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="shield" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Bid Bond</div><div class="td-value">KES 50,000</div></div>
       </div>
       <div class="tender-footer">
         <span class="tender-deadline"><i data-lucide="calendar-days"></i> Closing Date: 25 July 2026, 10:00 AM</span>
@@ -1958,10 +2251,10 @@ footer{
       <div class="tender-ref">Tender No: KTVC/WORKS/2026/002</div>
       <p class="tender-desc">Kiharu TVC invites qualified and experienced contractors to tender for the construction of a 400 sq.m workshop extension block to house the Electrical and Mechanical workshops. Works include civil, structural, plumbing and electrical installations.</p>
       <div class="tender-details">
-        <div class="tender-detail-item"><div class="td-label">Category</div><div class="td-value">Civil Works</div></div>
-        <div class="tender-detail-item"><div class="td-label">Eligibility</div><div class="td-value">NCA 5 and above (Building)</div></div>
-        <div class="tender-detail-item"><div class="td-label">Tender Fee</div><div class="td-value">KES 2,000 (non-refundable)</div></div>
-        <div class="tender-detail-item"><div class="td-label">Bid Bond</div><div class="td-value">2% of tender sum</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="tag" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Category</div><div class="td-value">Civil Works</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="user-check" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Eligibility</div><div class="td-value">NCA 5 and above (Building)</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="banknote" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Tender Fee</div><div class="td-value">KES 2,000 (non-refundable)</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="shield" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Bid Bond</div><div class="td-value">2% of tender sum</div></div>
       </div>
       <div class="tender-footer">
         <span class="tender-deadline"><i data-lucide="calendar-days"></i> Closing Date: 1 August 2026, 10:00 AM</span>
@@ -1978,9 +2271,9 @@ footer{
       <div class="tender-ref">Tender No: KTVC/HOSP/2026/003</div>
       <p class="tender-desc">This tender for the supply of commercial kitchen equipment, crockery, linen and hospitality student uniforms has now closed. The evaluation process is underway.</p>
       <div class="tender-details">
-        <div class="tender-detail-item"><div class="td-label">Category</div><div class="td-value">Supply of Goods</div></div>
-        <div class="tender-detail-item"><div class="td-label">Status</div><div class="td-value">Under Evaluation</div></div>
-        <div class="tender-detail-item"><div class="td-label">Closed On</div><div class="td-value">10 June 2026</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="tag" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Category</div><div class="td-value">Supply of Goods</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="info" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Status</div><div class="td-value">Under Evaluation</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="calendar-x" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Closed On</div><div class="td-value">10 June 2026</div></div>
       </div>
       <div class="tender-footer">
         <span class="tender-deadline" style="color:#c0392b;"><i data-lucide="x-circle"></i> Closed — No longer accepting bids</span>
@@ -2009,139 +2302,94 @@ footer{
   <div class="page-content">
 
     <div class="gallery-filter">
-      <button class="filter-btn active" onclick="filterGallery('all',this)">All Photos</button>
-      <button class="filter-btn" onclick="filterGallery('campus',this)">Campus & Facilities</button>
-      <button class="filter-btn" onclick="filterGallery('academics',this)">Academics</button>
-      <button class="filter-btn" onclick="filterGallery('events',this)">Events & Culture</button>
-      <button class="filter-btn" onclick="filterGallery('sports',this)">Sports</button>
-      <button class="filter-btn" onclick="filterGallery('community',this)">Community</button>
+      <button class="filter-btn active" onclick="filterGallery('all',this)"><i class="filter-icon" data-lucide="layout-grid"></i>All Photos</button>
+      <button class="filter-btn" onclick="filterGallery('campus',this)"><i class="filter-icon" data-lucide="building-2"></i>Campus & Facilities</button>
+      <button class="filter-btn" onclick="filterGallery('academics',this)"><i class="filter-icon" data-lucide="graduation-cap"></i>Academics</button>
+      <button class="filter-btn" onclick="filterGallery('events',this)"><i class="filter-icon" data-lucide="calendar-days"></i>Events & Culture</button>
+      <button class="filter-btn" onclick="filterGallery('sports',this)"><i class="filter-icon" data-lucide="trophy"></i>Sports</button>
+      <button class="filter-btn" onclick="filterGallery('community',this)"><i class="filter-icon" data-lucide="handshake"></i>Community</button>
     </div>
 
     <div class="gallery-grid" id="galleryGrid">
 
       <!-- Campus & Facilities -->
       <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="KTVC7271.jpg" alt="Main Campus" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="kiharu-1.jpg" alt="Main Campus" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="building-2"></i>Main Campus</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Main Campus Building</span></div>
       </div>
       <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="KTVC7299.jpg" alt="ICT Lab" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="ict-2.jpg" alt="ICT Lab" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="monitor"></i>ICT Lab</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">ICT Computer Laboratory</span></div>
       </div>
       <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="120.jpg" alt="Engineering Workshop" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="building.jpg" alt="Engineering Workshop" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="hard-hat"></i>Engineering Workshop</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
-      </div>
-      <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="90.jpg" alt="Campus Entrance" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="gallery-placeholder" style="display:none"><i data-lucide="door-open"></i>Campus Entrance</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
-      </div>
-      <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="80.jpg" alt="School Grounds" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="gallery-placeholder" style="display:none"><i data-lucide="trees"></i>School Grounds</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
-      </div>
-      <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="KTVC7387.jpg" alt="Library" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="gallery-placeholder" style="display:none"><i data-lucide="book-open"></i>Library</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
-      </div>
-      <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="KTVC7309.jpg" alt="Administration Block" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="gallery-placeholder" style="display:none"><i data-lucide="landmark"></i>Administration Block</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
-      </div>
-      <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="60.jpg" alt="Classroom Block" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="gallery-placeholder" style="display:none"><i data-lucide="school"></i>Classroom Block</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
-      </div>
-      <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="KTVC7320.jpg" alt="Student Centre" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="gallery-placeholder" style="display:none"><i data-lucide="users-round"></i>Student Centre</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
-      </div>
-      <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="KTVC7310.jpg" alt="Dining Hall" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="gallery-placeholder" style="display:none"><i data-lucide="coffee"></i>Dining Hall</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
-      </div>
-      <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="10.jpg" alt="Sports Field" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="gallery-placeholder" style="display:none"><i data-lucide="flag"></i>Sports Field</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
-      </div>
-      <div class="gallery-item" data-cat="campus" onclick="openLightbox(this)">
-        <img src="principal.jpg" alt="Parking Area" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="gallery-placeholder" style="display:none"><i data-lucide="car"></i>Parking Area</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Engineering Workshops</span></div>
       </div>
 
       <!-- Academics -->
       <div class="gallery-item" data-cat="academics" onclick="openLightbox(this)">
-        <img src="james.jpg" alt="Electrical Lab" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="electric.jpg" alt="Electrical Lab" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="zap"></i>Electrical Lab</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Electrical & Electronics Lab</span></div>
       </div>
       <div class="gallery-item" data-cat="academics" onclick="openLightbox(this)">
-        <img src="70.jpg" alt="Mechanical Workshop" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="mechanic.jpg" alt="Mechanical Workshop" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="settings-2"></i>Mechanical Workshop</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Mechanical Engineering Practice</span></div>
       </div>
       <div class="gallery-item" data-cat="academics" onclick="openLightbox(this)">
-        <img src="deputy-admin.jpg" alt="Hospitality Kitchen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="hopitality.jpg" alt="Hospitality Kitchen" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="utensils"></i>Training Kitchen</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Hospitality Training Kitchen</span></div>
       </div>
       <div class="gallery-item" data-cat="academics" onclick="openLightbox(this)">
         <img src="fashion.jpg" alt="Fashion & Design" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="scissors"></i>Fashion & Design</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Fashion & Design Studio</span></div>
       </div>
       <div class="gallery-item" data-cat="academics" onclick="openLightbox(this)">
         <img src="cosmetology.jpg" alt="Cosmetology" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="sparkles"></i>Cosmetology</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Cosmetology Suite</span></div>
       </div>
 
       <!-- Events & Culture -->
       <div class="gallery-item" data-cat="events" onclick="openLightbox(this)">
         <img src="cultural.jpg" alt="Cultural Day" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="music"></i>Cultural Day</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Annual Cultural Day</span></div>
       </div>
       <div class="gallery-item" data-cat="events" onclick="openLightbox(this)">
         <img src="KIH_0116.jpg" alt="Graduation" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="graduation-cap"></i>Graduation</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Graduation Ceremony</span></div>
       </div>
       <div class="gallery-item" data-cat="events" onclick="openLightbox(this)">
         <img src="Board.JPG" alt="Board Meeting" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="users"></i>Board</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Board of Governors</span></div>
       </div>
 
       <!-- Sports -->
       <div class="gallery-item" data-cat="sports" onclick="openLightbox(this)">
         <img src="sports.jpg" alt="Sports" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="trophy"></i>Sports</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Inter-College Sports</span></div>
       </div>
 
       <!-- Community -->
       <div class="gallery-item" data-cat="community" onclick="openLightbox(this)">
         <img src="socialwork.jpg" alt="Community Work" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="handshake"></i>Community</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Community Outreach</span></div>
       </div>
       <div class="gallery-item" data-cat="community" onclick="openLightbox(this)">
         <img src="tourism.jpg" alt="Tourism" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="gallery-placeholder" style="display:none"><i data-lucide="plane"></i>Tourism</div>
-        <div class="gallery-item-overlay"><span class="gallery-item-label"></span></div>
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Tourism & Hospitality Excursion</span></div>
       </div>
 
     </div>
@@ -2164,28 +2412,32 @@ footer{
     <div class="footer-brand">
       <div class="main">KIHARU TECHNICAL & VOCATIONAL COLLEGE</div>
       <p style="margin-top:10px;">Skills to Equip and Empower.</p>
-      <div style="margin-top:18px;font-size:13px;opacity:.6;">P.O. Box 29-10200 | Tel: 0720 657 630</div>
+      <div style="margin-top:18px;font-size:13px;opacity:.6;">
+        <i data-lucide="map-pin" style="width:12px;height:12px;stroke:rgba(255,255,255,0.6);vertical-align:-2px;margin-right:4px;"></i>Gaturi Ward, Kiambugi, Murang'a County<br>
+        <i data-lucide="mail" style="width:12px;height:12px;stroke:rgba(255,255,255,0.6);vertical-align:-2px;margin-right:4px;margin-top:6px;display:inline-block;"></i>P.O. Box 29-10200<br>
+        <i data-lucide="phone" style="width:12px;height:12px;stroke:rgba(255,255,255,0.6);vertical-align:-2px;margin-right:4px;display:inline-block;"></i>Tel: 0720 657 630
+      </div>
     </div>
     <div class="footer-col">
       <h4>Students</h4>
-      <a onclick="showPage('apply')">How to Apply</a>
-      <a onclick="showPage('registrar')">Registrar</a>
-      <a onclick="showPage('quicklinks')">Quick Links</a>
-      <a onclick="showPage('counselling')">Counselling</a>
+      <a onclick="showPage('apply')"><i class="footer-link-icon" data-lucide="clipboard-list"></i>How to Apply</a>
+      <a onclick="showPage('registrar')"><i class="footer-link-icon" data-lucide="building-2"></i>Registrar</a>
+      <a onclick="showPage('quicklinks')"><i class="footer-link-icon" data-lucide="link"></i>Quick Links</a>
+      <a onclick="showPage('counselling')"><i class="footer-link-icon" data-lucide="message-circle"></i>Counselling</a>
     </div>
    
     <div class="footer-col">
       <h4>College</h4>
-      <a onclick="showPage('jobs')">Job Adverts</a>
-      <a onclick="showPage('tenders')">Tenders</a>
-      <a onclick="showPage('gallery')">Gallery</a>
-      <a onclick="showPage('contact')">Contact Us</a>
-      <a href="feesstructure.pdf" target="_blank">Fees Structure</a>
+      <a onclick="showPage('jobs')"><i class="footer-link-icon" data-lucide="briefcase"></i>Job Adverts</a>
+      <a onclick="showPage('tenders')"><i class="footer-link-icon" data-lucide="file-check"></i>Tenders</a>
+      <a onclick="showPage('gallery')"><i class="footer-link-icon" data-lucide="image"></i>Gallery</a>
+      <a onclick="showPage('contact')"><i class="footer-link-icon" data-lucide="phone"></i>Contact Us</a>
+      <a href="feesstructure.pdf" target="_blank"><i class="footer-link-icon" data-lucide="file-text"></i>Fees Structure</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 Kiharu Technical & Vocational College — All rights reserved</span>
-    <span>TVETA Accredited Institution</span>
+    <span><i data-lucide="copyright" style="width:12px;height:12px;stroke:rgba(255,255,255,0.5);vertical-align:-2px;margin-right:3px;"></i>2026 Kiharu Technical & Vocational College — All rights reserved</span>
+    <span><i data-lucide="shield-check" style="width:12px;height:12px;stroke:rgba(255,255,255,0.5);vertical-align:-2px;margin-right:3px;"></i>TVETA Accredited Institution</span>
   </div>
 </footer>
 
@@ -2196,7 +2448,7 @@ footer{
   <div class="modal">
     <div class="modal-head">
       <button class="modal-close" onclick="closeModal()"><i data-lucide="x"></i></button>
-      <h2>Join Kiharu TVC</h2>
+      <div style="font-size:36px;margin-bottom:12px;"><i data-lucide="star" style="width:40px;height:40px;stroke:white;display:block;margin:0 auto 12px;"></i></div><h2>Join Kiharu TVC</h2>
       <p>Choose how you'd like to be part of our community</p>
     </div>
     <div class="modal-body">
@@ -2207,7 +2459,7 @@ footer{
           <p>Enrol in a certificate or diploma programme</p>
         </a>
         <a class="modal-option" href="mailto:info@kiharutvc.ac.ke">
-          <div class="icon"><i data-lucide="user-square-2"></i></div>
+          <div class="icon"><i data-lucide="user-round"></i></div>
           <h4>Join as Staff</h4>
           <p>Teaching & non-teaching vacancies</p>
         </a>
@@ -2277,16 +2529,33 @@ ugCourses.forEach(c=>{
 });
 
 /* ===== PAGE NAVIGATION ===== */
-function showPage(id){
+function showPage(id, pushHistory){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   const target=document.getElementById("page-"+id);
   if(target){
     target.classList.add("active");
     window.scrollTo({top:0,behavior:"smooth"});
   }
-  // Update nav active state
   document.querySelectorAll(".nav-link").forEach(l=>l.classList.remove("active"));
+  // Push a history entry so the browser back button navigates between pages
+  if(pushHistory !== false){
+    history.pushState({page:id}, '', '#'+id);
+  }
 }
+
+// Handle browser back / forward buttons
+window.addEventListener('popstate', function(e){
+  const id = (e.state && e.state.page) ? e.state.page : 'home';
+  showPage(id, false);
+});
+
+// On first load, set initial history state so back works from the first page
+(function(){
+  const hash = location.hash.replace('#','');
+  const startPage = hash && document.getElementById('page-'+hash) ? hash : 'home';
+  history.replaceState({page:startPage}, '', '#'+startPage);
+  showPage(startPage, false);
+})();
 
 /* ===== MODAL ===== */
 function openModal(){document.getElementById("joinModal").classList.add("open");}
@@ -2294,6 +2563,36 @@ function closeModal(){document.getElementById("joinModal").classList.remove("ope
 document.getElementById("joinModal").addEventListener("click",function(e){
   if(e.target===this) closeModal();
 });
+
+/* ===== DARK / LIGHT MODE ===== */
+(function(){
+  const saved = localStorage.getItem('kiharuTheme');
+  if(saved === 'dark') applyTheme('dark', false);
+})();
+
+function applyTheme(theme, save){
+  const btn = document.getElementById('themeToggle');
+  if(theme === 'dark'){
+    document.documentElement.setAttribute('data-theme','dark');
+    if(btn){
+      btn.innerHTML = '<i data-lucide="sun"></i><span class="theme-toggle-label">Light</span>';
+      btn.title = 'Switch to light mode';
+    }
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    if(btn){
+      btn.innerHTML = '<i data-lucide="moon"></i><span class="theme-toggle-label">Dark</span>';
+      btn.title = 'Switch to dark mode';
+    }
+  }
+  if(save) localStorage.setItem('kiharuTheme', theme);
+  lucide.createIcons();
+}
+
+function toggleTheme(){
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  applyTheme(isDark ? 'light' : 'dark', true);
+}
 
 /* ===== MOBILE DRAWER ===== */
 function openDrawer(){
@@ -2332,10 +2631,51 @@ function closeLightbox(e){
   }
 }
 
+/* ===== SERVICE CHARTER IMAGE ===== */
+function loadCharterImage(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    const img = document.getElementById('charterImg');
+    img.src = ev.target.result;
+    img.style.display = 'block';
+    document.getElementById('charterUploadZone').style.display = 'none';
+    document.getElementById('charterImgActions').style.display = 'flex';
+    try{ localStorage.setItem('kiharuCharterImg', ev.target.result); }catch(e){}
+  };
+  reader.readAsDataURL(file);
+}
+function removeCharterImage(){
+  document.getElementById('charterImg').src='';
+  document.getElementById('charterImg').style.display='none';
+  document.getElementById('charterUploadZone').style.display='flex';
+  document.getElementById('charterImgActions').style.display='none';
+  document.getElementById('charterFileInput').value='';
+  try{ localStorage.removeItem('kiharuCharterImg'); }catch(e){}
+}
+(function(){
+  try{
+    const stored = localStorage.getItem('kiharuCharterImg');
+    if(stored){
+      const img = document.getElementById('charterImg');
+      img.src = stored;
+      img.style.display = 'block';
+      document.getElementById('charterUploadZone').style.display = 'none';
+      document.getElementById('charterImgActions').style.display = 'flex';
+    }
+  }catch(e){}
+})();
 
-
-
-
+/* ===== CAROUSEL SPEED ===== */
+function setCarouselSpeed(seconds, e){
+  document.getElementById('mainCarousel').style.setProperty('--carousel-speed', seconds+'s');
+  const track = document.querySelector('.carousel-track');
+  if(track) track.style.animationDuration = seconds+'s';
+  document.querySelectorAll('.spd-btn').forEach(b=>b.classList.remove('spd-active'));
+  const btn = (e && e.target) ? e.target : document.querySelector('.spd-btn');
+  if(btn) btn.classList.add('spd-active');
+}
 
 /* ===== INIT LUCIDE ===== */
 lucide.createIcons();
