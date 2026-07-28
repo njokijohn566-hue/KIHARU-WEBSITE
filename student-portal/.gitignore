@@ -1,0 +1,16 @@
+# Root .gitignore
+node_modules/
+.env
+.env.local
+.DS_Store
+
+# Docker
+.dockerignore
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log

@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: student_portal_db
+    environment:
+      POSTGRES_DB: student_portal
+      POSTGRES_USER: student_user
+      POSTGRES_PASSWORD: secure_password_change_me
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    networks:
+      - student_portal_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U student_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: student_portal_backend
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://student_user:secure_password_change_me@postgres:5432/student_portal
+      JWT_SECRET: your_jwt_secret_key_change_this
+      JWT_EXPIRE: 7d
+      PORT: 5000
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - student_portal_network
+    command: npm run dev
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: student_portal_frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:5000/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - student_portal_network
+    command: npm run dev
+
+volumes:
+  postgres_data:
+
+networks:
+  student_portal_network:
+    driver: bridge
