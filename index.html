@@ -867,6 +867,50 @@ nav{display:flex;align-items:center;gap:4px;}
   width:100%;
 }
 .submit-btn:hover{background:var(--maroon-light);transform:translateY(-2px);}
+.submit-btn:disabled{opacity:.65;cursor:not-allowed;transform:none;}
+
+/* Form feedback messages */
+.form-msg{
+  display:none;
+  align-items:flex-start;gap:12px;
+  padding:16px 20px;
+  border-radius:12px;
+  font-size:14px;font-weight:600;
+  margin-top:18px;
+  line-height:1.5;
+}
+.form-msg.show{display:flex;}
+.form-msg-success{background:rgba(26,122,48,0.08);border:1.5px solid rgba(26,122,48,0.3);color:#1a7a30;}
+.form-msg-error  {background:rgba(192,57,43,0.08); border:1.5px solid rgba(192,57,43,0.3); color:#c0392b;}
+.form-msg .lucide{width:18px;height:18px;flex-shrink:0;margin-top:1px;}
+.form-msg-success .lucide{stroke:#1a7a30;}
+.form-msg-error   .lucide{stroke:#c0392b;}
+
+/* Inline field error */
+.field-error{
+  display:none;font-size:11.5px;color:#c0392b;
+  margin-top:4px;font-weight:600;
+  gap:4px;align-items:center;
+}
+.field-error.show{display:flex;}
+.field-error .lucide{width:11px;height:11px;stroke:#c0392b;flex-shrink:0;}
+
+/* Invalid field highlight */
+.form-group input.invalid,
+.form-group textarea.invalid,
+.form-group select.invalid{
+  border-color:#c0392b;
+}
+
+/* Honeypot — hidden from real users, bots fill it in */
+.form-hp{display:none !important;visibility:hidden;position:absolute;left:-9999px;}
+
+[data-theme="dark"] .form-msg-success{background:rgba(26,122,48,0.15);border-color:rgba(26,122,48,0.4);color:#3dba61;}
+[data-theme="dark"] .form-msg-error  {background:rgba(192,57,43,0.15); border-color:rgba(192,57,43,0.4); color:#e74c3c;}
+[data-theme="dark"] .field-error{color:#e74c3c;}
+[data-theme="dark"] .form-group input.invalid,
+[data-theme="dark"] .form-group textarea.invalid,
+[data-theme="dark"] .form-group select.invalid{border-color:#e74c3c;}
 
 /* RESEARCH */
 .research-highlight{
@@ -993,7 +1037,7 @@ footer{
   max-width:1280px;
   margin:0 auto;
   display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr;
+  grid-template-columns:2fr 1fr 1fr;
   gap:36px;
   padding-bottom:36px;
   border-bottom:1px solid rgba(255,255,255,0.12);
@@ -1038,10 +1082,10 @@ footer{
   gap:8px;
 }
 
-/* ===== SOCIAL MEDIA BAR (above footer) ===== */
+/* ===== SOCIAL MEDIA BAR (below header) ===== */
 .social-bar{
   background:var(--maroon);
-  padding:28px 24px;
+  padding:16px 24px;
   text-align:center;
 }
 .social-bar-inner{
@@ -1073,8 +1117,8 @@ footer{
   gap:10px;
 }
 .social-link{
-  width:44px;height:44px;
-  border-radius:12px;
+  width:38px;height:38px;
+  border-radius:10px;
   background:rgba(255,255,255,0.1);
   border:1.5px solid rgba(255,255,255,0.15);
   display:flex;align-items:center;justify-content:center;
@@ -1084,11 +1128,11 @@ footer{
 }
 .social-link:hover{
   border-color:rgba(255,255,255,0.6);
-  transform:translateY(-3px);
-  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(0,0,0,0.25);
 }
 .social-link svg{
-  width:20px;height:20px;
+  width:17px;height:17px;
   fill:white;
   flex-shrink:0;
   transition:transform .2s;
@@ -1100,35 +1144,6 @@ footer{
 .social-link.tiktok:hover{background:#010101;border-color:#69c9d0;}
 .social-link.instagram:hover{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285aeb 90%);border-color:transparent;}
 .social-link.facebook:hover{background:#1877f2;border-color:#1877f2;}
-
-/* Footer social column */
-.footer-social-col h4{
-  font-size:12px;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  margin-bottom:14px;
-  font-weight:700;
-}
-.footer-social-icons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-.footer-social-link{
-  width:36px;height:36px;
-  border-radius:10px;
-  background:rgba(255,255,255,0.1);
-  border:1.5px solid rgba(255,255,255,0.15);
-  display:flex;align-items:center;justify-content:center;
-  text-decoration:none;
-  transition:background .22s, border-color .22s, transform .2s;
-}
-.footer-social-link:hover{transform:translateY(-2px);}
-.footer-social-link.youtube:hover{background:#ff0000;border-color:#ff0000;}
-.footer-social-link.tiktok:hover{background:#010101;border-color:#69c9d0;}
-.footer-social-link.instagram:hover{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285aeb 90%);border-color:transparent;}
-.footer-social-link.facebook:hover{background:#1877f2;border-color:#1877f2;}
-.footer-social-link svg{width:16px;height:16px;fill:white;}
 
 /* JOIN US MODAL */
 .modal-overlay{
@@ -1276,7 +1291,7 @@ footer{
   .modal-options{grid-template-columns:1fr;}
   .social-bar-divider{display:none;}
   .social-bar-inner{gap:16px;}
-  .social-link{width:40px;height:40px;}
+  .social-link{width:34px;height:34px;}
 }
 
 /* Mobile nav drawer */
@@ -1951,7 +1966,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <span><i data-lucide="map-pin"></i> Gaturi Ward, Kiambugi | P.O. BOX 29-10200 | Tel: <a href="tel:0720657630">0720 657 630</a></span>
+  <span><i data-lucide="map-pin"></i> Gaturi Ward, Kiambugi | P.O. BOX 29-10200 | Tel: <a href="tel:0720657630">0720 657 630 / 0748 658 276</a></span>
   <span><i data-lucide="graduation-cap"></i>TVET Approved Institution</span>
 </div>
 
@@ -2033,6 +2048,47 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   </div>
 </header>
 
+<!-- ================================================
+     SOCIAL MEDIA BAR (relocated for maximum visibility)
+================================================ -->
+<div class="social-bar">
+  <div class="social-bar-inner">
+    <span class="social-bar-label">Follow Us</span>
+    <div class="social-bar-divider"></div>
+    <div class="social-icons">
+
+      <!-- YouTube -->
+      <a href="https://www.youtube.com/@KIHARU_TVC" class="social-link youtube" target="_blank" rel="noopener" title="YouTube">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      </a>
+
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@kiharu.tvc?_r=1&_t=ZS-98R8exNh59D" class="social-link tiktok" target="_blank" rel="noopener" title="TikTok">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+        </svg>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/kiharu_tvc?igsh=MjhkcjJqemZ1Z3Nk" class="social-link instagram" target="_blank" rel="noopener" title="Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+        </svg>
+      </a>
+
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/share/1ENLUp92XA/" class="social-link facebook" target="_blank" rel="noopener" title="Facebook">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      </a>
+
+    </div>
+  </div>
+</div>
+
 <!-- MOBILE OVERLAY -->
 <div class="mobile-overlay" id="mobileOverlay" onclick="closeDrawer()"></div>
 
@@ -2071,7 +2127,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   <!-- HERO -->
   <div class="hero">
     <div class="hero-inner">
-      <div class="hero-badge"><i data-lucide="shield-check"></i> TVET CDACC Accredited Institution/TVET Government institution — Est. 2005</div>
+      <div class="hero-badge"><i data-lucide="shield-check"></i> TVETA Accredited Institution TVET Government institution</div>
       <h1>Skills to Equip<br>& Empower</h1>
       <p>Kiharu Technical & Vocational College — perfecting skills, building character and nuturing talents.</p>
       <div class="hero-actions">
@@ -2469,7 +2525,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
         <div class="info-card-icon"><i data-lucide="chart-bar-big"></i></div>
         <h3>CDACC Portal</h3>
         <p>Access the Kenya National Examinations Council portal for results and exam entry.</p>
-        <a href="https://cdacc.go.ke/" class="card-text-link" target="_blank" rel="noopener">
+        <a href="https://tvetcdacc.go.ke/" class="card-text-link" target="_blank" rel="noopener">
           <i data-lucide="external-link"></i> Visit CDACC Portal
         </a>
       </div>
@@ -2477,7 +2533,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
         <div class="info-card-icon"><i data-lucide="landmark"></i></div>
         <h3>TVETA Portal</h3>
         <p>Technical and Vocational Education and Training Authority — accreditation and compliance.</p>
-        <a href="https://www.tveta.go.ke/" class="card-text-link" target="_blank" rel="noopener">
+        <a href="https://www.tveta.go.ke/institution-details/?details=TVETA/PUBLIC/TVC/0029/2023" class="card-text-link" target="_blank" rel="noopener">
           <i data-lucide="external-link"></i> Visit TVETA Portal
         </a>
       </div>
@@ -2584,38 +2640,86 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       </div>
 
         <div class="contact-form">
-        <h3><i data-lucide="message-square" style="width:20px;height:20px;stroke:var(--maroon);vertical-align:-4px;margin-right:6px;"></i>Send Us a Message</h3>
-        <div class="form-row">
-          <div class="form-group">
-            <label><i class="form-label-icon" data-lucide="user"></i> Full Name</label>
-            <input type="text" placeholder="Your name">
-          </div>
-          <div class="form-group">
-            <label><i class="form-label-icon" data-lucide="phone"></i> Phone Number</label>
-            <input type="tel" placeholder="07XX XXX XXX">
-          </div>
+          <h3><i data-lucide="message-square" style="width:20px;height:20px;stroke:var(--maroon);vertical-align:-4px;margin-right:6px;"></i>Send Us a Message</h3>
+
+          <!--
+            ============================================================
+            FORMSPREE SETUP — two easy steps:
+            1. Go to https://formspree.io and create a free account.
+            2. Create a new form, then copy your endpoint URL.
+               It looks like: https://formspree.io/f/XXXXXXXX
+            3. Replace the placeholder below with your endpoint URL:
+            ============================================================
+          -->
+          <form id="contactForm" novalidate>
+
+            <!-- Honeypot field — invisible to humans, traps bots -->
+            <input type="text" name="_gotcha" class="form-hp" tabindex="-1" autocomplete="off">
+            <!-- Hidden subject line prefix for Formspree -->
+            <input type="hidden" name="_subject" value="New message from Kiharu TVC website">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cf-name"><i class="form-label-icon" data-lucide="user"></i> Full Name <span style="color:#c0392b;">*</span></label>
+                <input type="text" id="cf-name" name="name" placeholder="Your full name" autocomplete="name">
+                <div class="field-error" id="err-name"><i data-lucide="alert-circle"></i> Please enter your full name.</div>
+              </div>
+              <div class="form-group">
+                <label for="cf-phone"><i class="form-label-icon" data-lucide="phone"></i> Phone Number</label>
+                <input type="tel" id="cf-phone" name="phone" placeholder="07XX XXX XXX" autocomplete="tel">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="cf-email"><i class="form-label-icon" data-lucide="mail"></i> Email Address <span style="color:#c0392b;">*</span></label>
+              <input type="email" id="cf-email" name="email" placeholder="your@email.com" autocomplete="email">
+              <div class="field-error" id="err-email"><i data-lucide="alert-circle"></i> Please enter a valid email address.</div>
+            </div>
+
+            <div class="form-group">
+              <label for="cf-subject"><i class="form-label-icon" data-lucide="tag"></i> Subject <span style="color:#c0392b;">*</span></label>
+              <select id="cf-subject" name="subject">
+                <option value="">— Select a subject —</option>
+                <option value="General Enquiry">General Enquiry</option>
+                <option value="Admissions">Admissions</option>
+                <option value="Academic Issues">Academic Issues</option>
+                <option value="Fees & Finance">Fees &amp; Finance</option>
+                <option value="Foundation / Partnership">Foundation / Partnership</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="field-error" id="err-subject"><i data-lucide="alert-circle"></i> Please select a subject.</div>
+            </div>
+
+            <div class="form-group">
+              <label for="cf-message"><i class="form-label-icon" data-lucide="message-circle"></i> Message <span style="color:#c0392b;">*</span></label>
+              <textarea id="cf-message" name="message" placeholder="How can we help you?" rows="5"></textarea>
+              <div class="field-error" id="err-message"><i data-lucide="alert-circle"></i> Please enter your message (at least 10 characters).</div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="cf-submit">
+              <i data-lucide="send"></i> <span id="cf-btn-text">Send Message</span>
+            </button>
+
+            <!-- Success message -->
+            <div class="form-msg form-msg-success" id="form-success" role="alert">
+              <i data-lucide="circle-check"></i>
+              <div>
+                <strong>Message sent successfully!</strong><br>
+                Thank you for reaching out. We will get back to you within 1–2 business days.
+              </div>
+            </div>
+
+            <!-- Error message -->
+            <div class="form-msg form-msg-error" id="form-error" role="alert">
+              <i data-lucide="alert-triangle"></i>
+              <div>
+                <strong>Something went wrong.</strong><br>
+                <span id="form-error-detail">Please try again or contact us directly by phone.</span>
+              </div>
+            </div>
+
+          </form>
         </div>
-        <div class="form-group">
-          <label><i class="form-label-icon" data-lucide="mail"></i> Email Address</label>
-          <input type="email" placeholder="your@email.com">
-        </div>
-        <div class="form-group">
-          <label><i class="form-label-icon" data-lucide="tag"></i> Subject</label>
-          <select>
-            <option>General Enquiry</option>
-            <option>Admissions</option>
-            <option>Academic Issues</option>
-            <option>Fees & Finance</option>
-            <option>Foundation / Partnership</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label><i class="form-label-icon" data-lucide="message-circle"></i> Message</label>
-          <textarea placeholder="How can we help you?"></textarea>
-        </div>
-        <button class="submit-btn"><i data-lucide="send"></i> Send Message</button>
-      </div>
     </div>
   </div>
 </div>
@@ -2916,7 +3020,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       </div>
 
       <!-- See More -->
-      <a href="#" class="gallery-see-more" data-cat="all">
+      <a href="https://kiharutvc.pixieset.com/mrandmisskiharutvc/" class="gallery-see-more" data-cat="all">
         <div class="gallery-see-more-icon">
           <i data-lucide="images"></i>
         </div>
@@ -2948,7 +3052,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
         <div class="remark-card-header">
           <!-- Static photo display (developer-provided image, or blank) -->
           <div class="remark-photo">
-            <img id="chairman-photo-img" src="" alt="Chairman" style="display:none;">
+            <img id="chairman-photo-img" src="chair.jpg" alt="Chairman" style="display:none;">
             <div class="remark-photo-placeholder" id="chairman-photo-placeholder">
               <i data-lucide="user-round"></i>
             </div>
@@ -3032,47 +3136,6 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 </div>
 
 <!-- ================================================
-     SOCIAL MEDIA BAR
-================================================ -->
-<div class="social-bar">
-  <div class="social-bar-inner">
-    <span class="social-bar-label">Follow Us</span>
-    <div class="social-bar-divider"></div>
-    <div class="social-icons">
-
-      <!-- YouTube -->
-      <a href="https://www.youtube.com/@KIHARU_TVC" class="social-link youtube" target="_blank" rel="noopener" title="YouTube">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-        </svg>
-      </a>
-
-      <!-- TikTok -->
-      <a href="https://www.tiktok.com/@kiharu.tvc?_r=1&_t=ZS-98R8exNh59D" class="social-link tiktok" target="_blank" rel="noopener" title="TikTok">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
-        </svg>
-      </a>
-
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/kiharu_tvc/" class="social-link instagram" target="_blank" rel="noopener" title="Instagram">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
-        </svg>
-      </a>
-
-      <!-- Facebook -->
-      <a href="https://www.facebook.com/share/1ENLUp92XA/" class="social-link facebook" target="_blank" rel="noopener" title="Facebook">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-        </svg>
-      </a>
-
-    </div>
-  </div>
-</div>
-
-<!-- ================================================
      FOOTER
 ================================================ -->
 <footer>
@@ -3101,34 +3164,6 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       <a onclick="showPage('gallery')"><i class="footer-link-icon" data-lucide="image"></i>Gallery</a>
       <a onclick="showPage('contact')"><i class="footer-link-icon" data-lucide="phone"></i>Contact Us</a>
       <a href="feesstructure.pdf" target="_blank"><i class="footer-link-icon" data-lucide="file-text"></i>Fees Structure</a>
-    </div>
-
-    <!-- Follow Us column -->
-    <div class="footer-social-col">
-      <h4>Follow Us</h4>
-      <div class="footer-social-icons">
-
-        <!-- YouTube -->
-        <a href="#" class="footer-social-link youtube" target="_blank" rel="noopener" title="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-        </a>
-
-        <!-- TikTok -->
-        <a href="#" class="footer-social-link tiktok" target="_blank" rel="noopener" title="TikTok">
-          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
-        </a>
-
-        <!-- Instagram -->
-        <a href="#" class="footer-social-link instagram" target="_blank" rel="noopener" title="Instagram">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-        </a>
-
-        <!-- Facebook -->
-        <a href="#" class="footer-social-link facebook" target="_blank" rel="noopener" title="Facebook">
-          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
-
-      </div>
     </div>
   </div>
   <div class="footer-bottom">
@@ -3167,7 +3202,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
         <a class="modal-option" href="tel:0720657630">
           <div class="icon"><i data-lucide="phone"></i></div>
           <h4>Call Us Directly</h4>
-          <p>Speak to admissions: 0720 657 630</p>
+          <p>Speak to admissions: 0720 657 630 / 0748 658 276</p>
         </a>
       </div>
     </div>
@@ -3347,6 +3382,193 @@ function setCarouselSpeed(seconds, e){
   var btn = (e && e.target) ? e.target : null;
   if(btn) btn.classList.add('spd-active');
 }
+
+/* ================================================================
+   CONTACT FORM — FORMSPREE INTEGRATION
+   ================================================================
+   Endpoint is live and wired to the college's email address.
+   To change the recipient email, log in to https://formspree.io,
+   open the form dashboard, and update the email there — no code
+   change needed.
+
+   If you ever need to point this to a different Formspree form,
+   update FORMSPREE_ENDPOINT below. That is the only line to edit.
+   ================================================================ */
+
+/* ── ① THE ONLY LINE TO EDIT if you ever change forms ────────── */
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
+/* ─────────────────────────────────────────────────────────────── */
+
+(function () {
+
+  /* ── ② Grab the form and all UI elements by their existing ids ─ */
+  var form       = document.getElementById('contactForm');
+  if (!form) return; /* bail safely if the form isn't on this page */
+
+  var btn        = document.getElementById('cf-submit');
+  var btnText    = document.getElementById('cf-btn-text');
+  var msgSuccess = document.getElementById('form-success');
+  var msgError   = document.getElementById('form-error');
+  var errDetail  = document.getElementById('form-error-detail');
+
+  /* ── ③ Field references (used for validation and error display) ─ */
+  var fName    = document.getElementById('cf-name');
+  var fEmail   = document.getElementById('cf-email');
+  var fSubject = document.getElementById('cf-subject');
+  var fMessage = document.getElementById('cf-message');
+
+  /* ── ④ Duplicate-submission guard ──────────────────────────────
+     Set to true while a fetch is in flight; reset in finally().
+     Prevents double-clicks and rapid re-submissions.            */
+  var isSubmitting = false;
+
+  /* ── ⑤ Validation helpers ───────────────────────────────────── */
+
+  /* Shows or hides the inline error below a field */
+  function setFieldError(inputEl, errId, hasError) {
+    var errEl = document.getElementById(errId);
+    if (hasError) {
+      inputEl.classList.add('invalid');
+      if (errEl) errEl.classList.add('show');
+    } else {
+      inputEl.classList.remove('invalid');
+      if (errEl) errEl.classList.remove('show');
+    }
+  }
+
+  /* Basic email format check */
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+  }
+
+  /* Validates all required fields; returns true only if all pass */
+  function validateForm() {
+    var nameEmpty    = !fName.value.trim();
+    var emailBad     = !isValidEmail(fEmail.value);
+    var subjectEmpty = !fSubject.value;
+    var msgShort     = fMessage.value.trim().length < 10;
+
+    setFieldError(fName,    'err-name',    nameEmpty);
+    setFieldError(fEmail,   'err-email',   emailBad);
+    setFieldError(fSubject, 'err-subject', subjectEmpty);
+    setFieldError(fMessage, 'err-message', msgShort);
+
+    return !nameEmpty && !emailBad && !subjectEmpty && !msgShort;
+  }
+
+  /* ── ⑥ Live error clearing ──────────────────────────────────────
+     Each required field clears its own error the moment the user
+     starts typing/changing, giving immediate positive feedback.  */
+  var fieldErrMap = {
+    'cf-name'   : 'err-name',
+    'cf-email'  : 'err-email',
+    'cf-subject': 'err-subject',
+    'cf-message': 'err-message'
+  };
+
+  [fName, fEmail, fSubject, fMessage].forEach(function (el) {
+    /* 'input' covers typing; 'change' covers select dropdowns    */
+    ['input', 'change'].forEach(function (evt) {
+      el.addEventListener(evt, function () {
+        el.classList.remove('invalid');
+        var errEl = document.getElementById(fieldErrMap[el.id]);
+        if (errEl) errEl.classList.remove('show');
+      });
+    });
+  });
+
+  /* ── ⑦ Form submit handler ──────────────────────────────────── */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); /* stop the default browser page reload    */
+
+    /* ── Honeypot: bots fill this hidden field; humans leave it blank.
+       If it has any value, silently discard the submission.      */
+    var hp = form.querySelector('input[name="_gotcha"]');
+    if (hp && hp.value.length > 0) {
+      /* Pretend success so the bot gets no feedback              */
+      return;
+    }
+
+    /* ── Duplicate-submission guard ─────────────────────────────── */
+    if (isSubmitting) { return; }
+
+    /* ── Client-side validation ─────────────────────────────────── */
+    if (!validateForm()) {
+      /* Hide any stale feedback banners                          */
+      msgSuccess.classList.remove('show');
+      msgError.classList.remove('show');
+      /* Scroll the first red field into view for the user       */
+      var firstInvalid = form.querySelector('.invalid');
+      if (firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    /* ── Lock the form ─────────────────────────────────────────── */
+    isSubmitting      = true;
+    btn.disabled      = true;
+    btnText.textContent = 'Sending\u2026'; /* "Sending…"           */
+
+    /* Hide any previously shown feedback banners                */
+    msgSuccess.classList.remove('show');
+    msgError.classList.remove('show');
+
+    /* ── Build the payload ──────────────────────────────────────
+       FormData automatically collects every named <input>,
+       <select>, and <textarea> inside the form, including:
+         name, phone, email, subject, message, _gotcha, _subject  */
+    var payload = new FormData(form);
+
+    /* ── Send to Formspree via fetch ────────────────────────────
+       'Accept: application/json' tells Formspree to reply in
+       JSON rather than redirecting, which is required for AJAX. */
+    fetch(FORMSPREE_ENDPOINT, {
+      method : 'POST',
+      body   : payload,
+      headers: { 'Accept': 'application/json' }
+    })
+
+    /* ── Handle the response ─────────────────────────────────── */
+    .then(function (response) {
+      if (response.ok) {
+        /* ── SUCCESS ─────────────────────────────────────────── */
+        form.reset();                          /* clear all fields */
+        msgSuccess.classList.add('show');      /* show green banner */
+        msgSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        /* ── HTTP-level failure (4xx / 5xx) ─────────────────── */
+        return response.json().then(function (body) {
+          /* Formspree puts a human-readable reason in body.error */
+          var reason = (body && body.error)
+            ? body.error
+            : 'Server returned status ' + response.status + '.';
+          throw new Error(reason);
+        });
+      }
+    })
+
+    /* ── Handle network errors or thrown errors ─────────────── */
+    .catch(function (err) {
+      errDetail.textContent = err.message
+        ? err.message + ' Please try again or contact us by phone.'
+        : 'A network error occurred. Please check your connection and try again.';
+      msgError.classList.add('show');
+      msgError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    })
+
+    /* ── Always unlock the form when done ───────────────────── */
+    .finally(function () {
+      isSubmitting        = false;
+      btn.disabled        = false;
+      btnText.textContent = 'Send Message';
+      /* Re-run Lucide so the send icon re-renders after reset  */
+      if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+    });
+
+  }); /* end submit handler */
+
+})(); /* end IIFE */
 
 /* ===== INIT LUCIDE ===== */
 lucide.createIcons();
