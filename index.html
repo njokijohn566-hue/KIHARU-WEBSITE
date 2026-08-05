@@ -2644,11 +2644,13 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 
           <!--
             ============================================================
-            FORMSPREE SETUP — two easy steps:
-            1. Go to https://formspree.io and create a free account.
-            2. Create a new form, then copy your endpoint URL.
-               It looks like: https://formspree.io/f/XXXXXXXX
-            3. Replace the placeholder below with your endpoint URL:
+            FORMSPREE — already fully configured.
+            This form submits via JavaScript (see FORMSPREE_ENDPOINT
+            near the bottom of the page, currently set to:
+            https://formspree.io/f/xyeggrnw
+            No action="" attribute is used here on purpose — the
+            submit handler intercepts the submit event and posts
+            the form data with fetch(). No further setup needed.
             ============================================================
           -->
           <form id="contactForm" novalidate>
