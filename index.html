@@ -3231,13 +3231,18 @@ const longCourses=[
 ];
 
 const grid=document.getElementById("coursesGrid");
-longCourses.forEach(c=>{
-  const a=document.createElement("a");
-  a.href=`course-detail.html?course=${c.slug}`;
-  a.className="course-card";
-  a.innerHTML=`<img class="course-image" src="${c.image}" alt="${c.name}"><div class="course-caption"><i data-lucide="${c.icon}"></i> ${c.name}</div>`;
-  grid.appendChild(a);
-});
+/* Guarded the same way as ugGrid below — cheap insurance against
+   this exact class of "one missing element kills the whole script"
+   bug happening again. */
+if(grid){
+  longCourses.forEach(c=>{
+    const a=document.createElement("a");
+    a.href=`course-detail.html?course=${c.slug}`;
+    a.className="course-card";
+    a.innerHTML=`<img class="course-image" src="${c.image}" alt="${c.name}"><div class="course-caption"><i data-lucide="${c.icon}"></i> ${c.name}</div>`;
+    grid.appendChild(a);
+  });
+}
 
 /* ===== UNDERGRADUATE GRID ===== */
 const ugCourses=[
@@ -3254,12 +3259,27 @@ const ugCourses=[
 ];
 
 const ugGrid=document.getElementById("ugGrid");
-ugCourses.forEach(c=>{
-  const d=document.createElement("div");
-  d.className="programme-item";
-  d.innerHTML=`<div class="prog-icon"><i data-lucide="${c.icon}"></i></div><div><h4>${c.name}</h4><p>${c.duration}</p></div>`;
-  ugGrid.appendChild(d);
-});
+/* FIX: #ugGrid does not exist anywhere in this HTML file. Calling
+   .appendChild on the null result of getElementById used to throw
+   here, which is a synchronous top-level error — it killed every
+   line of JS that came AFTER it in this <script> block, including
+   the join-modal listener, dark-mode init, mobile drawer, gallery,
+   carousel speed controls, and — critically — the entire Formspree
+   contact-form submit handler further down the file. That is the
+   real reason the contact form did not work: its event listener
+   was never attached, so clicking "Send Message" fell through to
+   the browser's native (page-reloading) form submission instead.
+   Guarding with "if(ugGrid)" lets this block run harmlessly when
+   the element is present and simply skip it when it is not,
+   without touching any markup, layout, or styling. */
+if(ugGrid){
+  ugCourses.forEach(c=>{
+    const d=document.createElement("div");
+    d.className="programme-item";
+    d.innerHTML=`<div class="prog-icon"><i data-lucide="${c.icon}"></i></div><div><h4>${c.name}</h4><p>${c.duration}</p></div>`;
+    ugGrid.appendChild(d);
+  });
+}
 
 /* ===== PAGE NAVIGATION ===== */
 function showPage(id, pushHistory){
@@ -3291,11 +3311,16 @@ window.addEventListener('popstate', function(e){
 })();
 
 /* ===== MODAL ===== */
-function openModal(){document.getElementById("joinModal").classList.add("open");}
-function closeModal(){document.getElementById("joinModal").classList.remove("open");}
-document.getElementById("joinModal").addEventListener("click",function(e){
-  if(e.target===this) closeModal();
-});
+function openModal(){const m=document.getElementById("joinModal"); if(m) m.classList.add("open");}
+function closeModal(){const m=document.getElementById("joinModal"); if(m) m.classList.remove("open");}
+(function(){
+  const joinModalEl = document.getElementById("joinModal");
+  if(joinModalEl){
+    joinModalEl.addEventListener("click",function(e){
+      if(e.target===this) closeModal();
+    });
+  }
+})();
 
 /* ===== DARK / LIGHT MODE ===== */
 (function(){
