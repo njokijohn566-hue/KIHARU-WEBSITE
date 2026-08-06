@@ -128,6 +128,10 @@ header{
   box-shadow:0 4px 20px rgba(106,24,48,0.12);
 }
 
+/* Anchor target for the "Explore Courses" button — offsets the scroll
+   position so the section isn't hidden underneath the sticky header. */
+#courses-section{scroll-margin-top:110px;}
+
 .header-inner{
   max-width:1280px;
   margin:0 auto;
@@ -2371,7 +2375,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       <p>Kiharu Technical & Vocational College — perfecting skills, building character and nuturing talents.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="showPage('apply')"><i data-lucide="clipboard-list" class="btn-icon"></i> Apply Now</button>
-        <button class="btn-outline" onclick="showPage('undergraduate')"><i data-lucide="book-open" class="btn-icon"></i> Explore Courses</button>
+        <button class="btn-outline" onclick="goToCourses()"><i data-lucide="book-open" class="btn-icon"></i> Explore Courses</button>
       </div>
     </div>
   </div>
@@ -2500,7 +2504,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
     </div>
 
     <!-- LONG COURSES -->
-    <div class="section-head" style="margin-top:10px;">
+    <div class="section-head" id="courses-section" style="margin-top:10px;">
       <h2><i class="section-icon" data-lucide="graduation-cap"></i>Courses Offered</h2>
     </div>
     <div class="courses-grid" id="coursesGrid"></div>
@@ -3707,7 +3711,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 <script>
 /* ===== LONG COURSES DATA ===== */
 const longCourses=[
-  {name:"Building & Civil Engineering",slug:"building",image:"building.jpg",icon:"hard-hat"},
+  {name:"Building & Civil Engineering",slug:"building-civil-engineering",image:"building.jpg",icon:"hard-hat"},
   {name:"Business & Liberal Studies",slug:"business-liberal-studies",image:"business.jpg",icon:"briefcase"},
   {name:"Mechanical & Automotive Engineering",slug:"mechanical-automotive-engineering",image:"mechanic.jpg",icon:"settings-2"},
   {name:"Electrical & Electronics Engineering",slug:"electrical-electronics-engineering",image:"electric.jpg",icon:"zap"},
@@ -3790,6 +3794,30 @@ window.addEventListener('popstate', function(e){
   const id = (e.state && e.state.page) ? e.state.page : 'home';
   showPage(id, false);
 });
+
+/* "Explore Courses" hero button — the Courses Offered / Short Courses
+   section lives on the Home page. If we're already on Home, just
+   smooth-scroll there; if we're on another page, switch to Home first
+   (without its own top-of-page scroll fighting ours) and then smooth-
+   scroll to the section once it's visible and laid out. Works the same
+   in light and dark mode since it only affects scroll position. */
+function goToCourses(){
+  const homePage   = document.getElementById('page-home');
+  const alreadyHome = homePage && homePage.classList.contains('active');
+
+  function scrollToSection(){
+    const target = document.getElementById('courses-section');
+    if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+  }
+
+  if(!alreadyHome){
+    showPage('home');
+    // Wait a beat for the page switch to render before measuring/scrolling
+    requestAnimationFrame(function(){ setTimeout(scrollToSection, 60); });
+  } else {
+    scrollToSection();
+  }
+}
 
 // On first load, set initial history state so back works from the first page
 (function(){
