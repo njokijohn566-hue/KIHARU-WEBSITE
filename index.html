@@ -1855,6 +1855,106 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   .location-grid{grid-template-columns:1fr;}
 }
 
+/* ===== FIND US / LOCATION BAND (site-wide, sits directly above the footer) ===== */
+.findus-section{
+  background:var(--surface2);
+  padding:70px 0;
+  transition:background .3s;
+}
+.findus-inner{
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:52px;
+  align-items:center;
+}
+.findus-image-wrap{
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--card-shadow);
+  aspect-ratio:4/3;
+}
+.findus-image-wrap img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  transition:transform .5s;
+}
+.findus-image-wrap:hover img{transform:scale(1.06);}
+
+.findus-content h2{
+  font-family:'Playfair Display',serif;
+  font-size:30px;
+  color:var(--maroon-text);
+  margin-bottom:6px;
+}
+.findus-subtitle{
+  font-size:15px;
+  font-weight:600;
+  color:var(--text-main);
+  margin-bottom:18px;
+}
+.findus-body{
+  font-size:14.5px;
+  line-height:1.85;
+  color:var(--text-sub);
+  margin-bottom:28px;
+  max-width:520px;
+}
+.findus-cta-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--maroon);
+  color:white;
+  padding:14px 28px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:14.5px;
+  text-decoration:none;
+  font-family:inherit;
+  box-shadow:0 10px 24px rgba(106,24,48,0.25);
+  transition:background .25s, transform .2s, box-shadow .2s;
+}
+.findus-cta-btn:hover{
+  background:var(--maroon-dark);
+  transform:translateY(-3px);
+  box-shadow:0 14px 30px rgba(106,24,48,0.32);
+}
+[data-theme="dark"] .findus-cta-btn:hover{background:var(--orange);}
+
+.findus-details{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  margin-top:34px;
+  padding-top:30px;
+  border-top:1px solid var(--border);
+}
+.findus-detail{display:flex;gap:14px;align-items:flex-start;}
+.findus-detail-icon{
+  width:40px;height:40px;
+  flex-shrink:0;
+  border-radius:11px;
+  background:rgba(106,24,48,0.08);
+  display:flex;align-items:center;justify-content:center;
+}
+.findus-detail-icon .lucide{width:19px;height:19px;stroke:var(--maroon-text);}
+.findus-detail .label{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);}
+.findus-detail .value{font-size:14px;font-weight:600;color:var(--text-main);margin-top:3px;line-height:1.6;}
+.findus-detail .value a{color:inherit;text-decoration:none;}
+.findus-detail .value a:hover{color:var(--maroon-text);text-decoration:underline;}
+[data-theme="dark"] .findus-detail .value a:hover{color:var(--orange);}
+
+@media (max-width:900px){
+  .findus-inner{grid-template-columns:1fr;gap:36px;}
+  .findus-section{padding:50px 0;}
+  .findus-body{max-width:none;}
+}
+
 /* ===== JOB ADVERT PAGE ===== */
 .job-card{
   background:white;
@@ -3631,6 +3731,52 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   <img class="lightbox-img" id="lightboxImg" src="" alt="">
   <div class="lightbox-caption" id="lightboxCaption"></div>
 </div>
+
+<!-- ================================================
+     FIND US / LOCATION BAND — sits above the footer on every page
+================================================ -->
+<section class="findus-section" aria-labelledby="findUsHeading">
+  <div class="findus-inner">
+
+    <div class="findus-image-wrap">
+      <img src="Road-map.jpeg" alt="Road map to Kiharu Technical & Vocational College — 17km along Murang'a–Kiria-ini Road via Mahua-ini, Kaweru, Mugeka and Kiambugi">
+    </div>
+
+    <div class="findus-content">
+      <h2 id="findUsHeading">📍 Find Us</h2>
+      <div class="findus-subtitle">Visit Kiharu Technical &amp; Vocational College</div>
+      <p class="findus-body">Kiharu Technical &amp; Vocational College is located approximately 17 kilometres along Murang'a&ndash;Kiria-ini Road, Gaturi Ward, Kiambugi, Murang'a County. Visitors can use the road map or open Google Maps for live navigation.</p>
+
+      <!-- Replace href with the official Google Maps link for the college -->
+      <a class="findus-cta-btn" href="https://www.google.com/maps/place/Kiharu+Technical+and+Professional+College+(Kiambugi)/@-0.6360516,37.0690731,17z/data=!3m1!4b1!4m6!3m5!1s0x182891a5b9744095:0xf008fc1b4546cdbe!8m2!3d-0.636057!4d37.071648!16s%2Fg%2F11scl9p_46?entry=ttu&g_ep=EgoyMDI2MDgwMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">📍 Open in Google Maps</a>
+
+      <div class="findus-details">
+        <div class="findus-detail">
+          <div class="findus-detail-icon"><i data-lucide="mailbox"></i></div>
+          <div>
+            <div class="label">Address</div>
+            <div class="value">P.O. Box 29-10200,<br>Kiambugi,<br>Murang'a County</div>
+          </div>
+        </div>
+        <div class="findus-detail">
+          <div class="findus-detail-icon"><i data-lucide="phone"></i></div>
+          <div>
+            <div class="label">Phone</div>
+            <div class="value"><a href="tel:+254720657630">0720 657 630 / 0748 658 276</a></div>
+          </div>
+        </div>
+        <div class="findus-detail">
+          <div class="findus-detail-icon"><i data-lucide="mail"></i></div>
+          <div>
+            <div class="label">Email</div>
+            <div class="value"><a href="mailto:kiharutvc@gmail.com">kiharutvc@gmail.com</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- ================================================
      FOOTER
