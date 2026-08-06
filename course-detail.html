@@ -1076,4 +1076,1082 @@
 </script>
 
 </body>
+</html><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Course Details - Kiharu Technical & Vocational College</title>
+<script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+<style>
+  :root{
+    --maroon:#6a1830;
+    --maroon-dark:#4a0f20;
+    --maroon-light:#8a2040;
+    --logo-blue:#85c0ea;
+    --logo-blue-dark:#6fb7ea;
+    --logo-orange:#f26b2a;
+    --bg:#f6f7f9;
+    --surface:#ffffff;
+    --surface2:#f5f7f9;
+    --text-main:#0a0a0a;
+    --text-sub:#444444;
+    --text-accent:var(--maroon);
+    --text-on-primary:#ffffff;
+    --muted:#6b6b6b;
+    --border:rgba(133,192,234,0.18);
+    --danger:#c33;
+    --danger-bg:#fee;
+    --card-shadow:0 10px 30px rgba(20,20,20,0.04);
+    /* legacy aliases */
+    --logo-dark:var(--text-main);
+    --card-white:var(--surface);
+  }
+
+  [data-theme="dark"]{
+    --bg:#141218;
+    --surface:#1e1a24;
+    --surface2:#251f2e;
+    --text-main:#ffffff;
+    --text-sub:#d1d5db;
+    --text-accent:var(--maroon-light);
+    --muted:#9ca3af;
+    --border:#2e2840;
+    --danger:#f87171;
+    --danger-bg:rgba(248,113,113,0.12);
+    --card-shadow:0 10px 30px rgba(0,0,0,0.35);
+    --logo-dark:var(--text-main);
+    --card-white:var(--surface);
+  }
+
+  html,body{height:100%;}
+  body {
+    margin:0;
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    background:linear-gradient(180deg,var(--bg),var(--surface) 40%);
+    color:var(--text-main);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+    transition:background .3s,color .3s;
+  }
+
+  header {
+    display:flex;
+    align-items:center;
+    gap:18px;
+    justify-content:space-between;
+    padding:16px 20px;
+    max-width:1200px;
+    margin:18px auto;
+    background:transparent;
+  }
+
+  .brand-left {
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+
+  img.logo {
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    border-radius:8px;
+    border:3px solid rgba(133,192,234,0.18);
+    background:var(--surface);
+    box-shadow: 0 6px 20px rgba(10,10,10,0.07);
+  }
+
+  .site-title {
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+  }
+  .site-title .main {
+    font-size:20px;
+    font-weight:800;
+    color:var(--maroon);
+    letter-spacing:0.6px;
+  }
+  .site-title .sub {
+    font-size:13px;
+    color:var(--muted);
+    margin-top:6px;
+  }
+
+  .header-right {
+    text-align:right;
+    min-width:220px;
+  }
+  .badge {
+    display:inline-block;
+    background:linear-gradient(90deg,var(--logo-blue),var(--logo-blue-dark));
+    color:var(--card-white);
+    padding:8px 12px;
+    border-radius:8px;
+    font-weight:700;
+    box-shadow:0 6px 18px rgba(106,24,48,0.08);
+    border:2px solid rgba(0,0,0,0.03);
+  }
+  .contact {
+    margin-top:8px;
+    font-size:13px;
+    color:var(--muted);
+  }
+
+  main{
+    max-width:1200px;
+    margin:22px auto;
+    padding:0 20px 60px;
+  }
+
+  .section {
+    background:var(--card-white);
+    padding:18px;
+    border-radius:12px;
+    box-shadow: 0 10px 30px rgba(20,20,20,0.04);
+    border-left:6px solid rgba(133,192,234,0.18);
+  }
+
+  h1 {
+    margin:0 0 16px 0;
+    color:var(--maroon);
+    font-size:28px;
+  }
+
+  h2 {
+    margin:24px 0 16px 0;
+    color:var(--maroon);
+    font-size:20px;
+  }
+
+  h3 {
+    color:var(--maroon);
+    margin-top:0;
+  }
+
+  h4 {
+    color:var(--logo-blue);
+    margin-top:16px;
+    margin-bottom:12px;
+  }
+
+  p.lead { 
+    color:var(--muted); 
+    margin-top:6px; 
+  }
+
+  /* Back button */
+  .back-btn {
+    display:inline-block;
+    background:var(--logo-blue);
+    color:var(--text-on-primary);
+    padding:10px 16px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    margin-bottom:18px;
+    transition: background 0.2s ease, transform 0.2s ease;
+    border:2px solid rgba(133,192,234,0.2);
+  }
+
+  .back-btn:hover {
+    background:var(--logo-blue-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(133,192,234,0.3);
+  }
+
+  /* Modules grid */
+  .modules-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap:12px;
+    margin-top:18px;
+    margin-bottom:24px;
+  }
+
+  .module-card {
+    display:inline-block;
+    background:linear-gradient(135deg,var(--logo-blue),var(--logo-blue-dark));
+    color:var(--text-on-primary);
+    padding:16px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    text-align:center;
+    box-shadow: 0 6px 20px rgba(106,24,48,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor:pointer;
+    border:2px solid rgba(255,255,255,0.1);
+    font-size:14px;
+  }
+
+  .module-card:hover,
+  .module-card:focus {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(106,24,48,0.15);
+    outline:none;
+  }
+
+  .module-card.active {
+    background:linear-gradient(135deg,var(--maroon),var(--maroon-light));
+    box-shadow: 0 12px 30px rgba(106,24,48,0.25);
+  }
+
+  /* Module content accordion */
+  .module-content {
+    margin-top:16px;
+  }
+
+  .module-content.hidden {
+    display:none;
+  }
+
+  .module-header {
+    background:linear-gradient(90deg,var(--maroon),var(--maroon-dark));
+    color:var(--text-on-primary);
+    padding:16px;
+    border-radius:10px;
+    margin-bottom:16px;
+    box-shadow: 0 6px 18px rgba(10,10,10,0.08);
+  }
+
+  .module-header h3 {
+    color:var(--text-on-primary);
+    margin:0 0 8px 0;
+    font-size:18px;
+  }
+
+  .module-header p {
+    color:rgba(255,255,255,0.9);
+    margin:0;
+    font-size:14px;
+  }
+
+  /* Accordion form */
+  .accordion-container {
+    margin-top:16px;
+  }
+
+  .accordion-item {
+    background:var(--card-white);
+    border:1px solid rgba(133,192,234,0.3);
+    border-radius:10px;
+    margin-bottom:12px;
+    box-shadow: 0 4px 12px rgba(10,10,10,0.04);
+    overflow:hidden;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .accordion-item:hover {
+    box-shadow: 0 8px 20px rgba(10,10,10,0.08);
+  }
+
+  .accordion-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:linear-gradient(90deg, rgba(133,192,234,0.08), rgba(242,107,42,0.04));
+    padding:14px 16px;
+    cursor:pointer;
+    transition: background 0.2s ease;
+    border:none;
+    width:100%;
+    text-align:left;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:600;
+    color:var(--maroon);
+  }
+
+  .accordion-header:hover {
+    background:linear-gradient(90deg, rgba(133,192,234,0.12), rgba(242,107,42,0.08));
+  }
+
+  .accordion-header.active {
+    background:linear-gradient(90deg, var(--logo-blue), #85c0ea);
+    color:var(--text-on-primary);
+    box-shadow: inset 0 2px 8px rgba(10,10,10,0.1);
+  }
+
+  .accordion-toggle {
+    color:inherit;
+    font-weight:bold;
+    font-size:18px;
+    transition: transform 0.2s ease;
+  }
+
+  .accordion-header.active .accordion-toggle {
+    transform: rotate(180deg);
+  }
+
+  .accordion-content {
+    display:none;
+    padding:16px;
+    background:rgba(245,247,249,0.6);
+    border-top:2px solid rgba(133,192,234,0.2);
+  }
+
+  .accordion-content.active {
+    display:block;
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Units list */
+  .units-list {
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+
+  .units-list li {
+    padding:10px;
+    background:var(--surface);
+    margin-bottom:8px;
+    border-radius:6px;
+    border-left:4px solid var(--logo-blue);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .units-list li:before {
+    content:"✓";
+    color:var(--maroon);
+    font-weight:bold;
+    font-size:16px;
+    min-width:20px;
+  }
+
+  .units-list li strong {
+    color:var(--maroon);
+  }
+
+  /* Assessment and duration info */
+  .module-info {
+    background:linear-gradient(90deg, rgba(106,24,48,0.05), rgba(133,192,234,0.05));
+    padding:14px;
+    border-radius:8px;
+    margin-top:16px;
+    border-left:4px solid var(--logo-orange);
+  }
+
+  .module-info p {
+    margin:6px 0;
+    color:var(--text-main);
+    font-size:14px;
+  }
+
+  .module-info strong {
+    color:var(--maroon);
+  }
+
+  /* Topics overview */
+  .topics-overview {
+    background:rgba(133,192,234,0.08);
+    padding:12px 14px;
+    border-radius:6px;
+    margin-top:12px;
+    font-size:14px;
+    color:var(--muted);
+    border-left:3px solid var(--logo-blue);
+  }
+
+  /* Error message */
+  .error-message {
+    background:var(--danger-bg);
+    color:var(--danger);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  /* Footer */
+  footer {
+    max-width:1200px;
+    margin:26px auto;
+    padding:18px 20px;
+    text-align:center;
+    color:var(--text-on-primary);
+    background:linear-gradient(90deg,var(--maroon),var(--maroon-dark));
+    border-radius:12px;
+    box-shadow: 0 18px 40px rgba(10,10,10,0.08);
+  }
+
+  @media (max-width:720px){
+    header { padding:12px; gap:12px; flex-wrap:wrap; }
+    img.logo { width:74px; height:74px; }
+    h1 { font-size:22px; }
+    .modules-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .accordion-header {
+      font-size:14px;
+      padding:12px 14px;
+    }
+  }
+
+  /* Theme toggle */
+  .theme-toggle{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 14px;border-radius:50px;
+    border:2px solid var(--border);
+    background:var(--surface);
+    color:var(--text-main);
+    font-size:12px;font-weight:700;
+    cursor:pointer;font-family:inherit;
+    transition:all .2s;margin-top:8px;
+  }
+  .theme-toggle:hover{border-color:var(--maroon);color:var(--text-accent);}
+  .theme-toggle .lucide{width:16px;height:16px;stroke:currentColor;}
+  .back-btn{display:inline-flex;align-items:center;gap:6px;}
+  .back-btn .lucide{width:16px;height:16px;stroke:currentColor;}
+
+  [data-theme="dark"] .section,
+  [data-theme="dark"] .accordion-item,
+  [data-theme="dark"] .units-list li{background:var(--surface);color:var(--text-main);}
+  [data-theme="dark"] .accordion-content{background:var(--surface2);}
+  [data-theme="dark"] h1,[data-theme="dark"] h2,[data-theme="dark"] h3{color:var(--text-accent);}
+  [data-theme="dark"] .accordion-header{color:var(--text-accent);}
+  [data-theme="dark"] .module-info p{color:var(--text-sub);}
+  [data-theme="dark"] .theme-toggle{background:var(--surface2);border-color:var(--border);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand-left">
+    <img src="kiharu-logo.png" alt="Kiharu TVC logo" class="logo">
+    <div class="site-title">
+      <div class="main">KIHARU TECHNICAL &amp; VOCATIONAL COLLEGE</div>
+      <div class="sub">Home of technology and innovation — Gaturi Ward, Kiambugi</div>
+    </div>
+  </div>
+
+  <div class="header-right" aria-hidden="false">
+    <div class="badge">KIHARU TVC</div>
+    <div class="contact">P.O. BOX 29-10200 • Tel: 0720657630</div>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Switch theme">
+      <i data-lucide="moon"></i><span class="theme-toggle-label">Dark</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <a href="index.html" class="back-btn"><i data-lucide="arrow-left"></i> Back to Courses</a>
+
+  <section class="section">
+    <h1 id="courseTitle">Loading...</h1>
+    <p class="lead">Select a module below to view curriculum details and units offered.</p>
+
+    <!-- Modules Navigation -->
+    <div class="modules-grid" id="modulesContainer">
+      <!-- Modules will be dynamically added here -->
+    </div>
+
+    <!-- Module Content -->
+    <div id="moduleDetails">
+      <!-- Module content will be displayed here -->
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2026 Kiharu Technical &amp; Vocational College — All rights reserved
+</footer>
+
+<script>
+  // Course data with modules and units
+  const courses = {
+    "building-civil-engineering": {
+      name: "Building & Civil Engineering",
+      modules: [
+        {
+          title: "Module 1",
+          subtitle: "Introduction to Building Construction",
+          topics: ["Basic building materials", "Safety regulations", "Tools and equipment", "Site preparation"],
+          units: ["Unit 1.1: Building Materials Classification", "Unit 1.2: Safety Standards and Regulations", "Unit 1.3: Hand Tools and Equipment", "Unit 1.4: Site Preparation and Marking"]
+        },
+        {
+          title: "Module 2",
+          subtitle: "Masonry and Concrete Work",
+          topics: ["Brickwork techniques", "Concrete mixing and casting", "Structural calculations", "Quality control"],
+          units: ["Unit 2.1: Brickwork and Blockwork", "Unit 2.2: Concrete Production", "Unit 2.3: Structural Calculations", "Unit 2.4: Quality Assurance"]
+        },
+        {
+          title: "Module 3",
+          subtitle: "Carpentry and Timber Work",
+          topics: ["Timber selection", "Joinery techniques", "Roof construction", "Interior finishing"],
+          units: ["Unit 3.1: Timber Selection and Properties", "Unit 3.2: Joinery Techniques", "Unit 3.3: Roof Framing", "Unit 3.4: Interior Finishes"]
+        },
+        {
+          title: "Module 4",
+          subtitle: "Surveying and Site Engineering",
+          topics: ["Land surveying basics", "Level measurement", "Building layout", "Mapping"],
+          units: ["Unit 4.1: Surveying Instruments", "Unit 4.2: Level and Height Measurement", "Unit 4.3: Setting Out Buildings", "Unit 4.4: Site Plans"]
+        },
+        {
+          title: "Module 5",
+          subtitle: "Electrical and Plumbing Installation",
+          topics: ["Electrical wiring", "Water supply systems", "Drainage systems", "Safety compliance"],
+          units: ["Unit 5.1: Electrical Wiring Systems", "Unit 5.2: Water Supply Installation", "Unit 5.3: Drainage Systems", "Unit 5.4: Safety Compliance"]
+        },
+        {
+          title: "Module 6",
+          subtitle: "Project Management and Documentation",
+          topics: ["Project planning", "Cost estimation", "Bill of quantities", "Project supervision"],
+          units: ["Unit 6.1: Project Planning", "Unit 6.2: Cost Estimation", "Unit 6.3: Bill of Quantities", "Unit 6.4: Project Supervision"]
+        }
+      ]
+    },
+    "business-liberal-studies": {
+      name: "Business & Liberal Studies",
+      modules: [
+        {
+          title: "Module 1",
+          subtitle: "Business Fundamentals",
+          topics: ["Business types", "Entrepreneurship basics", "Market analysis", "Business plans"],
+          units: ["Unit 1.1: Business Environment", "Unit 1.2: Entrepreneurship", "Unit 1.3: Market Research", "Unit 1.4: Business Planning"]
+        },
+        {
+          title: "Module 2",
+          subtitle: "Accounting Principles",
+          topics: ["Basic bookkeeping", "Journal entries", "Ledger accounts", "Trial balance"],
+          units: ["Unit 2.1: Recording Transactions", "Unit 2.2: Ledger Accounts", "Unit 2.3: Trial Balance", "Unit 2.4: Financial Records"]
+        },
+        {
+          title: "Module 3",
+          subtitle: "Financial Management",
+          topics: ["Budgeting", "Cash flow management", "Financial statements", "Ratio analysis"],
+          units: ["Unit 3.1: Budgeting Techniques", "Unit 3.2: Cash Flow Management", "Unit 3.3: Financial Statements", "Unit 3.4: Financial Analysis"]
+        },
+        {
+          title: "Module 4",
+          subtitle: "Management and Organization",
+          topics: ["Organizational structures", "Leadership styles", "Decision making", "Team management"],
+          units: ["Unit 4.1: Organizational Design", "Unit 4.2: Leadership Styles", "Unit 4.3: Decision Making", "Unit 4.4: Team Dynamics"]
+        },
+        {
+          title: "Module 5",
+          subtitle: "Marketing and Sales",
+          topics: ["Market segmentation", "Pricing strategies", "Promotion methods", "Customer relations"],
+          units: ["Unit 5.1: Market Segmentation", "Unit 5.2: Product and Pricing", "Unit 5.3: Promotion Strategy", "Unit 5.4: Customer Relations"]
+        },
+        {
+          title: "Module 6",
+          subtitle: "Business Ethics and Communication",
+          topics: ["Professional ethics", "Business writing", "Public speaking", "Workplace communication"],
+          units: ["Unit 6.1: Business Ethics", "Unit 6.2: Communication Skills", "Unit 6.3: Presentation Skills", "Unit 6.4: Professional Conduct"]
+        }
+      ]
+    },
+    "mechanical-automotive-engineering": {
+      name: "Mechanical & Automotive Engineering",
+      modules: [
+        {
+          title: "Module 1",
+          subtitle: "Engine Fundamentals",
+          topics: ["Engine types", "Combustion process", "Engine components", "Operating principles"],
+          units: ["Unit 1.1: Engine Classification", "Unit 1.2: Combustion Process", "Unit 1.3: Engine Components", "Unit 1.4: Operating Principles"]
+        },
+        {
+          title: "Module 2",
+          subtitle: "Engine Systems",
+          topics: ["Fuel systems", "Ignition systems", "Cooling systems", "Lubrication systems"],
+          units: ["Unit 2.1: Fuel Delivery Systems", "Unit 2.2: Ignition Systems", "Unit 2.3: Cooling Systems", "Unit 2.4: Lubrication Systems"]
+        },
+        {
+          title: "Module 3",
+          subtitle: "Transmission and Drivetrain",
+          topics: ["Clutch systems", "Gearboxes", "Differentials", "Drive shafts"],
+          units: ["Unit 3.1: Clutch Operation", "Unit 3.2: Manual and Automatic Gearboxes", "Unit 3.3: Differential Systems", "Unit 3.4: Drive Transmission"]
+        },
+        {
+          title: "Module 4",
+          subtitle: "Suspension and Steering",
+          topics: ["Suspension types", "Springs and dampers", "Steering systems", "Wheel alignment"],
+          units: ["Unit 4.1: Suspension Design", "Unit 4.2: Spring and Damper Systems", "Unit 4.3: Steering Mechanisms", "Unit 4.4: Wheel Alignment"]
+        },
+        {
+          title: "Module 5",
+          subtitle: "Braking Systems",
+          topics: ["Brake types", "Hydraulic systems", "Disc and drum brakes", "ABS technology"],
+          units: ["Unit 5.1: Brake Design", "Unit 5.2: Hydraulic Systems", "Unit 5.3: Brake Components", "Unit 5.4: Advanced Braking Systems"]
+        },
+        {
+          title: "Module 6",
+          subtitle: "Vehicle Maintenance and Repair",
+          topics: ["Diagnostic procedures", "Maintenance schedules", "Component replacement", "Testing procedures"],
+          units: ["Unit 6.1: Diagnostics", "Unit 6.2: Maintenance Schedules", "Unit 6.3: Repair Procedures", "Unit 6.4: Testing and Verification"]
+        }
+      ]
+    },
+    "electrical-electronics-engineering": {
+      name: "Electrical & Electronics Engineering",
+      modules: [
+        {
+          title: "Module 1",
+          subtitle: "Electrical Fundamentals",
+          topics: ["Voltage and current", "Ohm's law", "Resistance", "Power and energy"],
+          units: ["Unit 1.1: Electrical Quantities", "Unit 1.2: Ohm's Law", "Unit 1.3: Resistance and Conductance", "Unit 1.4: Power Calculations"]
+        },
+        {
+          title: "Module 2",
+          subtitle: "AC and DC Circuits",
+          topics: ["DC circuits", "AC circuits", "Transformers", "Power factor"],
+          units: ["Unit 2.1: DC Circuit Analysis", "Unit 2.2: AC Circuit Analysis", "Unit 2.3: Transformers", "Unit 2.4: Power Factor"]
+        },
+        {
+          title: "Module 3",
+          subtitle: "Electrical Installation",
+          topics: ["Wiring systems", "Cable selection", "Circuit breakers", "Earthing systems"],
+          units: ["Unit 3.1: Wiring Methods", "Unit 3.2: Cable Selection", "Unit 3.3: Circuit Protection", "Unit 3.4: Earthing and Grounding"]
+        },
+        {
+          title: "Module 4",
+          subtitle: "Electronics Basics",
+          topics: ["Semiconductors", "Diodes and transistors", "Logic gates", "Digital circuits"],
+          units: ["Unit 4.1: Semiconductor Theory", "Unit 4.2: Diodes and Transistors", "Unit 4.3: Logic Gates", "Unit 4.4: Digital Circuits"]
+        },
+        {
+          title: "Module 5",
+          subtitle: "Power Distribution",
+          topics: ["Power generation", "Transmission systems", "Distribution networks", "Load management"],
+          units: ["Unit 5.1: Power Generation", "Unit 5.2: Transmission Lines", "Unit 5.3: Distribution Systems", "Unit 5.4: Load Management"]
+        },
+        {
+          title: "Module 6",
+          subtitle: "Electrical Safety and Maintenance",
+          topics: ["Safety standards", "PPE usage", "Testing and troubleshooting", "Preventive maintenance"],
+          units: ["Unit 6.1: Safety Standards", "Unit 6.2: Personal Protection", "Unit 6.3: Troubleshooting", "Unit 6.4: Preventive Maintenance"]
+        }
+      ]
+    },
+    "computing-informatics": {
+      name: "Computing & Informatics",
+      modules: [
+        {
+          title: "Module 1",
+          subtitle: "Computer Fundamentals",
+          topics: ["Hardware components", "Operating systems", "File management", "System utilities"],
+          units: ["Unit 1.1: Computer Hardware", "Unit 1.2: Operating Systems", "Unit 1.3: File Management", "Unit 1.4: System Administration"]
+        },
+        {
+          title: "Module 2",
+          subtitle: "Programming Basics",
+          topics: ["Programming concepts", "Variables and data types", "Control structures", "Functions"],
+          units: ["Unit 2.1: Programming Fundamentals", "Unit 2.2: Data Types", "Unit 2.3: Control Flow", "Unit 2.4: Functions and Procedures"]
+        },
+        {
+          title: "Module 3",
+          subtitle: "Database Management",
+          topics: ["Database concepts", "SQL queries", "Table design", "Data integrity"],
+          units: ["Unit 3.1: Database Design", "Unit 3.2: SQL Queries", "Unit 3.3: Data Normalization", "Unit 3.4: Data Security"]
+        },
+        {
+          title: "Module 4",
+          subtitle: "Networking",
+          topics: ["Network basics", "TCP/IP protocols", "Network configuration", "Security basics"],
+          units: ["Unit 4.1: Network Architecture", "Unit 4.2: TCP/IP Protocol", "Unit 4.3: Network Configuration", "Unit 4.4: Network Security"]
+        },
+        {
+          title: "Module 5",
+          subtitle: "Web Development",
+          topics: ["HTML markup", "CSS styling", "JavaScript programming", "Responsive design"],
+          units: ["Unit 5.1: HTML Fundamentals", "Unit 5.2: CSS Styling", "Unit 5.3: JavaScript Programming", "Unit 5.4: Responsive Design"]
+        },
+        {
+          title: "Module 6",
+          subtitle: "IT Support and Troubleshooting",
+          topics: ["Technical support", "Troubleshooting procedures", "System administration", "Backup and recovery"],
+          units: ["Unit 6.1: User Support", "Unit 6.2: Troubleshooting", "Unit 6.3: System Administration", "Unit 6.4: Disaster Recovery"]
+        }
+      ]
+    },
+    "fashion-design": {
+      name: "Fashion & Design",
+      modules: [
+        {
+          title: "Module 1",
+          subtitle: "Fashion Design Basics",
+          topics: ["Design principles", "Color theory", "Fabric types", "Fashion sketching"],
+          units: ["Unit 1.1: Design Principles", "Unit 1.2: Color Theory", "Unit 1.3: Fabric Knowledge", "Unit 1.4: Fashion Illustration"]
+        },
+        {
+          title: "Module 2",
+          subtitle: "Pattern Making",
+          topics: ["Basic patterns", "Grading techniques", "Pattern drafting", "Fitting adjustments"],
+          units: ["Unit 2.1: Basic Pattern Blocks", "Unit 2.2: Grading System", "Unit 2.3: Pattern Development", "Unit 2.4: Fitting Techniques"]
+        },
+        {
+          title: "Module 3",
+          subtitle: "Garment Construction",
+          topics: ["Sewing techniques", "Seam finishes", "Button and zip application", "Pressing methods"],
+          units: ["Unit 3.1: Sewing Techniques", "Unit 3.2: Seam Finishes", "Unit 3.3: Fastening Methods", "Unit 3.4: Pressing and Finishing"]
+        },
+        {
+          title: "Module 4",
+          subtitle: "Textile Design",
+          topics: ["Fabric printing", "Weaving basics", "Dyeing techniques", "Embellishments"],
+          units: ["Unit 4.1: Textile Printing", "Unit 4.2: Weaving Techniques", "Unit 4.3: Dyeing Methods", "Unit 4.4: Embellishment Techniques"]
+        },
+        {
+          title: "Module 5",
+          subtitle: "Fashion Collections",
+          topics: ["Collection development", "Mood boards", "Design briefs", "Trend forecasting"],
+          units: ["Unit 5.1: Collection Planning", "Unit 5.2: Mood Boards", "Unit 5.3: Design Concepts", "Unit 5.4: Trend Analysis"]
+        },
+        {
+          title: "Module 6",
+          subtitle: "Fashion Business",
+          topics: ["Business planning", "Production management", "Marketing strategies", "Costing"],
+          units: ["Unit 6.1: Business Planning", "Unit 6.2: Production Management", "Unit 6.3: Marketing", "Unit 6.4: Costing and Pricing"]
+        }
+      ]
+    },
+    "cosmetology": {
+      name: "Cosmetology",
+      modules: [
+        {
+          title: "Module 1",
+          subtitle: "Skin Anatomy and Care",
+          topics: ["Skin structure", "Skin types", "Facial treatments", "Skincare products"],
+          units: ["Unit 1.1: Skin Anatomy", "Unit 1.2: Skin Assessment", "Unit 1.3: Facial Treatments", "Unit 1.4: Product Knowledge"]
+        },
+        {
+          title: "Module 2",
+          subtitle: "Hair Care and Styling",
+          topics: ["Hair structure", "Hair washing", "Styling techniques", "Color treatments"],
+          units: ["Unit 2.1: Hair Structure", "Unit 2.2: Hair Care Procedures", "Unit 2.3: Styling Techniques", "Unit 2.4: Hair Coloring"]
+        },
+        {
+          title: "Module 3",
+          subtitle: "Makeup Application",
+          topics: ["Makeup products", "Application techniques", "Color matching", "Special effects makeup"],
+          units: ["Unit 3.1: Makeup Principles", "Unit 3.2: Application Techniques", "Unit 3.3: Color Correction", "Unit 3.4: Special Effects"]
+        },
+        {
+          title: "Module 4",
+          subtitle: "Nail Care and Design",
+          topics: ["Nail anatomy", "Manicure and pedicure", "Nail art", "Gel and acrylic nails"],
+          units: ["Unit 4.1: Nail Anatomy", "Unit 4.2: Manicure and Pedicure", "Unit 4.3: Nail Art Design", "Unit 4.4: Advanced Nail Services"]
+        },
+        {
+          title: "Module 5",
+          subtitle: "Health and Safety",
+          topics: ["Hygiene standards", "Sterilization", "Safety regulations", "Infection control"],
+          units: ["Unit 5.1: Health and Hygiene", "Unit 5.2: Sterilization Methods", "Unit 5.3: Safety Compliance", "Unit 5.4: Infection Control"]
+        },
+        {
+          title: "Module 6",
+          subtitle: "Salon Operations",
+          topics: ["Customer service", "Product knowledge", "Pricing and billing", "Business management"],
+          units: ["Unit 6.1: Customer Service", "Unit 6.2: Product Sales", "Unit 6.3: Financial Management", "Unit 6.4: Salon Management"]
+        }
+      ]
+    },
+    "hospitality": {
+      name: "Hospitality",
+      modules: [
+        {
+          title: "Module 1",
+          subtitle: "Hospitality Fundamentals",
+          topics: ["Industry overview", "Service standards", "Customer relations", "Professionalism"],
+          units: ["Unit 1.1: Hospitality Industry", "Unit 1.2: Service Standards", "Unit 1.3: Guest Relations", "Unit 1.4: Professional Conduct"]
+        },
+        {
+          title: "Module 2",
+          subtitle: "Front Office Operations",
+          topics: ["Reception duties", "Booking systems", "Guest communication", "Checkout procedures"],
+          units: ["Unit 2.1: Reception Skills", "Unit 2.2: Reservation Systems", "Unit 2.3: Guest Communication", "Unit 2.4: Checkout Procedures"]
+        },
+        {
+          title: "Module 3",
+          subtitle: "Food Preparation",
+          topics: ["Kitchen safety", "Food hygiene", "Cooking techniques", "Menu planning"],
+          units: ["Unit 3.1: Kitchen Safety", "Unit 3.2: Food Hygiene", "Unit 3.3: Cooking Skills", "Unit 3.4: Menu Development"]
+        },
+        {
+          title: "Module 4",
+          subtitle: "Food Service",
+          topics: ["Table setting", "Service techniques", "Wine knowledge", "Special diets"],
+          units: ["Unit 4.1: Table Service", "Unit 4.2: Service Procedures", "Unit 4.3: Beverage Service", "Unit 4.4: Dietary Requirements"]
+        },
+        {
+          title: "Module 5",
+          subtitle: "Housekeeping",
+          topics: ["Room cleaning", "Linen management", "Waste disposal", "Maintenance"],
+          units: ["Unit 5.1: Room Cleaning", "Unit 5.2: Linen Management", "Unit 5.3: Cleaning Materials", "Unit 5.4: Maintenance Procedures"]
+        },
+        {
+          title: "Module 6",
+          subtitle: "Event Management",
+          topics: ["Event planning", "Catering management", "Setup and breakdown", "Guest coordination"],
+          units: ["Unit 6.1: Event Planning", "Unit 6.2: Catering Coordination", "Unit 6.3: Setup and Breakdown", "Unit 6.4: Guest Management"]
+        }
+      ]
+    },
+    "social-work": {
+      name: "Social Work",
+      modules: [
+        {
+          title: "Module 1",
+          subtitle: "Social Work Foundations",
+          topics: ["Social work values", "Ethical principles", "Professional roles", "Service users"],
+          units: ["Unit 1.1: Professional Values", "Unit 1.2: Ethics and Confidentiality", "Unit 1.3: Professional Roles", "Unit 1.4: Service Users"]
+        },
+        {
+          title: "Module 2",
+          subtitle: "Community Development",
+          topics: ["Community needs", "Project planning", "Capacity building", "Stakeholder engagement"],
+          units: ["Unit 2.1: Community Assessment", "Unit 2.2: Project Planning", "Unit 2.3: Capacity Building", "Unit 2.4: Stakeholder Engagement"]
+        },
+        {
+          title: "Module 3",
+          subtitle: "Counseling Skills",
+          topics: ["Active listening", "Empathy", "Problem-solving", "Crisis intervention"],
+          units: ["Unit 3.1: Active Listening", "Unit 3.2: Empathetic Response", "Unit 3.3: Problem Solving", "Unit 3.4: Crisis Management"]
+        },
+        {
+          title: "Module 4",
+          subtitle: "Child and Family Services",
+          topics: ["Child protection", "Family dynamics", "Welfare assessment", "Support services"],
+          units: ["Unit 4.1: Child Protection", "Unit 4.2: Family Assessment", "Unit 4.3: Welfare Procedures", "Unit 4.4: Support Services"]
+        },
+        {
+          title: "Module 5",
+          subtitle: "Mental Health and Wellbeing",
+          topics: ["Mental health awareness", "Support strategies", "Therapeutic approaches", "Referral systems"],
+          units: ["Unit 5.1: Mental Health Awareness", "Unit 5.2: Support Strategies", "Unit 5.3: Therapeutic Approaches", "Unit 5.4: Referral Networks"]
+        },
+        {
+          title: "Module 6",
+          subtitle: "Social Policy and Advocacy",
+          topics: ["Social policies", "Rights and advocacy", "Case documentation", "Organizational work"],
+          units: ["Unit 6.1: Social Policy", "Unit 6.2: Advocacy Skills", "Unit 6.3: Documentation", "Unit 6.4: Organizational Practice"]
+        }
+      ]
+    },
+    "tourism-management": {
+      name: "Tourism Management",
+      modules: [
+        {
+          title: "Module 1",
+          subtitle: "Tourism Industry Basics",
+          topics: ["Tourism overview", "Destinations", "Tourism organizations", "Sustainability"],
+          units: ["Unit 1.1: Tourism Industry", "Unit 1.2: Destination Management", "Unit 1.3: Tourism Organizations", "Unit 1.4: Sustainable Tourism"]
+        },
+        {
+          title: "Module 2",
+          subtitle: "Tour Guiding",
+          topics: ["Guide preparation", "Interpretation skills", "Group management", "Safety procedures"],
+          units: ["Unit 2.1: Guide Training", "Unit 2.2: Interpretation Skills", "Unit 2.3: Group Management", "Unit 2.4: Safety Procedures"]
+        },
+        {
+          title: "Module 3",
+          subtitle: "Travel Planning",
+          topics: ["Itinerary planning", "Booking systems", "Transportation", "Accommodation selection"],
+          units: ["Unit 3.1: Itinerary Planning", "Unit 3.2: Booking Systems", "Unit 3.3: Transportation", "Unit 3.4: Accommodation"]
+        },
+        {
+          title: "Module 4",
+          subtitle: "Tourism Marketing",
+          topics: ["Destination marketing", "Digital marketing", "Promotional strategies", "Customer research"],
+          units: ["Unit 4.1: Marketing Strategy", "Unit 4.2: Digital Marketing", "Unit 4.3: Promotion", "Unit 4.4: Customer Analysis"]
+        },
+        {
+          title: "Module 5",
+          subtitle: "Hotel and Resort Management",
+          topics: ["Property management", "Revenue management", "Quality assurance", "Staff coordination"],
+          units: ["Unit 5.1: Property Management", "Unit 5.2: Revenue Management", "Unit 5.3: Quality Assurance", "Unit 5.4: Human Resources"]
+        },
+        {
+          title: "Module 6",
+          subtitle: "Adventure and Eco-Tourism",
+          topics: ["Adventure activities", "Environmental conservation", "Cultural tourism", "Risk management"],
+          units: ["Unit 6.1: Adventure Activities", "Unit 6.2: Environmental Conservation", "Unit 6.3: Cultural Tourism", "Unit 6.4: Risk Management"]
+        }
+      ]
+    }
+  };
+
+  // Get course from URL - FIXED VERSION
+  function getCoursSlug() {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('course');
+    
+    // Debug logging
+    console.log('Retrieved slug from URL:', slug);
+    console.log('Available courses:', Object.keys(courses));
+    
+    return slug;
+  }
+
+  // Initialize page
+  function initializePage() {
+    const slug = getCoursSlug();
+    const courseData = courses[slug];
+
+    console.log('Looking for course slug:', slug);
+    console.log('Course data found:', !!courseData);
+
+    if (!courseData) {
+      const moduleDetails = document.getElementById('moduleDetails');
+      document.getElementById('courseTitle').textContent = 'Course Not Found';
+      moduleDetails.innerHTML = `
+        <div class="error-message">
+          <h2>⚠️ Course Not Found</h2>
+          <p>The course you're looking for could not be found.</p>
+          <p><strong>Course slug received:</strong> ${slug}</p>
+          <p><a href="index.html" class="back-btn">← Return to Course List</a></p>
+        </div>
+      `;
+      return;
+    }
+
+    // Set course title
+    document.getElementById('courseTitle').textContent = courseData.name;
+
+    // Create module buttons
+    const modulesContainer = document.getElementById('modulesContainer');
+    modulesContainer.innerHTML = '';
+
+    courseData.modules.forEach((module, index) => {
+      const button = document.createElement('button');
+      button.className = 'module-card' + (index === 0 ? ' active' : '');
+      button.textContent = module.title;
+      button.onclick = (e) => {
+        e.preventDefault();
+        selectModule(index, courseData);
+      };
+      modulesContainer.appendChild(button);
+    });
+
+    // Display first module by default
+    selectModule(0, courseData);
+  }
+
+  // Handle module selection
+  function selectModule(index, courseData) {
+    const module = courseData.modules[index];
+    const moduleDetails = document.getElementById('moduleDetails');
+    const buttons = document.querySelectorAll('.module-card');
+
+    // Update active button
+    buttons.forEach((btn, i) => {
+      btn.classList.toggle('active', i === index);
+    });
+
+    // Display module content with accordion
+    let html = `
+      <div class="module-content">
+        <div class="module-header">
+          <h3>${module.title}: ${module.subtitle}</h3>
+          <p>Click on units below to view details</p>
+        </div>
+
+        <div class="accordion-container">
+    `;
+
+    // Create accordion items for each unit
+    module.units.forEach((unit, unitIndex) => {
+      const isActive = unitIndex === 0 ? ' active' : '';
+      html += `
+        <div class="accordion-item">
+          <button class="accordion-header${isActive}" onclick="toggleAccordion(this)">
+            <span>${unit}</span>
+            <span class="accordion-toggle">▼</span>
+          </button>
+          <div class="accordion-content${isActive}">
+            <p><strong>Topics Covered:</strong></p>
+            <ul class="units-list">
+              ${module.topics.map((topic, i) => {
+                const topicUnit = Math.floor(i / Math.ceil(module.topics.length / module.units.length));
+                return topicUnit === unitIndex ? `<li><strong>${topic}</strong> - Practical and theoretical exploration</li>` : '';
+              }).filter(item => item).join('')}
+            </ul>
+            <p><strong>Assessment:</strong> Practical assignments, tests, and final examination</p>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `
+        </div>
+
+        <div class="module-info">
+          <p><strong>Duration:</strong> Typically 4-6 weeks</p>
+          <p><strong>Delivery Mode:</strong> Mixed - Theoretical learning and practical sessions</p>
+          <p><strong>Prerequisites:</strong> Completion of previous module(s)</p>
+        </div>
+      </div>
+    `;
+
+    moduleDetails.innerHTML = html;
+  }
+
+  // Toggle accordion
+  function toggleAccordion(header) {
+    const isActive = header.classList.contains('active');
+    const content = header.nextElementSibling;
+    
+    // Close all accordion items
+    document.querySelectorAll('.accordion-header').forEach(h => {
+      h.classList.remove('active');
+      h.nextElementSibling.classList.remove('active');
+    });
+
+    // Open clicked item if it wasn't already open
+    if (!isActive) {
+      header.classList.add('active');
+      content.classList.add('active');
+    }
+  }
+
+  // Initialize when page loads
+  document.addEventListener('DOMContentLoaded', initializePage);
+  
+  // Also initialize immediately in case DOM is already loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePage);
+  } else {
+    initializePage();
+  }
+
+  /* Theme */
+  (function(){
+    const saved = localStorage.getItem('kiharuTheme');
+    if(saved === 'dark') applyTheme('dark', false);
+  })();
+  function applyTheme(theme, save){
+    const btn = document.getElementById('themeToggle');
+    if(theme === 'dark'){
+      document.documentElement.setAttribute('data-theme','dark');
+      if(btn){ btn.innerHTML = '<i data-lucide="sun"></i><span class="theme-toggle-label">Light</span>'; btn.title = 'Switch to light mode'; }
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      if(btn){ btn.innerHTML = '<i data-lucide="moon"></i><span class="theme-toggle-label">Dark</span>'; btn.title = 'Switch to dark mode'; }
+    }
+    if(save) localStorage.setItem('kiharuTheme', theme);
+    if(typeof lucide !== 'undefined') lucide.createIcons();
+  }
+  function toggleTheme(){
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+  }
+  if(typeof lucide !== 'undefined') lucide.createIcons();
+</script>
+
+</body>
 </html>

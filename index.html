@@ -2801,6 +2801,9 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
     </div>
   </div>
 </div>
+
+<!-- ================================================
+     PAGE: COUNSELLING
 ================================================ -->
 <div class="page" id="page-counselling">
   <div class="page-hero">
@@ -3082,7 +3085,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       <div class="job-footer">
         <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 August 2026</span>
         <div class="job-footer-actions">
-          <a class="download-advert-btn" href="/documents/finance-officer-advert.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
+          <a class="download-advert-btn" href="FO.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
           <a class="apply-link" href="mailto:info@kiharutvc.ac.ke?subject=Application: Finance Officer"><i data-lucide="send"></i> Apply via Email</a>
         </div>
       </div>
@@ -3109,7 +3112,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       <div class="job-footer">
         <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 August 2026</span>
         <div class="job-footer-actions">
-          <a class="download-advert-btn" href="/documents/procurement-officer-advert.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
+          <a class="download-advert-btn" href="procurement_officer.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
           <a class="apply-link" href="mailto:info@kiharutvc.ac.ke?subject=Application: Procurement Officer"><i data-lucide="send"></i> Apply via Email</a>
         </div>
       </div>
@@ -3136,7 +3139,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       <div class="job-footer">
         <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 August 2026</span>
         <div class="job-footer-actions">
-          <a class="download-advert-btn" href="/documents/trainers-advert.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
+          <a class="download-advert-btn" href="trainers_job.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
           <a class="apply-link" href="mailto:info@kiharutvc.ac.ke?subject=Application: Trainer Position"><i data-lucide="send"></i> Apply via Email</a>
         </div>
       </div>
@@ -3163,7 +3166,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       <div class="job-footer">
         <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 August 2026</span>
         <div class="job-footer-actions">
-          <a class="download-advert-btn" href="/documents/caretaker-advert.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
+          <a class="download-advert-btn" href="caretaker_job.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
           <a class="apply-link" href="mailto:info@kiharutvc.ac.ke?subject=Application: Caretaker Position"><i data-lucide="send"></i> Apply via Email</a>
         </div>
       </div>
@@ -3190,7 +3193,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       <div class="job-footer">
         <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 August 2026</span>
         <div class="job-footer-actions">
-          <a class="download-advert-btn" href="/documents/student-finance-officer-advert.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
+          <a class="download-advert-btn" href="Student_Finance_officer.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
           <a class="apply-link" href="mailto:info@kiharutvc.ac.ke?subject=Application: Student Finance Officer"><i data-lucide="send"></i> Apply via Email</a>
         </div>
       </div>
@@ -3822,6 +3825,18 @@ function goToCourses(){
 // On first load, set initial history state so back works from the first page
 (function(){
   const hash = location.hash.replace('#','');
+
+  // Deep link from an external page (e.g. course-detail.html's
+  // "Back to Courses" button linking to index.html#courses) — land on
+  // Home and smooth-scroll straight to the Courses Offered & Short
+  // Courses section instead of the top of the page.
+  if(hash === 'courses' || hash === 'courses-section'){
+    history.replaceState({page:'home'}, '', '#home');
+    showPage('home', false);
+    requestAnimationFrame(function(){ setTimeout(goToCourses, 60); });
+    return;
+  }
+
   const startPage = hash && document.getElementById('page-'+hash) ? hash : 'home';
   history.replaceState({page:startPage}, '', '#'+startPage);
   showPage(startPage, false);
