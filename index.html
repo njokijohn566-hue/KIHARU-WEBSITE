@@ -88,8 +88,35 @@ html,body{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  flex-wrap:wrap;
+  gap:6px 16px;
 }
 .topbar a{color:var(--blue);text-decoration:none;}
+
+/* Right-hand group: "TVET Approved Institution" + Coat of Arms */
+.topbar-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-shrink:0;
+}
+
+/* Coat of Arms — placeholder image, official proportions preserved via
+   a fixed height with auto width (no stretching/distortion), and kept
+   noticeably smaller than the 72px college logo in the header below. */
+.coat-of-arms{
+  height:26px;
+  width:auto;
+  object-fit:contain;
+  display:block;
+  flex-shrink:0;
+  vertical-align:middle;
+}
+
+@media(max-width:600px){
+  .coat-of-arms{height:20px;}
+  .topbar-right{gap:8px;}
+}
 
 /* ===== HEADER ===== */
 header{
@@ -292,24 +319,54 @@ nav{display:flex;align-items:center;gap:4px;}
 .page{display:none;}
 .page.active{display:block;}
 
-/* ===== HOME HERO ===== */
+/* ===== HOME HERO =====
+   Background is a stacked set of layers (top → bottom):
+     1. home-page.jpg    — developer-provided photo (replace later
+                            with the official college image; if you
+                            use a different format, update the
+                            extension below, e.g. home-page.png,
+                            home-page.jpeg, or home-page.webp).
+     2. branded gradient — automatic fallback if the photo is
+                            missing/fails to load (no JS needed:
+                            a failed background layer simply
+                            renders as transparent, revealing the
+                            layer beneath it).
+   The maroon tint + subtle pattern overlay (below, via ::before/
+   ::after) sit above the photo/gradient and below the text, so
+   contrast stays high whether or not a photo is present. */
 .hero{
   position:relative;
-  background:linear-gradient(160deg, var(--maroon-dark) 0%, var(--maroon) 40%, #c0392b 70%, #e05a1a 100%);
+  background-image:
+    url('home-page.jpg'),
+    linear-gradient(160deg, var(--maroon-dark) 0%, var(--maroon) 40%, #c0392b 70%, #e05a1a 100%);
+  background-size:cover, cover;
+  background-position:center, center;
+  background-repeat:no-repeat, no-repeat;
   color:white;
   padding:80px 24px 90px;
   text-align:center;
   overflow:hidden;
 }
 
+/* Subtle diagonal pattern texture, above the photo/gradient */
 .hero::before{
   content:"";
   position:absolute;
   inset:0;
   background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  z-index:1;
 }
 
-.hero-inner{position:relative;max-width:800px;margin:0 auto;}
+/* Semi-transparent maroon overlay for text contrast over the photo */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(74,15,32,0.55);
+  z-index:2;
+}
+
+.hero-inner{position:relative;z-index:3;max-width:800px;margin:0 auto;}
 
 .hero-badge{
   display:inline-flex;
@@ -2146,7 +2203,10 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 <!-- TOP BAR -->
 <div class="topbar">
   <span><i data-lucide="map-pin"></i> Gaturi Ward, Kiambugi | P.O. BOX 29-10200 | Tel: <a href="tel:0720657630">0720 657 630 / 0748 658 276</a></span>
-  <span><i data-lucide="graduation-cap"></i>TVET Approved Institution</span>
+  <div class="topbar-right">
+    <span><i data-lucide="graduation-cap"></i>TVET Approved Institution</span>
+    <img src="coat-of-arms.png" alt="Coat of Arms of the Republic of Kenya" class="coat-of-arms">
+  </div>
 </div>
 
 <!-- HEADER -->
@@ -2997,6 +3057,141 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       </div>
     </div>
 
+    <!-- JOB 4 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <h3>Finance Officer</h3>
+        <span class="job-badge badge-open"><i data-lucide="circle-dot" style="width:10px;height:10px;"></i> Open</span>
+      </div>
+      <div class="job-meta">
+        <span class="job-meta-item"><i data-lucide="landmark"></i> Finance & Accounts</span>
+        <span class="job-meta-item"><i data-lucide="clock"></i> Full-Time</span>
+        <span class="job-meta-item"><i data-lucide="map-pin"></i> Main Campus, Kiambugi</span>
+      </div>
+      <p class="job-desc">Kiharu TVC is seeking a competent Finance Officer to oversee budgeting, financial reporting, payroll support and internal controls within the Finance Office. The successful candidate will work closely with the Bursar to ensure sound financial management of the college.</p>
+      <ul style="font-size:13.5px;color:var(--text-sub);line-height:1.9;padding-left:20px;margin-bottom:16px;">
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Bachelor's Degree in Finance, Accounting or a related field</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>CPA (K) or equivalent professional qualification</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>At least 3 years' experience in a similar finance role</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Sound knowledge of public finance regulations is an added advantage</span></li>
+      </ul>
+      <div class="job-footer">
+        <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 August 2026</span>
+        <div class="job-footer-actions">
+          <a class="download-advert-btn" href="/documents/finance-officer-advert.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
+          <a class="apply-link" href="mailto:info@kiharutvc.ac.ke?subject=Application: Finance Officer"><i data-lucide="send"></i> Apply via Email</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOB 5 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <h3>Procurement Officer</h3>
+        <span class="job-badge badge-open"><i data-lucide="circle-dot" style="width:10px;height:10px;"></i> Open</span>
+      </div>
+      <div class="job-meta">
+        <span class="job-meta-item"><i data-lucide="shopping-cart"></i> Procurement Department</span>
+        <span class="job-meta-item"><i data-lucide="clock"></i> Full-Time</span>
+        <span class="job-meta-item"><i data-lucide="map-pin"></i> Main Campus, Kiambugi</span>
+      </div>
+      <p class="job-desc">The college invites applications for the position of Procurement Officer to manage sourcing, tendering, supplier evaluation and inventory control in line with the Public Procurement and Asset Disposal Act, 2015.</p>
+      <ul style="font-size:13.5px;color:var(--text-sub);line-height:1.9;padding-left:20px;margin-bottom:16px;">
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Diploma or Degree in Purchasing & Supplies Management</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Member of KISM / registered with a relevant regulatory body</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>At least 2 years' relevant experience, preferably in a public institution</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Familiarity with e-procurement systems is an advantage</span></li>
+      </ul>
+      <div class="job-footer">
+        <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 August 2026</span>
+        <div class="job-footer-actions">
+          <a class="download-advert-btn" href="/documents/procurement-officer-advert.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
+          <a class="apply-link" href="mailto:info@kiharutvc.ac.ke?subject=Application: Procurement Officer"><i data-lucide="send"></i> Apply via Email</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOB 6 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <h3>Trainers — Various Departments</h3>
+        <span class="job-badge badge-open"><i data-lucide="circle-dot" style="width:10px;height:10px;"></i> Open</span>
+      </div>
+      <div class="job-meta">
+        <span class="job-meta-item"><i data-lucide="graduation-cap"></i> Multiple Departments</span>
+        <span class="job-meta-item"><i data-lucide="clock"></i> Full-Time</span>
+        <span class="job-meta-item"><i data-lucide="map-pin"></i> Main Campus, Kiambugi</span>
+      </div>
+      <p class="job-desc">Kiharu TVC is recruiting qualified Trainers across various technical and vocational departments to deliver TVET CDACC curricula, conduct practical assessments and mentor students in their respective fields of specialization.</p>
+      <ul style="font-size:13.5px;color:var(--text-sub);line-height:1.9;padding-left:20px;margin-bottom:16px;">
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Diploma or Degree in the relevant technical field</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>TVET instructor certificate or equivalent teaching qualification</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Minimum 2 years teaching or industry experience</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Registration with TVETA is an added advantage</span></li>
+      </ul>
+      <div class="job-footer">
+        <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 August 2026</span>
+        <div class="job-footer-actions">
+          <a class="download-advert-btn" href="/documents/trainers-advert.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
+          <a class="apply-link" href="mailto:info@kiharutvc.ac.ke?subject=Application: Trainer Position"><i data-lucide="send"></i> Apply via Email</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOB 7 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <h3>Caretaker</h3>
+        <span class="job-badge badge-open"><i data-lucide="circle-dot" style="width:10px;height:10px;"></i> Open</span>
+      </div>
+      <div class="job-meta">
+        <span class="job-meta-item"><i data-lucide="wrench"></i> Estates & Facilities</span>
+        <span class="job-meta-item"><i data-lucide="clock"></i> Full-Time</span>
+        <span class="job-meta-item"><i data-lucide="map-pin"></i> Main Campus, Kiambugi</span>
+      </div>
+      <p class="job-desc">The college seeks a diligent Caretaker responsible for the general upkeep, security oversight and maintenance of college grounds, buildings and facilities, ensuring a safe and clean environment for staff and students.</p>
+      <ul style="font-size:13.5px;color:var(--text-sub);line-height:1.9;padding-left:20px;margin-bottom:16px;">
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>KCSE certificate or equivalent</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Basic knowledge of facility maintenance and minor repairs</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>At least 1 year experience in a similar role</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Trustworthy, reliable and able to work with minimal supervision</span></li>
+      </ul>
+      <div class="job-footer">
+        <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 August 2026</span>
+        <div class="job-footer-actions">
+          <a class="download-advert-btn" href="/documents/caretaker-advert.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
+          <a class="apply-link" href="mailto:info@kiharutvc.ac.ke?subject=Application: Caretaker Position"><i data-lucide="send"></i> Apply via Email</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOB 8 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <h3>Student Finance Officer</h3>
+        <span class="job-badge badge-open"><i data-lucide="circle-dot" style="width:10px;height:10px;"></i> Open</span>
+      </div>
+      <div class="job-meta">
+        <span class="job-meta-item"><i data-lucide="landmark"></i> Finance & Accounts</span>
+        <span class="job-meta-item"><i data-lucide="clock"></i> Full-Time</span>
+        <span class="job-meta-item"><i data-lucide="map-pin"></i> Main Campus, Kiambugi</span>
+      </div>
+      <p class="job-desc">Kiharu TVC is looking for a Student Finance Officer to manage student fee accounts, HELB and bursary disbursements, fee statements and related student financial records, working closely with the Finance Office and Registrar.</p>
+      <ul style="font-size:13.5px;color:var(--text-sub);line-height:1.9;padding-left:20px;margin-bottom:16px;">
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Diploma in Accounting, Finance or a related field</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>CPA Part II or equivalent professional qualification</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>Proficiency in student management / fee-billing software</span></li>
+        <li style="display:flex;align-items:baseline;gap:7px;"><i data-lucide="circle-check" style="width:14px;height:14px;stroke:var(--maroon-text);flex-shrink:0;margin-top:2px;"></i><span>At least 1 year relevant experience in a learning institution</span></li>
+      </ul>
+      <div class="job-footer">
+        <span class="job-deadline"><i data-lucide="calendar-days"></i> Application Deadline: 30 August 2026</span>
+        <div class="job-footer-actions">
+          <a class="download-advert-btn" href="/documents/student-finance-officer-advert.pdf" download><i data-lucide="download"></i> Download Advertisement</a>
+          <a class="apply-link" href="mailto:info@kiharutvc.ac.ke?subject=Application: Student Finance Officer"><i data-lucide="send"></i> Apply via Email</a>
+        </div>
+      </div>
+    </div>
+
     <div class="info-note-box">
       <div style="flex-shrink:0;width:42px;height:42px;background:rgba(106,24,48,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;"><i data-lucide="info" style="width:20px;height:20px;stroke:var(--maroon-text);"></i></div>
       <div>
@@ -3034,7 +3229,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       </div>
       <div class="tender-footer">
         <span class="tender-deadline"><i data-lucide="calendar-days"></i> Closing Date: 25 July 2026, 10:00 AM</span>
-        <a class="download-btn" href="tender-ict-2026-001.pdf" target="_blank"><i data-lucide="download"></i> Download Tender Document (PDF)</a>
+        <a class="download-btn" href="tender_1.pdf" target="_blank"><i data-lucide="download"></i> Download Tender Document (PDF)</a>
       </div>
     </div>
 
@@ -3054,11 +3249,51 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       </div>
       <div class="tender-footer">
         <span class="tender-deadline"><i data-lucide="calendar-days"></i> Closing Date: 1 August 2026, 10:00 AM</span>
-        <a class="download-btn" href="tender-works-2026-002.pdf" target="_blank"><i data-lucide="download"></i> Download Tender Document (PDF)</a>
+        <a class="download-btn" href="tender_2.pdf" target="_blank"><i data-lucide="download"></i> Download Tender Document (PDF)</a>
       </div>
     </div>
 
-    <!-- TENDER 3 — CLOSED -->
+    <!-- TENDER 3 -->
+    <div class="tender-card">
+      <div class="tender-card-head">
+        <h3>Construction of Temporary Workshops at Kiharu TVC</h3>
+        <span class="job-badge badge-open"><i data-lucide="circle-dot" style="width:10px;height:10px;"></i> Open</span>
+      </div>
+      <div class="tender-ref">Tender No: KTVC/WORKS/2026/003</div>
+      <p class="tender-desc">Kiharu Technical & Vocational College invites eligible contractors to submit bids for the construction of temporary workshops. Interested bidders should download the tender document for complete requirements and submission instructions.</p>
+      <div class="tender-details">
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="tag" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Category</div><div class="td-value">Civil Works</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="user-check" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Eligibility</div><div class="td-value">Registered contractors — see tender document</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="banknote" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Tender Fee</div><div class="td-value">Placeholder — update later</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="shield" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Bid Bond</div><div class="td-value">Placeholder — update later</div></div>
+      </div>
+      <div class="tender-footer">
+        <span class="tender-deadline"><i data-lucide="calendar-days"></i> Closing Date: Placeholder — update later</span>
+        <a class="download-btn" href="#" target="_blank"><i data-lucide="download"></i> Download Tender Document (PDF)</a>
+      </div>
+    </div>
+
+    <!-- TENDER 4 -->
+    <div class="tender-card">
+      <div class="tender-card-head">
+        <h3>Registration of Suppliers FY 2026–2028</h3>
+        <span class="job-badge badge-open"><i data-lucide="circle-dot" style="width:10px;height:10px;"></i> Open</span>
+      </div>
+      <div class="tender-ref">Tender No: Placeholder — update later</div>
+      <p class="tender-desc">Kiharu Technical & Vocational College invites qualified suppliers to register for the Financial Years 2026–2028 in various supply and service categories. Download the registration document for full details.</p>
+      <div class="tender-details">
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="tag" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Category</div><div class="td-value">Supplier Registration</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="user-check" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Eligibility</div><div class="td-value">Registered suppliers — various categories</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="banknote" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Registration Fee</div><div class="td-value">Placeholder — update later</div></div>
+        <div class="tender-detail-item"><div class="td-label"><i data-lucide="shield" style="width:11px;height:11px;stroke:var(--muted);vertical-align:-1px;margin-right:3px;"></i>Bid Bond</div><div class="td-value">Not applicable</div></div>
+      </div>
+      <div class="tender-footer">
+        <span class="tender-deadline"><i data-lucide="calendar-days"></i> Closing Date: Placeholder — update later</span>
+        <a class="download-btn" href="#" target="_blank"><i data-lucide="download"></i> Download Registration Document (PDF)</a>
+      </div>
+    </div>
+
+    <!-- TENDER 5 — CLOSED -->
     <div class="tender-card" style="opacity:.72;border-color:var(--border);">
       <div class="tender-card-head">
         <h3>Supply of Hospitality Training Equipment & Uniforms</h3>
