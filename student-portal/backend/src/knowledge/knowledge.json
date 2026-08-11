@@ -1,0 +1,148 @@
+{
+  "entries": [
+    {
+      "id": "overview",
+      "title": "Kiharu TVC overview",
+      "text": "Kiharu Technical & Vocational College is a TVETA- and CDACC-accredited institution located in Gaturi Ward, Kiambugi Shopping Centre, Murang'a County. The college offers certificate, diploma, artisan, and short course programmes across technical, business, hospitality, tourism, fashion, computing, cosmetology and social work disciplines. It emphasizes practical skills, industry alignment, and community-focused training.",
+      "tags": ["overview", "about", "college", "location", "tvc", "kiharu", "public website"]
+    },
+    {
+      "id": "contact",
+      "title": "Contact information",
+      "text": "Kiharu TVC contact details are: Physical Address: Gaturi Ward, Kiambugi Shopping Centre, Murang'a County, 17Kms Along Murang'a Kiria-ini Road. Postal Address: P.O. Box 29-10200. Phone: 0720 657 630 / 0748 658 276. Office Hours: Mon–Fri 8AM–5PM.",
+      "tags": ["contact", "phone", "address", "postal", "office hours"]
+    },
+    {
+      "id": "location",
+      "title": "College location",
+      "text": "Kiharu TVC is located on the Murang'a Kiria-ini Road in Gaturi Ward, Kiambugi Shopping Centre. Visitors should use the college name and local area as guidance. The website also provides a location section that can show the official map embed once available.",
+      "tags": ["location", "find us", "where", "map", "directions"]
+    },
+    {
+      "id": "admissions",
+      "title": "Admissions information",
+      "text": "Applications are now open for all programmes at Kiharu TVC. Prospective students should choose a programme, collect an application form from the Registrar's Office or download it from the website, submit KCSE/KCPE certificate or result slip, National ID or Birth Certificate, two passport photos and the application fee receipt. Successful applicants will receive an admission letter within five working days and then report on the registration date with fees cleared and a student ID.",
+      "tags": ["admissions", "apply", "application", "intake", "registration", "entry"]
+    },
+    {
+      "id": "application-process",
+      "title": "Application process",
+      "text": "The application process at Kiharu TVC involves choosing the programme that matches career goals, collecting the application form, completing and submitting the required documents, and waiting for the admission letter. After admission, students should clear fees, collect their student ID and officially register on the reporting date.",
+      "tags": ["application process", "how to apply", "steps", "process", "forms"]
+    },
+    {
+      "id": "entry-requirements",
+      "title": "Entry requirements",
+      "text": "Kiharu TVC entry requirements are: KCSE mean grade C- and above for diploma programmes (Level 6); KCSE mean grade D and above for Certificate courses (Level 5); KCSE mean grade D- and below for Artisan Certificate courses (Level 4); and KCPE and above for Level 3 courses. Short courses have rolling admissions.",
+      "tags": ["entry requirements", "requirements", "eligibility", "KCSE", "KCPE", "diploma", "certificate", "artisan"]
+    },
+    {
+      "id": "fees",
+      "title": "Fees and finance",
+      "text": "Kiharu TVC provides information on the fees structure and payment procedures. Students are reminded to clear semester fees by the published deadline to avoid deregistration. The college also accepts fee payments via M-Pesa and provides a downloadable fees structure PDF on the website.",
+      "tags": ["fees", "finance", "payment", "structure", "fees deadline", "M-Pesa"]
+    },
+    {
+      "id": "short-courses",
+      "title": "Short courses",
+      "text": "Kiharu TVC offers a range of short courses in addition to long courses and diploma programmes. The website highlights new Solar PV and AI short courses, and it notes that short courses have rolling admissions. Short course details are available through the public site.",
+      "tags": ["short courses", "short courses offered", "short course", "rolling admissions"]
+    },
+    {
+      "id": "jobs",
+      "title": "Job adverts",
+      "text": "Job adverts at Kiharu TVC are published on the public website. Current openings include lecturers, accounts assistants, finance officers, procurement officers, and student finance officers. Interested candidates are encouraged to apply by email to the addresses shown or to submit documents to the Principal's Office.",
+      "tags": ["jobs", "careers", "vacancies", "employment", "job adverts", "apply"]
+    },
+    {
+      "id": "tenders",
+      "title": "Tenders and procurement",
+      "text": "Tenders and procurement notices are published on the Kiharu TVC website. Eligible suppliers and contractors may download tender documents from the Procurement Office and submit sealed bids before the stated deadlines. The college follows the Public Procurement and Asset Disposal Act, 2015.",
+      "tags": ["tenders", "procurement", "bids", "suppliers", "contracts", "tender documents"]
+    },
+    {
+      "id": "service-charter",
+      "title": "Service charter",
+      "text": "Kiharu TVC's service charter is displayed on the website as a public commitment to transparent, accountable and quality service delivery. It is intended to guide students, staff and stakeholders on the institution's standards and values.",
+      "tags": ["service charter", "charter", "standards", "quality", "values"]
+    },
+    {
+      "id": "accreditation",
+      "title": "Accreditation",
+      "text": "Kiharu Technical & Vocational College is a TVETA-approved institution and offers CDACC-accredited programmes. The college is described as an equal-opportunity institution that complies with national accreditation standards.",
+      "tags": ["accreditation", "TVETA", "CDACC", "approved", "accredited"]
+    },
+    {
+      "id": "programmes",
+      "title": "Programmes offered",
+      "text": "Kiharu TVC offers more than 50 programmes and over 30 short courses across technical, business, hospitality, tourism, fashion, computing, cosmetology and social work fields. Long courses include diplomas and certificates in building and civil engineering, mechanical and automotive engineering, electrical and electronics engineering, computing and informatics, business and liberal studies, fashion and design, cosmetology, hospitality, social work, and tourism management.",
+      "tags": ["programmes", "courses offered", "programmes offered", "long courses", "certificate", "diploma"]
+    },
+    {
+      "id": "building-civil-engineering",
+      "title": "Building & Civil Engineering",
+      "text": "Building & Civil Engineering at Kiharu TVC is offered as a diploma and certificate programme. The curriculum includes Module 1: Introduction to Building Construction; Module 2: Masonry and Concrete Work; Module 3: Carpentry and Timber Work; Module 4: Surveying and Site Engineering; Module 5: Electrical and Plumbing Installation; and Module 6: Project Management and Documentation.",
+      "tags": ["building", "civil", "engineering", "building and civil engineering", "construction", "surveying", "masonry", "architecture"]
+    },
+    {
+      "id": "business-liberal-studies",
+      "title": "Business & Liberal Studies",
+      "text": "Business & Liberal Studies at Kiharu TVC covers diploma and certificate pathways. Modules include Business Fundamentals, Accounting Principles, Financial Management, Management and Organization, Marketing and Sales, and Business Ethics and Communication. Students learn entrepreneurship, bookkeeping, budgeting, leadership, promotion, and professional communication.",
+      "tags": ["business", "liberal studies", "accounting", "marketing", "management", "entrepreneurship"]
+    },
+    {
+      "id": "mechanical-automotive-engineering",
+      "title": "Mechanical & Automotive Engineering",
+      "text": "Mechanical & Automotive Engineering is available as diploma and certificate programmes. The curriculum includes Engine Fundamentals, Engine Systems, Transmission and Drivetrain, Suspension and Steering, Braking Systems, and Vehicle Maintenance and Repair. Topics include engine operation, fuel systems, gearboxes, steering, brakes, diagnostics, and maintenance.",
+      "tags": ["mechanical", "automotive", "engineering", "vehicles", "maintenance", "drivetrain", "brakes"]
+    },
+    {
+      "id": "electrical-electronics-engineering",
+      "title": "Electrical & Electronics Engineering",
+      "text": "Electrical & Electronics Engineering at Kiharu TVC includes diploma and certificate pathways. Students study Electrical Fundamentals, AC and DC Circuits, Electrical Installation, Electronics Basics, Power Distribution, and Electrical Safety and Maintenance. The programme covers wiring systems, transformers, semiconductors, safety, and troubleshooting.",
+      "tags": ["electrical", "electronics", "engineering", "wiring", "circuits", "power", "safety"]
+    },
+    {
+      "id": "computing-informatics",
+      "title": "Computing & Informatics",
+      "text": "Computing & Informatics at Kiharu TVC offers diploma and certificate programmes. Modules include Computer Fundamentals, Programming Basics, Database Management, Networking, Web Development, and IT Support and Troubleshooting. Students learn hardware, operating systems, programming, SQL, networking, web design, and system administration.",
+      "tags": ["computing", "informatics", "IT", "programming", "networking", "web", "database"]
+    },
+    {
+      "id": "fashion-design",
+      "title": "Fashion & Design",
+      "text": "Fashion & Design is offered at Kiharu TVC as a certificate programme. The curriculum includes Fashion Design Basics, Pattern Making, Garment Construction, Textile Design, Fashion Collections, and Fashion Business. Topics cover sketching, fabric knowledge, sewing, pattern drafting, printing, trend forecasting, and production management.",
+      "tags": ["fashion", "design", "sewing", "textiles", "pattern making", "garment"]
+    },
+    {
+      "id": "cosmetology",
+      "title": "Cosmetology",
+      "text": "Cosmetology at Kiharu TVC covers skin anatomy and care, hair care and styling, makeup application, nail care and design, health and safety, and salon operations. Students learn facial treatments, hair styling, makeup techniques, manicure and pedicure skills, hygiene standards, customer service, and salon management.",
+      "tags": ["cosmetology", "beauty", "hair", "makeup", "nails", "salon"]
+    },
+    {
+      "id": "hospitality",
+      "title": "Hospitality",
+      "text": "Hospitality at Kiharu TVC is offered as diploma and certificate programmes. The programme includes industry overview, reception duties, kitchen safety and food hygiene, table setting and service, room cleaning and maintenance, and event planning. It teaches customer relations, service standards, guest coordination, and hospitality operations.",
+      "tags": ["hospitality", "hotel", "tourism", "food", "service", "events"]
+    },
+    {
+      "id": "social-work",
+      "title": "Social Work",
+      "text": "Social Work at Kiharu TVC is offered as a diploma programme. Modules include Social Work Values, Community Needs, Communication Skills, Child Protection, Mental Health Awareness, and Social Policy. Students learn ethics, stakeholder engagement, crisis intervention, family support, and advocacy.",
+      "tags": ["social work", "community", "welfare", "support", "counseling", "advocacy"]
+    },
+    {
+      "id": "tourism-management",
+      "title": "Tourism Management",
+      "text": "Tourism Management at Kiharu TVC is offered as diploma and certificate programmes. The programme covers Tourism Overview, Guide Preparation, Itinerary Planning, Destination Marketing, Property Management, and Adventure Activities. Students learn sustainable tourism, customer service, booking systems, marketing, and operations.",
+      "tags": ["tourism", "travel", "management", "hospitality", "marketing", "destinations"]
+    },
+    {
+      "id": "fallback",
+      "title": "Fallback answer",
+      "text": "I could not find a direct answer in the public Kiharu TVC information. Please ask about courses, admissions, fees, contact details, location, programme requirements, job adverts, tenders, or how to apply. You can also contact the college at 0720 657 630 or 0748 658 276.",
+      "tags": ["fallback", "unknown", "help", "assist"]
+    }
+  ]
+}

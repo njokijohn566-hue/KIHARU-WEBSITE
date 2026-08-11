@@ -4,31 +4,45 @@ const cors = require('cors');
 const path = require('path');
 
 // Import routes
-const authRoutes = require('./src/routes/auth');
-const studentRoutes = require('./src/routes/students');
-const gradesRoutes = require('./src/routes/grades');
-const coursesRoutes = require('./src/routes/courses');
-const enrollmentRoutes = require('./src/routes/enrollments');
-const feesRoutes = require('./src/routes/fees');
-const paymentsRoutes = require('./src/routes/payments');
-const assignmentRoutes = require('./src/routes/assignments');
-const submissionRoutes = require('./src/routes/submissions');
+const authRoutes = require('./routes/auth');
+const studentRoutes = require('./routes/students');
+const gradesRoutes = require('./routes/grades');
+const coursesRoutes = require('./routes/courses');
+const enrollmentRoutes = require('./routes/enrollments');
+const feesRoutes = require('./routes/fees');
+const paymentsRoutes = require('./routes/payments');
+const assignmentRoutes = require('./routes/assignments');
+const submissionRoutes = require('./routes/submissions');
+const aiRoutes = require('./routes/ai');
 
 // Import middleware
-const { errorHandler } = require('./src/middleware/errorHandler');
-const { requestLogger } = require('./src/middleware/logger');
+const { errorHandler } = require('./middleware/errorHandler');
+const { requestLogger } = require('./middleware/logger');
 
 const app = express();
 
 // Middleware
+// Configure CORS: allow explicit client origin(s) and common localhost dev origins.
+const allowedOrigins = [];
+if (process.env.CLIENT_URL) allowedOrigins.push(process.env.CLIENT_URL);
+if (process.env.LOCAL_CLIENT_URL) allowedOrigins.push(process.env.LOCAL_CLIENT_URL);
+allowedOrigins.push('http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:5173', 'http://127.0.0.1:5173');
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: function(origin, callback) {
+    // Allow requests with no origin (curl, server-to-server)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) return callback(null, true);
+    return callback(new Error('CORS origin not allowed'));
+  },
   credentials: true,
   optionsSuccessStatus: 200
 }));
 
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+// Reduce global JSON body size to a reasonable limit for chat messages.
+// Route-specific endpoints that need larger payloads should opt into larger limits.
+app.use(express.json({ limit: '50kb' }));
+app.use(express.urlencoded({ limit: '50kb', extended: true }));
 app.use(requestLogger);
 
 // Upload directory
@@ -46,6 +60,7 @@ app.use(`${apiPrefix}/fees`, feesRoutes);
 app.use(`${apiPrefix}/payments`, paymentsRoutes);
 app.use(`${apiPrefix}/assignments`, assignmentRoutes);
 app.use(`${apiPrefix}/submissions`, submissionRoutes);
+app.use(`${apiPrefix}/ai`, aiRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

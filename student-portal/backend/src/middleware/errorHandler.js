@@ -1,14 +1,21 @@
 const errorHandler = (err, req, res, next) => {
-  console.error('Error:', err);
+  // Log stack in server logs for debugging, but avoid returning stack or internals to clients in production
+  if (err && err.stack) {
+    console.error(err.stack);
+  } else {
+    console.error('Error:', err);
+  }
 
   const status = err.status || err.statusCode || 500;
-  const message = err.message || 'Internal Server Error';
+  const isDev = process.env.NODE_ENV === 'development';
+  const clientMessage = isDev ? (err.message || 'Internal Server Error') : 'Internal Server Error';
 
-  res.status(status).json({
-    success: false,
-    message,
-    ...(process.env.NODE_ENV === 'development' && { error: err })
-  });
+  const payload = { success: false, message: clientMessage };
+  if (isDev) {
+    payload.error = { message: err.message, stack: err.stack };
+  }
+
+  res.status(status).json(payload);
 };
 
 module.exports = {
