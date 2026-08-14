@@ -1279,10 +1279,20 @@
       var input = document.getElementById('assistantChatInput');
       var messages = document.getElementById('assistantChatMessages');
       var status = document.getElementById('assistantChatStatus');
-      var aiChatUrl = (location.protocol === 'file:' || (location.hostname === '127.0.0.1' || location.hostname === 'localhost') && location.port !== '5000')
-        ? 'http://127.0.0.1:5000/api/ai/chat'
-        : '/api/ai/chat';
+     var isLocalStaticFrontend =
+  location.protocol === 'file:' ||
+  (
+    (
+      location.hostname === '127.0.0.1' ||
+      location.hostname === 'localhost' ||
+      location.hostname === '192.168.0.104'
+    ) &&
+    location.port !== '5000'
+  );
 
+var aiChatUrl = isLocalStaticFrontend
+  ? 'http://127.0.0.1:5000/api/ai/chat'
+  : '/api/ai/chat';
       function scrollMessages(){
         messages.scrollTop = messages.scrollHeight;
       }

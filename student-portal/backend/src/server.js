@@ -27,11 +27,18 @@ const allowedOrigins = [];
 if (process.env.CLIENT_URL) allowedOrigins.push(process.env.CLIENT_URL);
 if (process.env.LOCAL_CLIENT_URL) allowedOrigins.push(process.env.LOCAL_CLIENT_URL);
 allowedOrigins.push(
-  'http://localhost:3000', 'http://127.0.0.1:3000',
-  'http://localhost:5173', 'http://127.0.0.1:5173',
-  // common static dev server ports (Live Server, http-server, etc.)
-  'http://localhost:5500', 'http://127.0.0.1:5500',
-  'http://localhost:8080', 'http://127.0.0.1:8080'
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://192.168.0.104:3000',
+
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+
+  'http://localhost:5500',
+  'http://127.0.0.1:5500',
+
+  'http://localhost:8080',
+  'http://127.0.0.1:8080'
 );
 // Allow the public Kiharu website origins (update via env if different in production)
 allowedOrigins.push('https://kiharutvc.ac.ke', 'https://www.kiharutvc.ac.ke');
