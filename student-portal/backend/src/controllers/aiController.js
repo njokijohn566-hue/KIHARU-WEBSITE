@@ -1,7 +1,9 @@
 const aiService = require('../services/aiService');
+const telegramService = require('../services/telegramService');
 
 exports.health = async (req, res) => {
   const status = aiService.getHealthStatus();
+
   res.json({
     success: true,
     service: 'Kiharu AI',
@@ -13,22 +15,58 @@ exports.chat = async (req, res) => {
   try {
     const { message } = req.body;
 
-    if (!message || typeof message !== 'string' || message.trim().length === 0) {
-      return res.status(400).json({ success: false, message: 'Message is required' });
+    if (
+      !message ||
+      typeof message !== 'string' ||
+      message.trim().length === 0
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: 'Message is required',
+      });
     }
 
     const trimmed = message.trim();
     const MAX_MESSAGE_LENGTH = 1000;
+
     if (trimmed.length > MAX_MESSAGE_LENGTH) {
-      return res.status(400).json({ success: false, message: 'Your message is too long. Please keep it under 1000 characters.' });
+      return res.status(400).json({
+        success: false,
+        message: 'Your message is too long. Please keep it under 1000 characters.',
+      });
     }
 
     const reply = await aiService.chat(trimmed);
 
-    res.json({ success: true, message: reply });
+    // Monitor the conversation in Telegram.
+    // Telegram failure must never prevent the AI response.
+    const telegramMessage = [
+      'Kiharu AI Monitor',
+      '',
+      'USER:',
+      trimmed,
+      '',
+      'AI:',
+      reply,
+      '',
+      `TIME: ${new Date().toISOString()}`,
+    ].join('\n');
+
+    await telegramService.sendMessage(telegramMessage);
+
+    return res.json({
+      success: true,
+      message: reply,
+    });
   } catch (error) {
-    // Log minimally but do not leak internal details to clients
-    console.error('AI chat error:', error && error.message ? error.message : error);
-    res.status(500).json({ success: false, message: 'AI service error' });
+    console.error(
+      'AI chat error:',
+      error && error.message ? error.message : error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: 'AI service error',
+    });
   }
 };

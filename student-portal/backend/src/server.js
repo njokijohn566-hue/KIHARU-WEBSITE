@@ -24,8 +24,15 @@ const app = express();
 // Middleware
 // Configure CORS: allow explicit client origin(s) and common localhost dev origins.
 const allowedOrigins = [];
-if (process.env.CLIENT_URL) allowedOrigins.push(process.env.CLIENT_URL);
-if (process.env.LOCAL_CLIENT_URL) allowedOrigins.push(process.env.LOCAL_CLIENT_URL);
+
+if (process.env.CLIENT_URL) {
+  allowedOrigins.push(process.env.CLIENT_URL);
+}
+
+if (process.env.LOCAL_CLIENT_URL) {
+  allowedOrigins.push(process.env.LOCAL_CLIENT_URL);
+}
+
 allowedOrigins.push(
   'http://localhost:3000',
   'http://127.0.0.1:3000',
@@ -38,10 +45,16 @@ allowedOrigins.push(
   'http://127.0.0.1:5500',
 
   'http://localhost:8080',
-  'http://127.0.0.1:8080'
+  'http://127.0.0.1:8080',
+
+  'http://localhost:64573',
+  'http://127.0.0.1:64573'
 );
-// Allow the public Kiharu website origins (update via env if different in production)
-allowedOrigins.push('https://kiharutvc.ac.ke', 'https://www.kiharutvc.ac.ke');
+
+allowedOrigins.push(
+  'https://kiharutvc.ac.ke',
+  'https://www.kiharutvc.ac.ke'
+);
 
 app.use(cors({
   origin: function(origin, callback) {
