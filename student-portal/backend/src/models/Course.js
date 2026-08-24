@@ -33,20 +33,87 @@ const Course = {
     return result.rows[0];
   },
 
-  create: async (courseCode, courseName, description, credits, semester) => {
+ create: async (
+    courseCode,
+    courseName,
+    description,
+    credits,
+    semester,
+    academicYear,
+    capacity
+  ) => {
     const result = await pool.query(
-      'INSERT INTO courses (course_code, course_name, description, credits, semester) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [courseCode, courseName, description, credits, semester]
+      `INSERT INTO courses
+        (course_code, course_name, description, credits, semester, academic_year, capacity)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       RETURNING *`,
+      [
+        courseCode,
+        courseName,
+        description,
+        credits,
+        semester,
+        academicYear,
+        capacity
+      ]
     );
+
     return result.rows[0];
   },
 
-  getBySemester: async (semester) => {
+    update: async (
+    id,
+    courseCode,
+    courseName,
+    description,
+    credits,
+    semester,
+    academicYear,
+    capacity
+  ) => {
+    const result = await pool.query(
+      `UPDATE courses
+       SET
+         course_code = $1,
+         course_name = $2,
+         description = $3,
+         credits = $4,
+         semester = $5,
+         academic_year = $6,
+         capacity = $7,
+         updated_at = CURRENT_TIMESTAMP
+       WHERE id = $8
+       RETURNING *`,
+      [
+        courseCode,
+        courseName,
+        description,
+        credits,
+        semester,
+        academicYear,
+        capacity,
+        id
+      ]
+    );
+
+    return result.rows[0];
+  },
+
+    getBySemester: async (semester) => {
     const result = await pool.query(
       'SELECT * FROM courses WHERE semester = $1 ORDER BY course_code',
       [semester]
     );
     return result.rows;
+  },
+
+  delete: async (id) => {
+    const result = await pool.query(
+      'DELETE FROM courses WHERE id = $1 RETURNING *',
+      [id]
+    );
+
+    return result.rows[0];
   }
 };
 

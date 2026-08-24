@@ -67,6 +67,7 @@ exports.login = async (req, res) => {
     }
 
     const user = await User.findByEmail(email);
+
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -75,6 +76,7 @@ exports.login = async (req, res) => {
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password_hash);
+
     if (!passwordMatch) {
       return res.status(401).json({
         success: false,
@@ -82,10 +84,36 @@ exports.login = async (req, res) => {
       });
     }
 
-    const student = await Student.findByUserId(user.id);
-    const token = generateToken(user.id, user.email, 'student');
+    // Generate token using the user's actual role
+    const token = generateToken(user.id, user.email, user.role);
 
-    res.json({
+    // ADMIN LOGIN
+    if (user.role === 'admin') {
+      return res.json({
+        success: true,
+        message: 'Admin login successful',
+        data: {
+          userId: user.id,
+          email: user.email,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          role: user.role,
+          token
+        }
+      });
+    }
+
+    // STUDENT LOGIN
+    const student = await Student.findByUserId(user.id);
+
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        message: 'Student record not found'
+      });
+    }
+
+    return res.json({
       success: true,
       message: 'Login successful',
       data: {
@@ -94,11 +122,14 @@ exports.login = async (req, res) => {
         email: user.email,
         firstName: user.first_name,
         lastName: user.last_name,
+        role: user.role,
         token
       }
     });
+
   } catch (error) {
     console.error('Login error:', error);
+
     res.status(500).json({
       success: false,
       message: 'Login failed',

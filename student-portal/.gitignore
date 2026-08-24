@@ -1,16 +1,45 @@
-# Root .gitignore
+# Dependencies
 node_modules/
+
+# Environment / secrets
 .env
-.env.local
-.DS_Store
+.env.*
+!.env.example
+!.env.*.example
 
-# Docker
-.dockerignore
+# Next.js
+.next/
+out/
 
-# IDE
-.vscode/
-.idea/
+# Build output
+dist/
+build/
 
 # Logs
 logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Runtime uploads
+uploads/
+
+# Temporary inspection scripts
+inspect-*.js

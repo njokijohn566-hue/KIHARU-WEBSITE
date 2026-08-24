@@ -98,10 +98,66 @@ exports.dropCourse = async (req, res) => {
       message: 'Course dropped successfully',
       data: dropped
     });
-  } catch (error) {
+   } catch (error) {
     res.status(500).json({
       success: false,
       message: 'Failed to drop course',
+      error: error.message
+    });
+  }
+};
+
+exports.getAdminEnrollments = async (req, res) => {
+  try {
+    const result = await require('../utils/db').query(`
+      SELECT
+        e.id,
+        e.registration_number,
+        e.enrollment_date,
+        e.status,
+
+        s.id AS student_record_id,
+        s.student_id,
+
+        u.first_name,
+        u.last_name,
+        u.email,
+
+        c.id AS course_id,
+        c.course_code,
+        c.course_name,
+        c.credits,
+        c.semester,
+        c.academic_year
+
+      FROM enrollments e
+
+      JOIN students s
+        ON e.student_id = s.id
+
+      JOIN users u
+        ON s.user_id = u.id
+
+      JOIN courses c
+        ON e.course_id = c.id
+
+      ORDER BY e.enrollment_date DESC
+    `);
+
+    res.json({
+      success: true,
+      data: {
+        enrollments: result.rows,
+        count: result.rows.length
+      }
+    });
+
+  } catch (error) {
+    console.error('Failed to fetch admin enrollments:', error);
+
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch enrollments',
       error: error.message
     });
   }

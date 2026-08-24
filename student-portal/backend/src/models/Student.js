@@ -33,6 +33,99 @@ const Student = {
     return result.rows[0];
   },
 
+  adminUpdate: async (
+    id,
+    firstName,
+    lastName,
+    email,
+    studentId,
+    dateOfBirth,
+    phone,
+    address,
+    city,
+    country,
+    currentSemester
+  ) => {
+    const client = await pool.connect();
+
+    try {
+      await client.query('BEGIN');
+
+      const studentResult = await client.query(
+        `SELECT user_id
+         FROM students
+         WHERE id = $1`,
+        [id]
+      );
+
+      if (studentResult.rows.length === 0) {
+        throw new Error('Student not found');
+      }
+
+      const userId = studentResult.rows[0].user_id;
+
+      await client.query(
+        `UPDATE users
+         SET first_name = $1,
+             last_name = $2,
+             email = $3,
+             updated_at = CURRENT_TIMESTAMP
+         WHERE id = $4`,
+        [firstName, lastName, email, userId]
+      );
+
+      const studentUpdate = await client.query(
+        `UPDATE students
+         SET student_id = $1,
+             date_of_birth = $2,
+             phone = $3,
+             address = $4,
+             city = $5,
+             country = $6,
+             current_semester = $7,
+             updated_at = CURRENT_TIMESTAMP
+         WHERE id = $8
+         RETURNING *`,
+        [
+          studentId,
+          dateOfBirth,
+          phone,
+          address,
+          city,
+          country,
+          currentSemester,
+          id
+        ]
+      );
+
+      await client.query('COMMIT');
+
+      return studentUpdate.rows[0];
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
+  },
+
+  setActiveStatus: async (id, isActive) => {
+    const result = await pool.query(
+      `UPDATE users
+       SET is_active = $1,
+           updated_at = CURRENT_TIMESTAMP
+       WHERE id = (
+         SELECT user_id
+         FROM students
+         WHERE id = $2
+       )
+       RETURNING id, is_active`,
+      [isActive, id]
+    );
+
+    return result.rows[0];
+  },
+
   getProfileWithStats: async (studentId) => {
     const result = await pool.query(
       `SELECT s.*, u.email, u.first_name, u.last_name,
@@ -45,7 +138,32 @@ const Student = {
       [studentId]
     );
     return result.rows[0];
-  }
+  },
+
+    findAll: async () => {
+    const result = await pool.query(
+      `SELECT
+        s.id,
+        s.student_id,
+        s.date_of_birth,
+        s.phone,
+        s.address,
+        s.city,
+        s.country,
+        s.enrollment_date,
+        s.current_semester,
+        u.id AS user_id,
+        u.email,
+        u.first_name,
+        u.last_name,
+        u.is_active
+       FROM students s
+       JOIN users u ON s.user_id = u.id
+       ORDER BY s.id`
+    );
+
+    return result.rows;
+  },
 };
 
 module.exports = Student;

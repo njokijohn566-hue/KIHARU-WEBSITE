@@ -86,4 +86,43 @@ export const submissionAPI = {
   getDetails: (submissionId: number) => api.get(`/submissions/${submissionId}`),
 };
 
+export const adminAPI = {
+  getStudents: () =>
+    api.get('/students/admin'),
+
+  getStudentById: (studentId: number) =>
+    api.get(`/students/admin/${studentId}`),
+
+  updateStudent: (studentId: number, data: any) =>
+    api.put(`/students/admin/${studentId}`, data),
+
+  updateStudentStatus: (studentId: number, isActive: boolean) =>
+    api.patch(`/students/admin/${studentId}/status`, {
+      isActive,
+    }),
+
+
+    getCourses: () =>
+  api.get('/courses/admin'),
+
+createCourse: (data: any) =>
+  api.post('/courses', data),
+
+updateCourse: (courseId: number, data: any) =>
+  api.put(`/courses/${courseId}`, data),
+
+deleteCourse: (courseId: number) =>
+  api.delete(`/courses/${courseId}`),
+
+getEnrollments: () =>
+  api.get('/enrollments/admin'),
+
+getGrades: () =>
+  api.get('/grades/admin'),
+
+getFees: () =>
+  api.get('/fees/admin'),
+
+};
+
 export default api;

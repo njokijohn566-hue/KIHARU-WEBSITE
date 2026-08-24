@@ -99,10 +99,68 @@ exports.downloadInvoice = async (req, res) => {
         semester
       }
     });
-  } catch (error) {
+    } catch (error) {
     res.status(500).json({
       success: false,
       message: 'Failed to generate invoice',
+      error: error.message
+    });
+  }
+};
+
+exports.getAdminFees = async (req, res) => {
+  try {
+    const pool = require('../utils/db');
+
+    const result = await pool.query(`
+      SELECT
+        f.id,
+        f.student_id,
+        f.semester,
+        f.academic_year,
+        f.total_amount,
+        f.paid_amount,
+        f.outstanding_balance,
+        f.due_date,
+        f.status,
+        f.created_at,
+        f.updated_at,
+
+        s.student_id AS student_number,
+
+        u.first_name,
+        u.last_name,
+        u.email
+
+      FROM fees f
+
+      JOIN students s
+        ON f.student_id = s.id
+
+      JOIN users u
+        ON s.user_id = u.id
+
+      ORDER BY
+        u.last_name,
+        u.first_name,
+        f.academic_year DESC,
+        f.semester DESC
+    `);
+
+    res.json({
+      success: true,
+      data: {
+        fees: result.rows,
+        count: result.rows.length
+      }
+    });
+
+  } catch (error) {
+    console.error('Failed to fetch admin fees:', error);
+
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch fees',
       error: error.message
     });
   }

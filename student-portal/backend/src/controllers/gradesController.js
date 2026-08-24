@@ -131,3 +131,71 @@ exports.downloadTranscriptPDF = async (req, res) => {
     });
   }
 };
+
+exports.getAdminGrades = async (req, res) => {
+  try {
+    const pool = require('../utils/db');
+
+    const result = await pool.query(`
+      SELECT
+        g.id,
+        g.enrollment_id,
+        g.student_id,
+        g.course_id,
+        g.cat_mark,
+        g.exam_mark,
+        g.final_grade,
+        g.letter_grade,
+        g.gpa_points,
+        g.remarks,
+        g.published,
+        g.created_at,
+        g.updated_at,
+
+        s.student_id AS student_number,
+
+        u.first_name,
+        u.last_name,
+        u.email,
+
+        c.course_code,
+        c.course_name,
+        c.credits,
+        c.semester,
+        c.academic_year
+
+      FROM grades g
+
+      JOIN students s
+        ON g.student_id = s.id
+
+      JOIN users u
+        ON s.user_id = u.id
+
+      JOIN courses c
+        ON g.course_id = c.id
+
+      ORDER BY
+        u.last_name,
+        u.first_name,
+        c.course_code
+    `);
+
+    res.json({
+      success: true,
+      data: {
+        grades: result.rows,
+        count: result.rows.length
+      }
+    });
+
+  } catch (error) {
+    console.error('Failed to fetch admin grades:', error);
+
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch grades',
+      error: error.message
+    });
+  }
+};

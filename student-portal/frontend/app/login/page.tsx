@@ -32,9 +32,15 @@ export default function LoginPage() {
       const { data } = response.data;
 
       setToken(data.token);
-      setUser(data);
-      toast.success('Login successful!');
-      router.push('/dashboard');
+setUser(data);
+
+toast.success('Login successful!');
+
+if (data.role === 'admin') {
+  router.push('/admin');
+} else {
+  router.push('/dashboard');
+}
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Login failed');
     } finally {
