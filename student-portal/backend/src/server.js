@@ -53,7 +53,8 @@ allowedOrigins.push(
 
 allowedOrigins.push(
   'https://kiharutvc.ac.ke',
-  'https://www.kiharutvc.ac.ke'
+  'https://www.kiharutvc.ac.ke',
+  'https://kiharu-website.vercel.app'
 );
 
 app.use(cors({
