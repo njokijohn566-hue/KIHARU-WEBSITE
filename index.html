@@ -339,6 +339,29 @@ nav{display:flex;align-items:center;gap:4px;}
    The maroon tint + subtle pattern overlay (below, via ::before/
    ::after) sit above the photo/gradient and below the text, so
    contrast stays high whether or not a photo is present. */
+/* Rotating hero background carousel — two stacked layers that
+   crossfade between the 5 hero images. They sit below the existing
+   ::before pattern (z-index:1) and ::after overlay (z-index:2), and
+   below the content (z-index:3), so nothing else changes visually
+   except the photo itself. If JS is unavailable, these two layers
+   simply stay invisible/empty and .hero's own background-image
+   (home-page.webp + gradient fallback, above) is shown instead. */
+.hero-bg-layer{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  z-index:0;
+  opacity:0;
+  transition:opacity .9s ease;
+}
+.hero-bg-a{opacity:1;}
+
+@media (prefers-reduced-motion: reduce){
+  .hero-bg-layer{transition:none;}
+}
+
 .hero{
   position:relative;
   background-image:
@@ -684,6 +707,55 @@ nav{display:flex;align-items:center;gap:4px;}
   display:flex;
   align-items:center;
   gap:5px;
+}
+
+/* LATEST NEWS & ANNOUNCEMENTS — layout refinement only, scoped to this grid so the
+   Sports/Clubs section (which reuses .adverts-grid/.advert-card) is unaffected. */
+.announcements-grid{
+  grid-template-columns:repeat(3,1fr);
+  gap:28px;
+  align-items:stretch;
+}
+.announcements-grid .advert-card{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+.announcements-grid .advert-img-placeholder{
+  height:150px;
+  flex-shrink:0;
+}
+.announcements-grid .advert-body{
+  display:flex;
+  flex-direction:column;
+  flex:1 1 auto;
+  padding:20px 20px 18px;
+}
+.announcements-grid .advert-body h3{
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  min-height:2.7em;
+}
+.announcements-grid .advert-body p{
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  flex:1 1 auto;
+}
+.announcements-grid .advert-date,
+.announcements-grid .advert-body > a.view-all{
+  margin-top:14px;
+  padding-top:0;
+  flex-shrink:0;
+}
+@media(max-width:900px){
+  .announcements-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:600px){
+  .announcements-grid{grid-template-columns:1fr;gap:20px;}
 }
 
 /* NOTICE BOARD */
@@ -2302,6 +2374,294 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 [data-theme="dark"] .remark-signature{border-color:var(--border);}
 [data-theme="dark"] .remark-photo{border-color:rgba(255,255,255,0.2);}
 
+/* ===== WHATSAPP SUPPORT WIDGET ===== */
+/* Temporary contact option while the Kiharu AI assistant is unavailable
+   on the public site. Self-contained: does not reuse or alter any
+   existing button/card/nav styles. */
+.wa-widget{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:5000;
+  font-family:'DM Sans', system-ui, sans-serif;
+}
+
+.wa-fab{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#25D366;
+  color:#fff;
+  border:none;
+  border-radius:999px;
+  width:56px;
+  height:56px;
+  padding:0;
+  box-shadow:0 10px 28px rgba(0,0,0,0.22);
+  cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.wa-fab:hover,
+.wa-fab:focus-visible{
+  box-shadow:0 14px 34px rgba(0,0,0,0.26);
+}
+.wa-fab:focus-visible{
+  outline:3px solid #128C7E;
+  outline-offset:2px;
+}
+.wa-fab svg{
+  width:28px;height:28px;flex-shrink:0;
+  animation:wa-bounce 3.6s ease-in-out infinite;
+}
+.wa-fab:hover svg,
+.wa-fab:focus-visible svg{
+  animation-play-state:paused;
+}
+
+@keyframes wa-bounce{
+  0%,55%,100%{transform:translateY(0);}
+  15%{transform:translateY(-6px);}
+  30%{transform:translateY(0);}
+  40%{transform:translateY(-3px);}
+}
+
+@media(prefers-reduced-motion: reduce){
+  .wa-fab svg{animation:none;}
+}
+
+.wa-panel{
+  position:absolute;
+  right:0;
+  bottom:70px;
+  width:min(300px, calc(100vw - 40px));
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.22);
+  border:1px solid rgba(0,0,0,0.06);
+  overflow:hidden;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(12px);
+  transition:opacity .2s ease, transform .2s ease, visibility .2s ease;
+}
+.wa-panel.open{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.wa-panel-header{
+  background:#075E54;
+  color:#fff;
+  padding:16px 18px;
+}
+.wa-panel-header strong{display:block;font-size:15px;margin-bottom:4px;}
+.wa-panel-header p{margin:0;font-size:12.5px;color:rgba(255,255,255,0.88);line-height:1.4;}
+.wa-panel-body{padding:12px;display:grid;gap:8px;}
+.wa-contact-link{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border-radius:12px;
+  background:#F4F4F4;
+  color:#1a1a1a;
+  text-decoration:none;
+  transition:background .15s ease;
+}
+.wa-contact-link:hover,
+.wa-contact-link:focus-visible{background:#e9f9ee;}
+.wa-contact-link:focus-visible{outline:2px solid #25D366;outline-offset:2px;}
+.wa-contact-icon{
+  width:34px;height:34px;
+  border-radius:999px;
+  background:#25D366;
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.wa-contact-icon svg{width:17px;height:17px;}
+.wa-contact-text .label{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:#666;}
+.wa-contact-text .number{font-size:14px;font-weight:700;}
+
+[data-theme="dark"] .wa-panel{background:#1e1e1e;border-color:rgba(255,255,255,0.08);}
+[data-theme="dark"] .wa-contact-link{background:rgba(255,255,255,0.06);color:#f2f2f2;}
+[data-theme="dark"] .wa-contact-link:hover,
+[data-theme="dark"] .wa-contact-link:focus-visible{background:rgba(37,211,102,0.15);}
+[data-theme="dark"] .wa-contact-text .label{color:rgba(255,255,255,0.6);}
+
+@media(max-width:600px){
+  .wa-widget{right:14px;bottom:14px;}
+  .wa-panel{bottom:66px;}
+}
+
+/* ===== KIHARU AI CHAT WIDGET (local dev/testing only) =====
+   Frontend-only restoration. Talks to the existing AI backend via
+   /api/ai/chat (production) or http://127.0.0.1:5001/api/ai/chat
+   (local dev — see the URL-detection script near the closing body tag).
+   Positioned above the WhatsApp button so the two floating widgets
+   never overlap. */
+.assistant-chat-button,
+.assistant-chat-panel{
+  font-family:'DM Sans', system-ui, sans-serif;
+}
+.assistant-chat-button{
+  position:fixed;
+  right:20px;
+  bottom:92px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 18px;
+  background:var(--maroon);
+  color:#fff;
+  border-radius:999px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.18);
+  cursor:pointer;
+  z-index:4990;
+  border:none;
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+.assistant-chat-button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 24px 48px rgba(0,0,0,0.22);
+}
+.assistant-chat-button:focus-visible{
+  outline:3px solid var(--orange);
+  outline-offset:2px;
+}
+.assistant-chat-button i{width:18px;height:18px;stroke:currentColor;}
+.assistant-chat-panel{
+  position:fixed;
+  right:20px;
+  bottom:156px;
+  width:min(360px, calc(100vw - 32px));
+  max-height:min(560px, calc(100vh - 200px));
+  background:var(--surface);
+  border-radius:24px;
+  box-shadow:0 30px 70px rgba(0,0,0,0.2);
+  overflow:hidden;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(20px);
+  transition:opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+  z-index:4990;
+  display:flex;
+  flex-direction:column;
+  border:1px solid rgba(106,24,48,0.08);
+}
+.assistant-chat-panel.open{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.assistant-chat-header{
+  padding:18px 18px 14px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  border-bottom:1px solid rgba(106,24,48,0.08);
+  background:linear-gradient(135deg, var(--maroon), var(--maroon-dark));
+  color:#fff;
+}
+.assistant-chat-header strong{display:block;font-size:15px;margin-bottom:4px;}
+.assistant-chat-header p{margin:0;color:rgba(255,255,255,0.9);font-size:13px;line-height:1.35;}
+.assistant-chat-close{
+  border:none;
+  background:transparent;
+  color:#fff;
+  padding:8px;
+  border-radius:999px;
+  cursor:pointer;
+}
+.assistant-chat-messages{
+  flex:1 1 auto;
+  padding:16px;
+  overflow-y:auto;
+  display:grid;
+  gap:12px;
+  background:var(--tint);
+}
+.assistant-chat-message{display:flex;width:100%;}
+.assistant-chat-message.user{justify-content:flex-end;}
+.assistant-chat-bubble{
+  max-width:100%;
+  padding:12px 14px;
+  border-radius:18px;
+  line-height:1.5;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.assistant-chat-message.user .assistant-chat-bubble{
+  background:var(--maroon);
+  color:#fff;
+  border-bottom-right-radius:4px;
+}
+.assistant-chat-message.assistant .assistant-chat-bubble{
+  background:#fff;
+  color:var(--text-main);
+  border-bottom-left-radius:4px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.05);
+}
+.assistant-chat-form{
+  display:flex;
+  gap:10px;
+  padding:14px 16px 16px;
+  background:var(--surface);
+  border-top:1px solid rgba(106,24,48,0.08);
+}
+.assistant-chat-form input{
+  flex:1 1 auto;
+  border:1px solid rgba(106,24,48,0.16);
+  border-radius:999px;
+  padding:12px 16px;
+  font-size:14px;
+  outline:none;
+  background:var(--tint);
+  color:var(--text-main);
+}
+.assistant-chat-form button{
+  border:none;
+  background:var(--maroon);
+  color:#fff;
+  font-weight:700;
+  border-radius:999px;
+  padding:0 18px;
+  cursor:pointer;
+  min-height:44px;
+}
+.assistant-chat-status{
+  padding:0 16px 14px;
+  font-size:12px;
+  color:var(--muted);
+  min-height:18px;
+}
+
+[data-theme="dark"] .assistant-chat-panel{
+  background:var(--surface);
+  border-color:rgba(255,255,255,0.08);
+}
+[data-theme="dark"] .assistant-chat-header{
+  background:linear-gradient(135deg, var(--maroon-light), var(--maroon-dark));
+}
+[data-theme="dark"] .assistant-chat-messages{
+  background:rgba(255,255,255,0.04);
+}
+[data-theme="dark"] .assistant-chat-form input{
+  background:rgba(255,255,255,0.06);
+  border-color:rgba(255,255,255,0.12);
+  color:var(--text-main);
+}
+[data-theme="dark"] .assistant-chat-message.assistant .assistant-chat-bubble{
+  background:rgba(0,0,0,0.55);
+  color:var(--text-main);
+}
+
+@media(max-width:600px){
+  .assistant-chat-button{right:14px;bottom:86px;}
+  .assistant-chat-panel{right:14px;bottom:146px;}
+}
+
 </style>
 
 <!-- TOP BAR -->
@@ -2469,6 +2829,8 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 
   <!-- HERO -->
   <div class="hero">
+    <div class="hero-bg-layer hero-bg-a" style="background-image:url('home-page.webp');"></div>
+    <div class="hero-bg-layer hero-bg-b"></div>
     <div class="hero-inner">
       <div class="hero-badge"><i data-lucide="shield-check"></i> TVETA Accredited Institution TVET Government institution</div>
       <h1>Skills to Equip<br>& Empower</h1>
@@ -2479,6 +2841,41 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       </div>
     </div>
   </div>
+
+  <script>
+  /* Hero background carousel — rotates the 5 existing hero images
+     every 4s with a smooth crossfade. Self-contained; touches only
+     the two .hero-bg-layer elements above. Degrades gracefully:
+     if this script fails for any reason, .hero's own static
+     background-image (home-page.webp) is still shown underneath. */
+  (function(){
+    var hero = document.querySelector('.hero');
+    if(!hero) return;
+    var layerA = hero.querySelector('.hero-bg-a');
+    var layerB = hero.querySelector('.hero-bg-b');
+    if(!layerA || !layerB) return;
+
+    var images = ['home-page.webp','home-1.webp','home-2.webp','home-3.webp','home-4.webp'];
+    if(images.length < 2) return;
+
+    // Preload the images so each crossfade is smooth, not a blank flash.
+    images.forEach(function(src){ var im = new Image(); im.src = src; });
+
+    var index = 0;
+    var current = layerA;
+    var next = layerB;
+
+    function showNext(){
+      index = (index + 1) % images.length;
+      next.style.backgroundImage = "url('" + images[index] + "')";
+      next.style.opacity = '1';
+      current.style.opacity = '0';
+      var swap = current; current = next; next = swap;
+    }
+
+    setInterval(showNext, 4000);
+  })();
+  </script>
 
   <!-- STATS -->
   <div class="stats">
@@ -2541,7 +2938,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
       <a href="#" class="view-all"><i class="view-all-icon" data-lucide="arrow-right"></i> View All</a>
     </div>
 
-    <div class="adverts-grid">
+    <div class="adverts-grid announcements-grid">
       <div class="advert-card">
         <div class="advert-img-placeholder" style="background:linear-gradient(135deg,var(--maroon),#8a2040);"><i data-lucide="graduation-cap"></i></div>
         <div class="advert-body">
@@ -3857,6 +4254,67 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   </div>
 </div>
 
+<!-- ===== WHATSAPP SUPPORT WIDGET =====
+     Temporary contact option while the Kiharu AI assistant is unavailable
+     on the public site. Does not call any AI endpoint and does not touch
+     the AI backend (aiController/aiService/knowledge.json/ai.js/server.js). -->
+<div class="wa-widget">
+  <div id="waPanel" class="wa-panel" role="dialog" aria-label="Chat with Kiharu TVC on WhatsApp" aria-hidden="true">
+    <div class="wa-panel-header">
+      <strong>Chat with Kiharu TVC</strong>
+      <p>Need help? Message us on WhatsApp about courses, admissions, fees or applications.</p>
+    </div>
+    <div class="wa-panel-body">
+      <a class="wa-contact-link" href="https://wa.me/254720657630?text=Hello%20Kiharu%20TVC%2C%20I%20visited%20your%20website%20and%20would%20like%20more%20information." target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp with our primary number, 0720 657 630">
+        <span class="wa-contact-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.78 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.36c0-4.55 3.7-8.25 8.26-8.25 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.42 5.83c0 4.55-3.71 8.22-8.26 8.22Zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.04 0 1.2.88 2.37 1 2.53.12.17 1.73 2.64 4.2 3.7.59.25 1.04.4 1.4.52.59.19 1.12.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.23-.17-.48-.29Z"/></svg>
+        </span>
+        <span class="wa-contact-text">
+          <span class="label">Primary</span>
+          <span class="number">0720 657 630</span>
+        </span>
+      </a>
+      <a class="wa-contact-link" href="https://wa.me/254748658276?text=Hello%20Kiharu%20TVC%2C%20I%20visited%20your%20website%20and%20would%20like%20more%20information." target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp with our secondary number, 0748 658 276">
+        <span class="wa-contact-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.78 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.36c0-4.55 3.7-8.25 8.26-8.25 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.42 5.83c0 4.55-3.71 8.22-8.26 8.22Zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.04 0 1.2.88 2.37 1 2.53.12.17 1.73 2.64 4.2 3.7.59.25 1.04.4 1.4.52.59.19 1.12.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.23-.17-.48-.29Z"/></svg>
+        </span>
+        <span class="wa-contact-text">
+          <span class="label">Secondary</span>
+          <span class="number">0748 658 276</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <button type="button" id="waFabBtn" class="wa-fab" title="Chat with Kiharu TVC on WhatsApp" aria-haspopup="dialog" aria-expanded="false" aria-controls="waPanel" aria-label="Chat with Kiharu TVC on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.78 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.36c0-4.55 3.7-8.25 8.26-8.25 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.42 5.83c0 4.55-3.71 8.22-8.26 8.22Zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.04 0 1.2.88 2.37 1 2.53.12.17 1.73 2.64 4.2 3.7.59.25 1.04.4 1.4.52.59.19 1.12.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.23-.17-.48-.29Z"/></svg>
+  </button>
+</div>
+
+<!-- ===== KIHARU AI CHAT WIDGET (restored for local development/testing) =====
+     Frontend-only. Sends messages to the existing AI backend and displays
+     the response. Does not modify any backend file. -->
+<div id="assistantChatButton" class="assistant-chat-button" role="button" tabindex="0" aria-label="Open Kiharu AI assistant" aria-haspopup="dialog" aria-expanded="false" aria-controls="assistantChatPanel">
+  <span>Ask Kiharu AI</span>
+  <i data-lucide="message-circle"></i>
+</div>
+
+<div id="assistantChatPanel" class="assistant-chat-panel" role="dialog" aria-label="Kiharu AI assistant" aria-hidden="true">
+  <div class="assistant-chat-header">
+    <div>
+      <strong>Kiharu AI</strong>
+      <p>Ask questions about courses, admissions, fees, contact details and more.</p>
+    </div>
+    <button id="assistantChatClose" class="assistant-chat-close" aria-label="Close chat"><i data-lucide="x"></i></button>
+  </div>
+  <div id="assistantChatMessages" class="assistant-chat-messages" role="log" aria-live="polite"></div>
+  <form id="assistantChatForm" class="assistant-chat-form">
+    <input id="assistantChatInput" type="text" placeholder="Type your question..." autocomplete="off" aria-label="Chat message" />
+    <button type="submit">Send</button>
+  </form>
+  <div id="assistantChatStatus" class="assistant-chat-status" aria-live="polite"></div>
+</div>
+
 <script>
 /* ===== LONG COURSES DATA ===== */
 const longCourses=[
@@ -4329,6 +4787,148 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     }
 
   }catch(err){ console.warn('Location init error', err); }
+})();
+
+/* ===== WHATSAPP WIDGET TOGGLE =====
+   Purely UI (open/close the contact chooser). The links themselves are
+   plain <a href="https://wa.me/..."> and work with JS disabled. */
+(function(){
+  var fabBtn = document.getElementById('waFabBtn');
+  var panel = document.getElementById('waPanel');
+  if(!fabBtn || !panel){ return; }
+
+  function openPanel(){
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden','false');
+    fabBtn.setAttribute('aria-expanded','true');
+  }
+  function closePanel(){
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden','true');
+    fabBtn.setAttribute('aria-expanded','false');
+  }
+
+  fabBtn.addEventListener('click', function(){
+    if(panel.classList.contains('open')){ closePanel(); } else { openPanel(); }
+  });
+
+  document.addEventListener('click', function(event){
+    if(panel.classList.contains('open') && !panel.contains(event.target) && event.target !== fabBtn && !fabBtn.contains(event.target)){
+      closePanel();
+    }
+  });
+
+  document.addEventListener('keydown', function(event){
+    if(event.key === 'Escape' && panel.classList.contains('open')){
+      closePanel();
+      fabBtn.focus();
+    }
+  });
+})();
+
+/* ===== KIHARU AI CHAT WIDGET (local dev/testing) =====
+   Frontend-only: opens/closes the panel, sends the typed message to the
+   AI backend, and renders the response. Does not touch any backend file.
+   Local dev vs production URL detection: */
+(function(){
+  var panel = document.getElementById('assistantChatPanel');
+  var button = document.getElementById('assistantChatButton');
+  var closeBtn = document.getElementById('assistantChatClose');
+  var form = document.getElementById('assistantChatForm');
+  var input = document.getElementById('assistantChatInput');
+  var messages = document.getElementById('assistantChatMessages');
+  var status = document.getElementById('assistantChatStatus');
+  if(!panel || !button || !form || !input || !messages || !status){ return; }
+
+  var isLocalStaticFrontend =
+    location.protocol === 'file:' ||
+    location.hostname === '127.0.0.1' ||
+    location.hostname === 'localhost' ||
+    location.hostname === '192.168.0.104';
+
+  var aiChatUrl = isLocalStaticFrontend
+    ? 'http://127.0.0.1:5000/api/ai/chat'
+    : '/api/ai/chat';
+
+  function scrollMessages(){
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addMessage(role, text){
+    var messageEl = document.createElement('div');
+    messageEl.className = 'assistant-chat-message ' + role;
+    var bubble = document.createElement('div');
+    bubble.className = 'assistant-chat-bubble';
+    var span = document.createElement('span');
+    span.textContent = text;
+    bubble.appendChild(span);
+    messageEl.appendChild(bubble);
+    messages.appendChild(messageEl);
+    scrollMessages();
+  }
+
+  function setStatus(text, error){
+    status.textContent = text;
+    status.style.color = error ? 'var(--danger)' : 'var(--muted)';
+  }
+
+  function openPanel(){
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden','false');
+    button.setAttribute('aria-expanded','true');
+    input.focus();
+  }
+
+  function closePanel(){
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden','true');
+    button.setAttribute('aria-expanded','false');
+  }
+
+  button.addEventListener('click', function(){
+    if(panel.classList.contains('open')){ closePanel(); } else { openPanel(); }
+  });
+  button.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      button.click();
+    }
+  });
+
+  closeBtn.addEventListener('click', closePanel);
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var value = input.value.trim();
+    if(!value){ return; }
+    addMessage('user', value);
+    input.value = '';
+    setStatus('Sending...', false);
+
+    fetch(aiChatUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: value })
+    }).then(function(response){
+      return response.json().then(function(data){
+        if(!response.ok || !data.success){
+          throw new Error(data.message || 'AI request failed');
+        }
+        addMessage('assistant', data.message || 'Sorry, I could not find an answer.');
+        setStatus('Ready for another question.', false);
+      });
+    }).catch(function(err){
+      addMessage('assistant', 'Sorry, the AI assistant is unavailable right now. Please try again later.');
+      setStatus(err.message || 'Request failed.', true);
+    });
+  });
+
+  document.addEventListener('keydown', function(event){
+    if(event.key === 'Escape' && panel.classList.contains('open')){
+      closePanel();
+      button.focus();
+    }
+  });
 })();
 
 /* ===== INIT LUCIDE ===== */
