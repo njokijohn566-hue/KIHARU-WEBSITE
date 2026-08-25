@@ -4847,8 +4847,8 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     location.hostname === '192.168.0.104';
 
   var aiChatUrl = isLocalStaticFrontend
-    ? 'http://127.0.0.1:5000/api/ai/chat'
-    : '/api/ai/chat';
+  ? 'http://127.0.0.1:5000/api/ai/chat'
+  : 'https://kiharu-website.onrender.com/api/ai/chat';
 
   function scrollMessages(){
     messages.scrollTop = messages.scrollHeight;
