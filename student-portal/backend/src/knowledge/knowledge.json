@@ -21,7 +21,7 @@
     {
       "id": "admissions",
       "title": "Admissions information",
-      "text": "Applications are now open for all programmes at Kiharu TVC. Prospective students should choose a programme, collect an application form from the Registrar's Office or download it from the website, submit KCSE/KCPE certificate or result slip, National ID or Birth Certificate, two passport photos and the application fee receipt. Successful applicants will receive an admission letter within five working days and then report on the registration date with fees cleared and a student ID.",
+      "text": "Kiharu TVC has January, May and September intakes, while short courses have rolling admissions. The application process starts by choosing a programme, collecting an application form from the Registrar's Office or downloading one from the institution website, and submitting the required documents. Applicants should provide a KCSE or KCPE certificate or result slip, National ID or Birth Certificate, two passport-size photographs and the application fee receipt. Successful applicants receive an official admission letter within five working days. On the reporting date, students clear fees, collect their student ID and officially register.",
       "tags": ["admissions", "apply", "application", "intake", "registration", "entry"]
     },
     {
@@ -39,13 +39,13 @@
     {
       "id": "fees",
       "title": "Fees and finance",
-      "text": "Kiharu TVC provides information on the fees structure and payment procedures. Students are reminded to clear semester fees by the published deadline to avoid deregistration. The college also accepts fee payments via M-Pesa and provides a downloadable fees structure PDF on the website.",
+      "text": "Kiharu TVC modularised fees, according to the fees structure dated 20 March 2026, are: Module 1 training fee KSh 22,396, registration fee KSh 500, student ID card KSh 500, student welfare KSh 1,000, TVETA fee KSh 500, and KUCCPS fee KSh 1,500, making a total of KSh 26,396 for Module 1. Module 2 total fees are KSh 22,396 and Module 3 total fees are KSh 22,396. The additional KSh 4,000 in registration, ID, welfare, TVETA and KUCCPS charges is paid once in Module 1, mainly by new students. The number of modules depends on the course and level. Fees can be paid through KCB Bank Murang'a Branch account 1314152238 or Equity Bank Murang'a Branch account 02202859114440. Banker's cheques should be payable to Kiharu Technical and Vocational College. Cash and personal cheques are not accepted." ,
       "tags": ["fees", "finance", "payment", "structure", "fees deadline", "M-Pesa"]
     },
     {
       "id": "short-courses",
       "title": "Short courses",
-      "text": "Kiharu TVC offers a range of short courses in addition to long courses and diploma programmes. The website highlights new Solar PV and AI short courses, and it notes that short courses have rolling admissions. Short course details are available through the public site.",
+      "text":  "Kiharu TVC offers the following short courses: Phone Repair, Painting, Web Design, Cyber Security and Use of AI Tools, Barbering, Graphic Design, Pizza Making, Computer Packages, Cake Making, Computer Repair and Maintenance, Welding and Fabrication, Tiling and Flooring, Glazing, Pipe Fitting and Installation, Photovoltaic Solar Installer, AutoCAD and ArchiCAD, Basic Cookery Skills, and Manicure and Pedicure. Short courses have rolling admissions.",
       "tags": ["short courses", "short courses offered", "short course", "rolling admissions"]
     },
     {

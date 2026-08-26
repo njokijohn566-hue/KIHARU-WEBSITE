@@ -52,7 +52,9 @@ exports.chat = async (req, res) => {
       `TIME: ${new Date().toISOString()}`,
     ].join('\n');
 
-    await telegramService.sendMessage(telegramMessage);
+   telegramService.sendMessage(telegramMessage).catch((error) => {
+  console.error('Telegram monitoring error:', error);
+});
 
     return res.json({
       success: true,

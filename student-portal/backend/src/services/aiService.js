@@ -4,8 +4,11 @@ const path = require('path');
 const knowledgePath = path.join(__dirname, '..', 'knowledge', 'knowledge.json');
 const knowledge = JSON.parse(fs.readFileSync(knowledgePath, 'utf8'));
 
-const SCOPE_RESPONSE = "I'm Kiharu AI, the virtual assistant for Kiharu Technical & Vocational College. I can help with questions about the college, its courses, admissions, fees, services and other information available on our website.";
-const UNKNOWN_RESPONSE = "I don't currently have that information in my Kiharu knowledge base. Please contact Kiharu Technical & Vocational College for assistance.";
+const SCOPE_RESPONSE =
+  "Hello! 👋 I'm Kiharu AI, the virtual assistant for Kiharu Technical & Vocational College. I can help you with programmes, admissions, fees, entry requirements, contacts, services and other information about the college. How may I help you today?";
+
+const UNKNOWN_RESPONSE =
+  "I'm sorry, I don't have that information yet. Please contact Kiharu Technical & Vocational College for further assistance.";
 
 const stopWords = new Set([
   'a', 'an', 'and', 'are', 'at', 'can', 'college', 'does', 'for', 'from', 'how',
@@ -15,27 +18,261 @@ const stopWords = new Set([
 ]);
 
 const synonyms = {
-  course: ['courses', 'programme', 'programmes', 'program', 'programs', 'study', 'studies', 'available', 'offer', 'offered'],
-  location: ['located', 'find', 'directions', 'map', 'address'],
-  contact: ['contacts', 'phone', 'call', 'email', 'reach', 'address'],
-  admissions: ['admission', 'apply', 'application', 'applications', 'intake', 'join', 'registration'],
-  fees: ['fee', 'payment', 'payments', 'finance', 'structure', 'mpesa', 'm', 'pesa'],
-  jobs: ['job', 'career', 'careers', 'vacancy', 'vacancies', 'employment'],
-  tenders: ['tender', 'procurement', 'bid', 'bids', 'supplier', 'suppliers'],
-  requirements: ['requirement', 'eligibility', 'entry', 'kcse', 'kcpe'],
-  services: ['service', 'charter', 'facility', 'facilities']
+  course: [
+    'courses',
+    'programme',
+    'programmes',
+    'program',
+    'programs',
+    'study',
+    'studies',
+    'available',
+    'offer',
+    'offered'
+  ],
+
+  location: [
+    'located',
+    'find',
+    'directions',
+    'map',
+    'address'
+  ],
+
+  contact: [
+    'contacts',
+    'phone',
+    'call',
+    'email',
+    'reach',
+    'address'
+  ],
+
+  admissions: [
+    'admission',
+    'apply',
+    'application',
+    'applications',
+    'intake',
+    'join',
+    'registration'
+  ],
+
+  fees: [
+    'fee',
+    'payment',
+    'payments',
+    'finance',
+    'structure',
+    'mpesa',
+    'm',
+    'pesa'
+  ],
+
+  jobs: [
+    'job',
+    'career',
+    'careers',
+    'vacancy',
+    'vacancies',
+    'employment'
+  ],
+
+  tenders: [
+    'tender',
+    'procurement',
+    'bid',
+    'bids',
+    'supplier',
+    'suppliers'
+  ],
+
+  requirements: [
+    'requirement',
+    'eligibility',
+    'entry',
+    'kcse',
+    'kcpe'
+  ],
+
+  services: [
+    'service',
+    'charter',
+    'facility',
+    'facilities'
+  ]
 };
 
 const intentEntryIds = [
-  { terms: ['courses', 'course', 'programmes', 'programme', 'programs', 'program', 'study', 'studies', 'offered', 'offer', 'available'], ids: ['programmes', 'short-courses'] },
-  { terms: ['apply', 'application', 'admission', 'admissions', 'join', 'intake', 'registration'], ids: ['admissions', 'application-process'] },
-  { terms: ['location', 'located', 'where', 'find', 'directions', 'map'], ids: ['location', 'contact'] },
-  { terms: ['contact', 'phone', 'call', 'reach', 'address', 'office'], ids: ['contact'] },
-  { terms: ['fees', 'fee', 'payment', 'payments', 'mpesa', 'finance'], ids: ['fees'] },
-  { terms: ['requirements', 'requirement', 'eligibility', 'entry', 'kcse', 'kcpe'], ids: ['entry-requirements'] },
-  { terms: ['jobs', 'job', 'vacancies', 'vacancy', 'careers', 'employment'], ids: ['jobs'] },
-  { terms: ['tenders', 'tender', 'procurement', 'bids', 'suppliers'], ids: ['tenders'] }
+  {
+    terms: [
+      'courses',
+      'course',
+      'programmes',
+      'programme',
+      'programs',
+      'program',
+      'study',
+      'studies',
+      'offered',
+      'offer',
+      'available'
+    ],
+    ids: ['programmes', 'short-courses']
+  },
+
+  {
+    terms: [
+      'apply',
+      'application',
+      'admission',
+      'admissions',
+      'join',
+      'intake',
+      'registration'
+    ],
+    ids: ['admissions', 'application-process']
+  },
+
+  {
+    terms: [
+      'location',
+      'located',
+      'where',
+      'find',
+      'directions',
+      'map'
+    ],
+    ids: ['location', 'contact']
+  },
+
+  {
+    terms: [
+      'contact',
+      'phone',
+      'call',
+      'reach',
+      'address',
+      'office'
+    ],
+    ids: ['contact']
+  },
+
+  {
+    terms: [
+      'fees',
+      'fee',
+      'payment',
+      'payments',
+      'mpesa',
+      'finance'
+    ],
+    ids: ['fees']
+  },
+
+  {
+    terms: [
+      'requirements',
+      'requirement',
+      'eligibility',
+      'entry',
+      'kcse',
+      'kcpe'
+    ],
+    ids: ['entry-requirements']
+  },
+
+  {
+    terms: [
+      'jobs',
+      'job',
+      'vacancies',
+      'vacancy',
+      'careers',
+      'employment'
+    ],
+    ids: ['jobs']
+  },
+
+  {
+    terms: [
+      'tenders',
+      'tender',
+      'procurement',
+      'bids',
+      'suppliers'
+    ],
+    ids: ['tenders']
+  }
 ];
+
+const GREETING_RESPONSES = {
+  english: [
+    "Hello! 👋 Welcome to Kiharu TVC. How may I help you today?",
+    "Hi! 👋 Welcome to Kiharu Technical & Vocational College. What would you like to know?",
+    "Hey! 👋 Welcome to Kiharu TVC. How can I assist you today?"
+  ],
+
+  swahili: [
+    "Habari! 👋 Karibu Kiharu TVC. Ninaweza kukusaidia kwa jambo gani leo?",
+    "Karibu Kiharu Technical & Vocational College! 👋 Ungependa kujua nini?",
+    "Habari! 👋 Karibu Kiharu TVC. Unaweza kuniuliza kuhusu kozi, udahili, ada au huduma za chuo."
+  ]
+};
+
+const GREETING_WORDS = new Set([
+  'hi',
+  'hello',
+  'hey',
+  'hallo',
+  'morning',
+  'afternoon',
+  'evening',
+  'good',
+  'habari',
+  'hujambo',
+  'jambo',
+  'mambo',
+  'salamu',
+  'niaje'
+]);
+
+const SWAHILI_WORDS = new Set([
+  'habari',
+  'hujambo',
+  'jambo',
+  'mambo',
+  'asante',
+  'tafadhali',
+  'nina',
+  'naweza',
+  'naweza',
+  'je',
+  'ni',
+  'gani',
+  'wapi',
+  'lini',
+  'kiasi',
+  'ada',
+  'kozi',
+  'masomo',
+  'kujiunga',
+  'uandikishaji',
+  'shule',
+  'chuo',
+  'mtihani',
+  'mahafali',
+  'nifanye',
+  'nataka',
+  'ninahitaji',
+  'hii',
+  'hiyo',
+  'pia',
+  'kwa',
+  'ya',
+  'wa',
+  'katika'
+]);
 
 exports.getHealthStatus = () => {
   return 'ready';
@@ -44,7 +281,7 @@ exports.getHealthStatus = () => {
 const normalizeText = (text) => {
   return (text || '')
     .toLowerCase()
-    .replace(/[\u2018\u2019\u201c\u201d]/g, "")
+    .replace(/[\u2018\u2019\u201c\u201d]/g, '')
     .match(/\b[a-z0-9]+\b/g) || [];
 };
 
@@ -55,7 +292,10 @@ const expandTokens = (tokens) => {
     for (const [canonical, variants] of Object.entries(synonyms)) {
       if (token === canonical || variants.includes(token)) {
         expanded.add(canonical);
-        variants.forEach((variant) => expanded.add(variant));
+
+        for (const variant of variants) {
+          expanded.add(variant);
+        }
       }
     }
   }
@@ -63,15 +303,41 @@ const expandTokens = (tokens) => {
   return expanded;
 };
 
+const detectLanguage = (message) => {
+  const tokens = normalizeText(message);
+
+  const swahiliCount = tokens.filter((token) =>
+    SWAHILI_WORDS.has(token)
+  ).length;
+
+  return swahiliCount > 0 ? 'swahili' : 'english';
+};
+
+const isGreeting = (message) => {
+  const tokens = normalizeText(message);
+
+  if (!tokens.length) {
+    return false;
+  }
+
+  return tokens.every((token) => GREETING_WORDS.has(token));
+};
+
 const buildKnowledgeIndex = () => {
   return knowledge.entries.map((entry) => {
     const textTokens = normalizeText(entry.text);
-    const tagTokens = (entry.tags || []).flatMap((tag) => normalizeText(tag));
+    const tagTokens = (entry.tags || []).flatMap((tag) =>
+      normalizeText(tag)
+    );
     const titleTokens = normalizeText(entry.title);
-    const tokens = expandTokens(textTokens.concat(tagTokens, titleTokens));
+
+    const tokens = expandTokens(
+      textTokens.concat(tagTokens, titleTokens)
+    );
+
     return {
       ...entry,
-      tokens,
+      tokens
     };
   });
 };
@@ -81,46 +347,70 @@ const knowledgeIndex = buildKnowledgeIndex();
 const findBestEntry = (message) => {
   const queryTokenList = normalizeText(message);
   const queryTokens = expandTokens(queryTokenList);
+
   if (!queryTokens.size) {
     return null;
   }
 
   const scores = knowledgeIndex.map((entry) => {
     let score = 0;
+
     for (const token of queryTokens) {
       if (stopWords.has(token)) {
         continue;
       }
+
       if (entry.tokens.has(token)) {
         score += 1;
       }
     }
 
-    for (const tag of (entry.tags || [])) {
-      const tagTokens = normalizeText(tag).filter((token) => !stopWords.has(token));
-      if (tagTokens.length && tagTokens.every((token) => queryTokens.has(token))) {
+    for (const tag of entry.tags || []) {
+      const tagTokens = normalizeText(tag).filter(
+        (token) => !stopWords.has(token)
+      );
+
+      if (
+        tagTokens.length &&
+        tagTokens.every((token) => queryTokens.has(token))
+      ) {
         score += tagTokens.length + 2;
       }
     }
 
     for (const intent of intentEntryIds) {
-      if (intent.ids.includes(entry.id) && intent.terms.some((term) => queryTokens.has(term))) {
+      if (
+        intent.ids.includes(entry.id) &&
+        intent.terms.some((term) => queryTokens.has(term))
+      ) {
         score += 5;
       }
     }
 
-    return { entry, score };
+    return {
+      entry,
+      score
+    };
   });
 
   scores.sort((a, b) => {
     if (b.score !== a.score) {
       return b.score - a.score;
     }
-    return (a.entry.id === 'fallback') - (b.entry.id === 'fallback');
+
+    return (
+      (a.entry.id === 'fallback') -
+      (b.entry.id === 'fallback')
+    );
   });
+
   const best = scores[0];
 
-  if (!best || best.score < 2 || best.entry.id === 'fallback') {
+  if (
+    !best ||
+    best.score < 2 ||
+    best.entry.id === 'fallback'
+  ) {
     return null;
   }
 
@@ -129,8 +419,20 @@ const findBestEntry = (message) => {
 
 const isInKiharuScope = (message) => {
   const tokens = expandTokens(normalizeText(message));
-  const explicitKiharuTerms = ['kiharu', 'tvc', 'technical', 'vocational', 'college'];
-  if (explicitKiharuTerms.some((term) => tokens.has(term))) {
+
+  const explicitKiharuTerms = [
+    'kiharu',
+    'tvc',
+    'technical',
+    'vocational',
+    'college'
+  ];
+
+  if (
+    explicitKiharuTerms.some((term) =>
+      tokens.has(term)
+    )
+  ) {
     return true;
   }
 
@@ -138,14 +440,31 @@ const isInKiharuScope = (message) => {
     if (entry.id === 'fallback') {
       return false;
     }
-    return [...tokens].some((token) => !stopWords.has(token) && entry.tokens.has(token));
+
+    return [...tokens].some(
+      (token) =>
+        !stopWords.has(token) &&
+        entry.tokens.has(token)
+    );
   });
 };
 
 exports.chat = async (message) => {
   const query = (message || '').trim();
+
   if (!query) {
     throw new Error('Message is required');
+  }
+
+  const language = detectLanguage(query);
+
+  // Greetings should be handled before knowledge-base matching.
+  if (isGreeting(query)) {
+    const responses = GREETING_RESPONSES[language];
+
+    return responses[
+      Math.floor(Math.random() * responses.length)
+    ];
   }
 
   if (!isInKiharuScope(query)) {
@@ -153,9 +472,12 @@ exports.chat = async (message) => {
   }
 
   const bestEntry = findBestEntry(query);
+
   if (!bestEntry) {
     return UNKNOWN_RESPONSE;
   }
 
-  return `According to Kiharu TVC public information, ${bestEntry.text}`;
+  // Current knowledge entries are English.
+  // Full Swahili knowledge responses will be added in the next iteration.
+  return bestEntry.text;
 };
