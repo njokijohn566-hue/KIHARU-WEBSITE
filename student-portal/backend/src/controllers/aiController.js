@@ -38,6 +38,11 @@ exports.chat = async (req, res) => {
 
     const reply = await aiService.chat(trimmed);
 
+const replyText =
+  typeof reply === 'string'
+    ? reply
+    : reply.text;
+
     // Monitor the conversation in Telegram.
     // Telegram failure must never prevent the AI response.
     const telegramMessage = [
@@ -47,7 +52,7 @@ exports.chat = async (req, res) => {
       trimmed,
       '',
       'AI:',
-      reply,
+      replyText,
       '',
       `TIME: ${new Date().toISOString()}`,
     ].join('\n');
@@ -57,9 +62,13 @@ exports.chat = async (req, res) => {
 });
 
     return res.json({
-      success: true,
-      message: reply,
-    });
+  success: true,
+  message: replyText,
+  document:
+    typeof reply === 'string'
+      ? null
+      : reply.document || null,
+});
   } catch (error) {
     console.error(
       'AI chat error:',

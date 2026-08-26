@@ -458,7 +458,6 @@ exports.chat = async (message) => {
 
   const language = detectLanguage(query);
 
-  // Greetings should be handled before knowledge-base matching.
   if (isGreeting(query)) {
     const responses = GREETING_RESPONSES[language];
 
@@ -471,13 +470,55 @@ exports.chat = async (message) => {
     return SCOPE_RESPONSE;
   }
 
+  const isGeneralFeesQuestion = (message) => {
+    const text = message.toLowerCase().trim();
+
+    const generalFeePatterns = [
+      /^(what|how much|how|tell me|show me).*(fees?|fee structure|school fees|cost)/,
+      /^(fees?|fee structure|school fees|cost)$/i,
+      /(how do i pay|payment methods|pay fees)/,
+      /^(ada|muundo wa ada|gharama).*$/i
+    ];
+
+    const specificFeePatterns = [
+      /module\s*[123]/i,
+      /registration fee/i,
+      /student id/i,
+      /student welfare/i,
+      /tveta fee/i,
+      /kuccps fee/i,
+      /account number/i,
+      /bank/i,
+      /kcb/i,
+      /equity/i,
+      /mpesa/i
+    ];
+
+    if (specificFeePatterns.some((pattern) => pattern.test(text))) {
+      return false;
+    }
+
+    return generalFeePatterns.some((pattern) => pattern.test(text));
+  };
+
   const bestEntry = findBestEntry(query);
 
   if (!bestEntry) {
     return UNKNOWN_RESPONSE;
   }
 
-  // Current knowledge entries are English.
-  // Full Swahili knowledge responses will be added in the next iteration.
-  return bestEntry.text;
+  if (isGeneralFeesQuestion(query)) {
+    return {
+      text: "Kiharu TVC fees vary by programme and level. You can view the official fees structure below.",
+      document: {
+        title: "Kiharu TVC Fees Structure",
+        label: "View Fees Structure (PDF)",
+        url: "/feesstructure.pdf"
+      }
+    };
+  }
+
+  return {
+    text: bestEntry.text
+  };
 };

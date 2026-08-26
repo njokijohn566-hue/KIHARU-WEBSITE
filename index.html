@@ -2603,6 +2603,85 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   border-bottom-left-radius:4px;
   box-shadow:0 6px 16px rgba(0,0,0,0.05);
 }
+.assistant-chat-document{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+  padding:10px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--tint);
+  max-width:100%;
+}
+.assistant-chat-document-icon{
+  flex:0 0 auto;
+  width:34px;
+  height:34px;
+  border-radius:9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--maroon);
+  color:#fff;
+}
+.assistant-chat-document-icon i{width:17px;height:17px;stroke:currentColor;}
+.assistant-chat-document-info{
+  flex:1 1 auto;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.assistant-chat-document-info strong{
+  font-size:13px;
+  font-weight:700;
+  color:var(--text-main);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.assistant-chat-document-info span{
+  font-size:11.5px;
+  color:var(--muted);
+}
+.assistant-chat-document-btn{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 12px;
+  border-radius:999px;
+  background:var(--maroon);
+  color:#fff !important;
+  font-size:12.5px;
+  font-weight:700;
+  text-decoration:none;
+  white-space:nowrap;
+  transition:background .2s ease,transform .2s ease;
+}
+.assistant-chat-document-btn:hover{background:var(--maroon-light);transform:translateY(-1px);}
+.assistant-chat-document-btn i{width:13px;height:13px;stroke:currentColor;}
+
+[data-theme="dark"] .assistant-chat-document{
+  background:rgba(255,255,255,0.05);
+  border-color:rgba(255,255,255,0.12);
+}
+[data-theme="dark"] .assistant-chat-document-info strong{color:var(--text-main);}
+[data-theme="dark"] .assistant-chat-document-info span{color:var(--muted);}
+
+@media(max-width:420px){
+  .assistant-chat-document{flex-wrap:wrap;}
+  .assistant-chat-document-info{
+    flex-basis:100%;
+    order:1;
+  }
+  .assistant-chat-document-btn{
+    order:2;
+    margin-left:44px;
+  }
+}
+
 .assistant-chat-form{
   display:flex;
   gap:10px;
@@ -4854,18 +4933,61 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     messages.scrollTop = messages.scrollHeight;
   }
 
-  function addMessage(role, text){
-    var messageEl = document.createElement('div');
-    messageEl.className = 'assistant-chat-message ' + role;
-    var bubble = document.createElement('div');
-    bubble.className = 'assistant-chat-bubble';
-    var span = document.createElement('span');
-    span.textContent = text;
-    bubble.appendChild(span);
-    messageEl.appendChild(bubble);
-    messages.appendChild(messageEl);
-    scrollMessages();
+  function addMessage(role, text, attachment){
+  var messageEl = document.createElement('div');
+  messageEl.className = 'assistant-chat-message ' + role;
+
+  var bubble = document.createElement('div');
+  bubble.className = 'assistant-chat-bubble';
+
+  var span = document.createElement('span');
+  span.textContent = text;
+  bubble.appendChild(span);
+
+  if (role === 'assistant' && attachment && attachment.url) {
+    var documentCard = document.createElement('div');
+    documentCard.className = 'assistant-chat-document';
+
+    var iconWrap = document.createElement('div');
+    iconWrap.className = 'assistant-chat-document-icon';
+    var iconEl = document.createElement('i');
+    iconEl.setAttribute('data-lucide', 'file-text');
+    iconWrap.appendChild(iconEl);
+
+    var infoWrap = document.createElement('div');
+    infoWrap.className = 'assistant-chat-document-info';
+    var titleEl = document.createElement('strong');
+    titleEl.textContent = attachment.title || 'Kiharu TVC Document';
+    var captionEl = document.createElement('span');
+    captionEl.textContent = 'Official PDF document';
+    infoWrap.appendChild(titleEl);
+    infoWrap.appendChild(captionEl);
+
+    var linkEl = document.createElement('a');
+    linkEl.className = 'assistant-chat-document-btn';
+    linkEl.setAttribute('href', attachment.url);
+    linkEl.setAttribute('target', '_blank');
+    linkEl.setAttribute('rel', 'noopener');
+    var linkIcon = document.createElement('i');
+    linkIcon.setAttribute('data-lucide', 'download');
+    linkEl.appendChild(linkIcon);
+    linkEl.appendChild(document.createTextNode(' ' + (attachment.label || 'View PDF')));
+
+    documentCard.appendChild(iconWrap);
+    documentCard.appendChild(infoWrap);
+    documentCard.appendChild(linkEl);
+
+    bubble.appendChild(documentCard);
+
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   }
+
+  messageEl.appendChild(bubble);
+  messages.appendChild(messageEl);
+  scrollMessages();
+}
 
   function setStatus(text, error){
     status.textContent = text;
@@ -4914,7 +5036,8 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
         if(!response.ok || !data.success){
           throw new Error(data.message || 'AI request failed');
         }
-        addMessage('assistant', data.message || 'Sorry, I could not find an answer.');
+        var hasDocument = data.document && typeof data.document.url === 'string' && data.document.url.length > 0;
+        addMessage('assistant', data.message || 'Sorry, I could not find an answer.', hasDocument ? data.document : null);
         setStatus('Ready for another question.', false);
       });
     }).catch(function(err){
