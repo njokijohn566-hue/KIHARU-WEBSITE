@@ -1,37 +1,4 @@
-/* Hero background carousel — rotates the 5 existing hero images
-     every 4s with a smooth crossfade. Self-contained; touches only
-     the two .hero-bg-layer elements above. Degrades gracefully:
-     if this script fails for any reason, .hero's own static
-     background-image (home-page.webp) is still shown underneath. */
-  (function(){
-    var hero = document.querySelector('.hero');
-    if(!hero) return;
-    var layerA = hero.querySelector('.hero-bg-a');
-    var layerB = hero.querySelector('.hero-bg-b');
-    if(!layerA || !layerB) return;
-
-    var images = ['home-page.webp','home-1.webp','home-2.webp','home-3.webp','home-4.webp'];
-    if(images.length < 2) return;
-
-    // Preload the images so each crossfade is smooth, not a blank flash.
-    images.forEach(function(src){ var im = new Image(); im.src = src; });
-
-    var index = 0;
-    var current = layerA;
-    var next = layerB;
-
-    function showNext(){
-      index = (index + 1) % images.length;
-      next.style.backgroundImage = "url('" + images[index] + "')";
-      next.style.opacity = '1';
-      current.style.opacity = '0';
-      var swap = current; current = next; next = swap;
-    }
-
-    setInterval(showNext, 4000);
-  })();
-
-/* ===== LONG COURSES DATA ===== */
+﻿/* ===== LONG COURSES DATA ===== */
 const longCourses=[
   {name:"Building & Civil Engineering",slug:"building-civil-engineering",image:"building.webp",icon:"hard-hat"},
   {name:"Business & Liberal Studies",slug:"business-liberal-studies",image:"business.webp",icon:"briefcase"},
@@ -46,7 +13,7 @@ const longCourses=[
 ];
 
 const grid=document.getElementById("coursesGrid");
-/* Guarded the same way as ugGrid below — cheap insurance against
+/* Guarded the same way as ugGrid below â€” cheap insurance against
    this exact class of "one missing element kills the whole script"
    bug happening again. */
 if(grid){
@@ -76,10 +43,10 @@ const ugCourses=[
 const ugGrid=document.getElementById("ugGrid");
 /* FIX: #ugGrid does not exist anywhere in this HTML file. Calling
    .appendChild on the null result of getElementById used to throw
-   here, which is a synchronous top-level error — it killed every
+   here, which is a synchronous top-level error â€” it killed every
    line of JS that came AFTER it in this <script> block, including
    the join-modal listener, dark-mode init, mobile drawer, gallery,
-   carousel speed controls, and — critically — the entire Formspree
+   carousel speed controls, and â€” critically â€” the entire Formspree
    contact-form submit handler further down the file. That is the
    real reason the contact form did not work: its event listener
    was never attached, so clicking "Send Message" fell through to
@@ -117,7 +84,7 @@ window.addEventListener('popstate', function(e){
   showPage(id, false);
 });
 
-/* "Explore Courses" hero button — the Courses Offered / Short Courses
+/* "Explore Courses" hero button â€” the Courses Offered / Short Courses
    section lives on the Home page. If we're already on Home, just
    smooth-scroll there; if we're on another page, switch to Home first
    (without its own top-of-page scroll fighting ours) and then smooth-
@@ -146,7 +113,7 @@ function goToCourses(){
   const hash = location.hash.replace('#','');
 
   // Deep link from an external page (e.g. course-detail.html's
-  // "Back to Courses" button linking to index.html#courses) — land on
+  // "Back to Courses" button linking to index.html#courses) â€” land on
   // Home and smooth-scroll straight to the Courses Offered & Short
   // Courses section instead of the top of the page.
   if(hash === 'courses' || hash === 'courses-section'){
@@ -175,7 +142,7 @@ function closeModal(){const m=document.getElementById("joinModal"); if(m) m.clas
 
 /* ===== DARK / LIGHT MODE =====
    The actual first-paint decision (saved choice, else system preference)
-   already ran in <head> before the page rendered — this just syncs the
+   already ran in <head> before the page rendered â€” this just syncs the
    toggle button's icon/label to whatever data-theme is already set. */
 (function(){
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -185,7 +152,7 @@ function closeModal(){const m=document.getElementById("joinModal"); if(m) m.clas
   // chosen a theme on this site (no saved preference yet).
   if(window.matchMedia){
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e){
-      if(localStorage.getItem('kiharuTheme')) return; // user has an explicit choice — don't override it
+      if(localStorage.getItem('kiharuTheme')) return; // user has an explicit choice â€” don't override it
       applyTheme(e.matches ? 'dark' : 'light', false);
     });
   }
@@ -238,7 +205,7 @@ function filterGallery(cat, btn){
 /* ===== GALLERY LIGHTBOX ===== */
 function openLightbox(el){
   const img = el.querySelector('img');
-  /* Only open if a real image is present and loaded — never open on placeholders */
+  /* Only open if a real image is present and loaded â€” never open on placeholders */
   if(!img || !img.src || img.src === window.location.href || img.style.display==='none') return;
   document.getElementById('lightboxImg').src = img.src;
   document.getElementById('lightboxImg').alt = img.alt;
@@ -274,24 +241,24 @@ function setCarouselSpeed(seconds, e){
 }
 
 /* ================================================================
-   CONTACT FORM — FORMSPREE INTEGRATION
+   CONTACT FORM â€” FORMSPREE INTEGRATION
    ================================================================
    Endpoint is live and wired to the college's email address.
    To change the recipient email, log in to https://formspree.io,
-   open the form dashboard, and update the email there — no code
+   open the form dashboard, and update the email there â€” no code
    change needed.
 
    If you ever need to point this to a different Formspree form,
    update FORMSPREE_ENDPOINT below. That is the only line to edit.
    ================================================================ */
 
-/* ── ① THE ONLY LINE TO EDIT if you ever change forms ────────── */
+/* â”€â”€ â‘  THE ONLY LINE TO EDIT if you ever change forms â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
-/* ─────────────────────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 (function () {
 
-  /* ── ② Grab the form and all UI elements by their existing ids ─ */
+  /* â”€â”€ â‘¡ Grab the form and all UI elements by their existing ids â”€ */
   var form       = document.getElementById('contactForm');
   if (!form) return; /* bail safely if the form isn't on this page */
 
@@ -301,18 +268,18 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
   var msgError   = document.getElementById('form-error');
   var errDetail  = document.getElementById('form-error-detail');
 
-  /* ── ③ Field references (used for validation and error display) ─ */
+  /* â”€â”€ â‘¢ Field references (used for validation and error display) â”€ */
   var fName    = document.getElementById('cf-name');
   var fEmail   = document.getElementById('cf-email');
   var fSubject = document.getElementById('cf-subject');
   var fMessage = document.getElementById('cf-message');
 
-  /* ── ④ Duplicate-submission guard ──────────────────────────────
+  /* â”€â”€ â‘£ Duplicate-submission guard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      Set to true while a fetch is in flight; reset in finally().
      Prevents double-clicks and rapid re-submissions.            */
   var isSubmitting = false;
 
-  /* ── ⑤ Validation helpers ───────────────────────────────────── */
+  /* â”€â”€ â‘¤ Validation helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
   /* Shows or hides the inline error below a field */
   function setFieldError(inputEl, errId, hasError) {
@@ -346,7 +313,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     return !nameEmpty && !emailBad && !subjectEmpty && !msgShort;
   }
 
-  /* ── ⑥ Live error clearing ──────────────────────────────────────
+  /* â”€â”€ â‘¥ Live error clearing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      Each required field clears its own error the moment the user
      starts typing/changing, giving immediate positive feedback.  */
   var fieldErrMap = {
@@ -367,11 +334,11 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     });
   });
 
-  /* ── ⑦ Form submit handler ──────────────────────────────────── */
+  /* â”€â”€ â‘¦ Form submit handler â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   form.addEventListener('submit', function (e) {
     e.preventDefault(); /* stop the default browser page reload    */
 
-    /* ── Honeypot: bots fill this hidden field; humans leave it blank.
+    /* â”€â”€ Honeypot: bots fill this hidden field; humans leave it blank.
        If it has any value, silently discard the submission.      */
     var hp = form.querySelector('input[name="_gotcha"]');
     if (hp && hp.value.length > 0) {
@@ -379,10 +346,10 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
       return;
     }
 
-    /* ── Duplicate-submission guard ─────────────────────────────── */
+    /* â”€â”€ Duplicate-submission guard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     if (isSubmitting) { return; }
 
-    /* ── Client-side validation ─────────────────────────────────── */
+    /* â”€â”€ Client-side validation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     if (!validateForm()) {
       /* Hide any stale feedback banners                          */
       msgSuccess.classList.remove('show');
@@ -395,22 +362,22 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
       return;
     }
 
-    /* ── Lock the form ─────────────────────────────────────────── */
+    /* â”€â”€ Lock the form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     isSubmitting      = true;
     btn.disabled      = true;
-    btnText.textContent = 'Sending\u2026'; /* "Sending…"           */
+    btnText.textContent = 'Sending\u2026'; /* "Sendingâ€¦"           */
 
     /* Hide any previously shown feedback banners                */
     msgSuccess.classList.remove('show');
     msgError.classList.remove('show');
 
-    /* ── Build the payload ──────────────────────────────────────
+    /* â”€â”€ Build the payload â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
        FormData automatically collects every named <input>,
        <select>, and <textarea> inside the form, including:
          name, phone, email, subject, message, _gotcha, _subject  */
     var payload = new FormData(form);
 
-    /* ── Send to Formspree via fetch ────────────────────────────
+    /* â”€â”€ Send to Formspree via fetch â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
        'Accept: application/json' tells Formspree to reply in
        JSON rather than redirecting, which is required for AJAX. */
     fetch(FORMSPREE_ENDPOINT, {
@@ -419,15 +386,15 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
       headers: { 'Accept': 'application/json' }
     })
 
-    /* ── Handle the response ─────────────────────────────────── */
+    /* â”€â”€ Handle the response â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .then(function (response) {
       if (response.ok) {
-        /* ── SUCCESS ─────────────────────────────────────────── */
+        /* â”€â”€ SUCCESS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         form.reset();                          /* clear all fields */
         msgSuccess.classList.add('show');      /* show green banner */
         msgSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       } else {
-        /* ── HTTP-level failure (4xx / 5xx) ─────────────────── */
+        /* â”€â”€ HTTP-level failure (4xx / 5xx) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         return response.json().then(function (body) {
           /* Formspree puts a human-readable reason in body.error */
           var reason = (body && body.error)
@@ -438,7 +405,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
       }
     })
 
-    /* ── Handle network errors or thrown errors ─────────────── */
+    /* â”€â”€ Handle network errors or thrown errors â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .catch(function (err) {
       errDetail.textContent = err.message
         ? err.message + ' Please try again or contact us by phone.'
@@ -447,7 +414,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
       msgError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     })
 
-    /* ── Always unlock the form when done ───────────────────── */
+    /* â”€â”€ Always unlock the form when done â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .finally(function () {
       isSubmitting        = false;
       btn.disabled        = false;
@@ -464,15 +431,15 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
 (function initLocationPage(){
   try{
 
-    /* ── ① The only two lines to edit once you have the real links ──
-       Embed URL: on Google Maps, search the college → Share →
-       Embed a map → Copy HTML → take the "src" value out of the
+    /* â”€â”€ â‘  The only two lines to edit once you have the real links â”€â”€
+       Embed URL: on Google Maps, search the college â†’ Share â†’
+       Embed a map â†’ Copy HTML â†’ take the "src" value out of the
        <iframe> tag and paste it below.
-       Directions URL: on Google Maps, search the college → Share →
+       Directions URL: on Google Maps, search the college â†’ Share â†’
        copy the plain maps.google.com link and paste it below.     */
     var EMBED_SRC = ''; /* Replace with official Google Maps Embed URL */
     var MAP_LINK  = ''; /* Replace with official Google Maps Directions Link */
-    /* ──────────────────────────────────────────────────────────────── */
+    /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
     var iframe      = document.getElementById('mapIframe');
     var placeholder = document.getElementById('mapEmbedPlaceholder');
@@ -531,6 +498,13 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     if(panel.classList.contains('open') && !panel.contains(event.target) && event.target !== fabBtn && !fabBtn.contains(event.target)){
       closePanel();
     }
+  });
+
+  document.querySelectorAll('.assistant-suggestion').forEach(function(suggestion){
+    suggestion.addEventListener('click', function(){
+      input.value = suggestion.getAttribute('data-question') || '';
+      form.requestSubmit();
+    });
   });
 
   document.addEventListener('keydown', function(event){
@@ -659,6 +633,8 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     e.preventDefault();
     var value = input.value.trim();
     if(!value){ return; }
+    var welcome = document.querySelector('.assistant-chat-welcome');
+    if(welcome){ welcome.remove(); }
     addMessage('user', value);
     input.value = '';
     setStatus('Sending...', false);
@@ -679,6 +655,13 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     }).catch(function(err){
       addMessage('assistant', 'Sorry, the AI assistant is unavailable right now. Please try again later.');
       setStatus(err.message || 'Request failed.', true);
+    });
+  });
+
+  document.querySelectorAll('.assistant-suggestion').forEach(function(suggestion){
+    suggestion.addEventListener('click', function(){
+      input.value = suggestion.getAttribute('data-question') || '';
+      form.requestSubmit();
     });
   });
 
