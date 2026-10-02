@@ -1,4 +1,4 @@
-﻿/* ===== LONG COURSES DATA ===== */
+/* ===== LONG COURSES DATA ===== */
 const longCourses=[
   {name:"Building & Civil Engineering",slug:"building-civil-engineering",image:"building.webp",icon:"hard-hat"},
   {name:"Business & Liberal Studies",slug:"business-liberal-studies",image:"business.webp",icon:"briefcase"},
@@ -153,7 +153,7 @@ function closeModal(){const m=document.getElementById("joinModal"); if(m) m.clas
   if(window.matchMedia){
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e){
       if(localStorage.getItem('kiharuTheme')) return; // user has an explicit choice â€” don't override it
-      applyTheme(e.matches ? 'dark' : 'light', false);
+      applyTheme('light', false);
     });
   }
 })();
@@ -544,61 +544,127 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
   }
 
   function addMessage(role, text, attachment){
-  var messageEl = document.createElement('div');
-  messageEl.className = 'assistant-chat-message ' + role;
+    var messageEl = document.createElement('div');
+    messageEl.className = 'assistant-chat-message ' + role;
 
-  var bubble = document.createElement('div');
-  bubble.className = 'assistant-chat-bubble';
+    var bubble = document.createElement('div');
+    bubble.className = 'assistant-chat-bubble';
 
-  var span = document.createElement('span');
-  span.textContent = text;
-  bubble.appendChild(span);
+    function renderText(value){
+      var content = document.createElement('div');
+      content.className = 'assistant-chat-content';
 
-  if (role === 'assistant' && attachment && attachment.url) {
-    var documentCard = document.createElement('div');
-    documentCard.className = 'assistant-chat-document';
+      var lines = String(value || '').split(/\r?\n/);
+      var currentList = null;
+      var currentListType = null;
 
-    var iconWrap = document.createElement('div');
-    iconWrap.className = 'assistant-chat-document-icon';
-    var iconEl = document.createElement('i');
-    iconEl.setAttribute('data-lucide', 'file-text');
-    iconWrap.appendChild(iconEl);
+      function closeList(){
+        if(currentList){
+          content.appendChild(currentList);
+          currentList = null;
+          currentListType = null;
+        }
+      }
 
-    var infoWrap = document.createElement('div');
-    infoWrap.className = 'assistant-chat-document-info';
-    var titleEl = document.createElement('strong');
-    titleEl.textContent = attachment.title || 'Kiharu TVC Document';
-    var captionEl = document.createElement('span');
-    captionEl.textContent = 'Official PDF document';
-    infoWrap.appendChild(titleEl);
-    infoWrap.appendChild(captionEl);
+      lines.forEach(function(line){
+        var trimmed = line.trim();
 
-    var linkEl = document.createElement('a');
-    linkEl.className = 'assistant-chat-document-btn';
-    linkEl.setAttribute('href', attachment.url);
-    linkEl.setAttribute('target', '_blank');
-    linkEl.setAttribute('rel', 'noopener');
-    var linkIcon = document.createElement('i');
-    linkIcon.setAttribute('data-lucide', 'download');
-    linkEl.appendChild(linkIcon);
-    linkEl.appendChild(document.createTextNode(' ' + (attachment.label || 'View PDF')));
+        if(!trimmed){
+          closeList();
+          return;
+        }
 
-    documentCard.appendChild(iconWrap);
-    documentCard.appendChild(infoWrap);
-    documentCard.appendChild(linkEl);
+        var bulletMatch = trimmed.match(/^[-•]\s+(.*)$/);
+        var numberMatch = trimmed.match(/^\d+[.)]\s+(.*)$/);
 
-    bubble.appendChild(documentCard);
+        if(bulletMatch){
+          if(!currentList || currentListType !== 'ul'){
+            closeList();
+            currentList = document.createElement('ul');
+            currentListType = 'ul';
+          }
 
-    if (typeof lucide !== 'undefined') {
-      lucide.createIcons();
+          var li = document.createElement('li');
+          li.textContent = bulletMatch[1];
+          currentList.appendChild(li);
+          return;
+        }
+
+        if(numberMatch){
+          if(!currentList || currentListType !== 'ol'){
+            closeList();
+            currentList = document.createElement('ol');
+            currentListType = 'ol';
+          }
+
+          var li = document.createElement('li');
+          li.textContent = numberMatch[1];
+          currentList.appendChild(li);
+          return;
+        }
+
+        closeList();
+
+        var paragraph = document.createElement('p');
+        paragraph.textContent = trimmed;
+        content.appendChild(paragraph);
+      });
+
+      closeList();
+      return content;
     }
+
+    bubble.appendChild(renderText(text));
+
+    if (role === 'assistant' && attachment && attachment.url) {
+      var documentCard = document.createElement('div');
+      documentCard.className = 'assistant-chat-document';
+
+      var iconWrap = document.createElement('div');
+      iconWrap.className = 'assistant-chat-document-icon';
+      var iconEl = document.createElement('i');
+      iconEl.setAttribute('data-lucide', 'file-text');
+      iconWrap.appendChild(iconEl);
+
+      var infoWrap = document.createElement('div');
+      infoWrap.className = 'assistant-chat-document-info';
+
+      var titleEl = document.createElement('strong');
+      titleEl.textContent = attachment.title || 'Kiharu TVC Document';
+
+      var captionEl = document.createElement('span');
+      captionEl.textContent = 'Official PDF document';
+
+      infoWrap.appendChild(titleEl);
+      infoWrap.appendChild(captionEl);
+
+      var linkEl = document.createElement('a');
+      linkEl.className = 'assistant-chat-document-btn';
+      linkEl.setAttribute('href', attachment.url);
+      linkEl.setAttribute('target', '_blank');
+      linkEl.setAttribute('rel', 'noopener');
+
+      var linkIcon = document.createElement('i');
+      linkIcon.setAttribute('data-lucide', 'download');
+
+      linkEl.appendChild(linkIcon);
+      linkEl.appendChild(document.createTextNode(' ' + (attachment.label || 'View PDF')));
+
+      documentCard.appendChild(iconWrap);
+      documentCard.appendChild(infoWrap);
+      documentCard.appendChild(linkEl);
+
+      bubble.appendChild(documentCard);
+
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    }
+
+    messageEl.appendChild(bubble);
+    messages.appendChild(messageEl);
+    scrollMessages();
   }
-
-  messageEl.appendChild(bubble);
-  messages.appendChild(messageEl);
-  scrollMessages();
-}
-
   function setStatus(text, error){
     status.textContent = text;
     status.style.color = error ? 'var(--danger)' : 'var(--muted)';
@@ -675,3 +741,4 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
 
 /* ===== INIT LUCIDE ===== */
 lucide.createIcons();
+

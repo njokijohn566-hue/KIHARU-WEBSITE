@@ -1,4 +1,4 @@
-﻿:root{
+:root{
   --maroon:#6a1830;
   --maroon-dark:#4a0f20;
   --maroon-light:#8a2040;
@@ -75,7 +75,7 @@ html,body{
   flex-shrink:0;
 }
 
-/* Coat of Arms â€” placeholder image, official proportions preserved via
+/* Coat of Arms — placeholder image, official proportions preserved via
    a fixed height with auto width (no stretching/distortion), and kept
    noticeably smaller than the 72px college logo in the header below. */
 .coat-of-arms{
@@ -101,7 +101,7 @@ header{
   box-shadow:0 4px 20px rgba(106,24,48,0.12);
 }
 
-/* Anchor target for the "Explore Courses" button â€” offsets the scroll
+/* Anchor target for the "Explore Courses" button — offsets the scroll
    position so the section isn't hidden underneath the sticky header. */
 #courses-section{scroll-margin-top:110px;}
 
@@ -168,7 +168,7 @@ nav{display:flex;align-items:center;gap:4px;}
   color:white;
 }
 
-/* Chevron â€” only targets the hand-coded inline SVG, not lucide-rendered SVGs */
+/* Chevron — only targets the hand-coded inline SVG, not lucide-rendered SVGs */
 .nav-link svg:not(.lucide){width:12px;height:12px;transition:transform .25s;}
 .nav-item:hover > .nav-link svg:not(.lucide){transform:rotate(180deg);}
 /* Lucide icons inside nav-links */
@@ -298,13 +298,13 @@ nav{display:flex;align-items:center;gap:4px;}
 .page.active{display:block;}
 
 /* ===== HOME HERO =====
-   Background is a stacked set of layers (top â†’ bottom):
-     1. home-page.jpg    â€” developer-provided photo (replace later
+   Background is a stacked set of layers (top → bottom):
+     1. home-page.jpg    — developer-provided photo (replace later
                             with the official college image; if you
                             use a different format, update the
                             extension below, e.g. home-page.png,
                             home-page.jpeg, or home-page.webp).
-     2. branded gradient â€” automatic fallback if the photo is
+     2. branded gradient — automatic fallback if the photo is
                             missing/fails to load (no JS needed:
                             a failed background layer simply
                             renders as transparent, revealing the
@@ -314,12 +314,10 @@ nav{display:flex;align-items:center;gap:4px;}
    contrast stays high whether or not a photo is present. */
 .hero{
   position:relative;
-  background-image:
-    url('home-page.webp'),
-    linear-gradient(160deg, var(--maroon-dark) 0%, var(--maroon) 40%, #c0392b 70%, #e05a1a 100%);
-  background-size:cover, cover;
-  background-position:center, center;
-  background-repeat:no-repeat, no-repeat;
+  background-image:url('../home-page.webp');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
   color:white;
   padding:80px 24px 90px;
   text-align:center;
@@ -340,7 +338,7 @@ nav{display:flex;align-items:center;gap:4px;}
   content:"";
   position:absolute;
   inset:0;
-  background:rgba(74,15,32,0.55);
+  background:linear-gradient(90deg,rgba(74,15,32,0.32) 0%,rgba(74,15,32,0.14) 55%,rgba(74,15,32,0.05) 100%);
   z-index:2;
 }
 
@@ -471,20 +469,20 @@ nav{display:flex;align-items:center;gap:4px;}
 }
 
 /*
- * KEY FIX â€” width:max-content forces the browser to resolve the track's own
+ * KEY FIX — width:max-content forces the browser to resolve the track's own
  * width as its full content width (~9968 px for 28 items), not the container's
  * capped width (1280 px).  Without this, translateX(-50%) only scrolls ~640 px
  * (half of 1280 px) so users see the same 4 images loop forever.
  *
- * We use margin-right instead of gap so that every item â€” including the last
- * one â€” carries its trailing space.  This makes total width an exact multiple
- * of 2 Ã— 14 items, guaranteeing -50% == exactly one full cycle at every
+ * We use margin-right instead of gap so that every item — including the last
+ * one — carries its trailing space.  This makes total width an exact multiple
+ * of 2 × 14 items, guaranteeing -50% == exactly one full cycle at every
  * viewport size when combined with the clamp() image width below.
  */
 .carousel-track{
   display:flex;
   align-items:center;          /* vertically centre items inside the 260 px strip */
-  width:max-content;           /* â† THE fix: percentage transforms now use real content width */
+  width:max-content;           /* ← THE fix: percentage transforms now use real content width */
   height:100%;
   padding:0;
   will-change:transform;
@@ -508,8 +506,8 @@ nav{display:flex;align-items:center;gap:4px;}
   flex:0 0 auto;
   margin-right:14px;           /* spacing lives on the item so total width stays a clean multiple of 14 */
   border-radius:14px;
-  overflow:hidden;             /* clip the hover scale inside the item itself â€” prevents edge bleed */
-  /* GPU layer isolation â€” keeps each item on its own composited layer so
+  overflow:hidden;             /* clip the hover scale inside the item itself — prevents edge bleed */
+  /* GPU layer isolation — keeps each item on its own composited layer so
      the browser doesn't resample the whole strip during animation        */
   transform:translateZ(0);
   backface-visibility:hidden;
@@ -517,13 +515,12 @@ nav{display:flex;align-items:center;gap:4px;}
 
 .carousel-item img{
   /* Natural aspect ratio preserved: width drives the size, height follows.
-     object-fit:cover is REMOVED â€” instead we let the image fill its natural
+     object-fit:cover is REMOVED — instead we let the image fill its natural
      proportions so there is no forced crop or compression distortion.
      clamp keeps images proportional:
-     200 px min (phones) â†’ scales with viewport â†’ 320 px max (desktop)
+     200 px min (phones) → scales with viewport → 320 px max (desktop)
      -50% stays mathematically correct at every breakpoint               */
-  width:clamp(200px, 26vw, 320px);
-  height:228px;                /* matches carousel height minus 16 px vertical padding */
+  width:clamp(220px, 28vw, 340px);`r`n  height:255px;                /* matches carousel height minus 16 px vertical padding */
   object-fit:cover;            /* fill the slot cleanly without squashing */
   object-position:center top;  /* favour the top of the image (faces / subjects usually there) */
   border-radius:14px;
@@ -549,7 +546,7 @@ nav{display:flex;align-items:center;gap:4px;}
   position:absolute;
   bottom:0;left:0;right:0;
   padding:28px 12px 10px;
-  /* Replace backdrop-filter:blur â€” it bleeds onto the image and smears the
+  /* Replace backdrop-filter:blur — it bleeds onto the image and smears the
      bottom portion. A CSS gradient is crisp and has zero render artefacts. */
   background:linear-gradient(0deg, rgba(0,0,0,0.72) 0%, transparent 100%);
   color:white;
@@ -659,7 +656,7 @@ nav{display:flex;align-items:center;gap:4px;}
   gap:5px;
 }
 
-/* LATEST NEWS & ANNOUNCEMENTS â€” layout refinement only, scoped to this grid so the
+/* LATEST NEWS & ANNOUNCEMENTS — layout refinement only, scoped to this grid so the
    Sports/Clubs section (which reuses .adverts-grid/.advert-card) is unaffected. */
 .announcements-grid{
   grid-template-columns:repeat(3,1fr);
@@ -1017,7 +1014,7 @@ nav{display:flex;align-items:center;gap:4px;}
   border-color:#c0392b;
 }
 
-/* Honeypot â€” hidden from real users, bots fill it in */
+/* Honeypot — hidden from real users, bots fill it in */
 .form-hp{display:none !important;visibility:hidden;position:absolute;left:-9999px;}
 
 [data-theme="dark"] .form-msg-success{background:rgba(26,122,48,0.15);border-color:rgba(26,122,48,0.4);color:#3dba61;}
@@ -1319,7 +1316,7 @@ footer{
 .modal-option p{font-size:12px;color:var(--muted);}
 
 /*
- * Modal close button â€” fixes:
+ * Modal close button — fixes:
  *   1. .lucide icon was rendering with no size/stroke (invisible X)
  *   2. No hover feedback
  *   3. No keyboard :focus-visible ring
@@ -1333,7 +1330,7 @@ footer{
   right:14px;
   z-index:2;
 
-  /* size â€” 40 px desktop, scaled to 44 px on mobile below */
+  /* size — 40 px desktop, scaled to 44 px on mobile below */
   width:40px;
   height:40px;
   flex-shrink:0;
@@ -1366,7 +1363,7 @@ footer{
   background:rgba(0,0,0,0.35);
 }
 
-/* The X icon â€” this rule is what was missing entirely */
+/* The X icon — this rule is what was missing entirely */
 .modal-close .lucide{
   width:18px;
   height:18px;
@@ -1748,7 +1745,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   align-items:flex-start;
 }
 
-/* Empty gallery placeholder â€” read-only, non-interactive */
+/* Empty gallery placeholder — read-only, non-interactive */
 .gallery-empty{
   position:relative;
   border-radius:16px;
@@ -1794,7 +1791,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   border:1px solid var(--border);
 }
 
-/* Responsive embed wrapper â€” scales with width via aspect-ratio instead
+/* Responsive embed wrapper — scales with width via aspect-ratio instead
    of a fixed pixel height, so it stays correctly proportioned on any
    screen size (desktop, tablet, mobile) without layout jumps. */
 .map-embed-wrap{
@@ -1806,7 +1803,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   background:var(--surface2);
 }
 
-/* Shown until a real embed URL replaces the placeholder â€” keeps the
+/* Shown until a real embed URL replaces the placeholder — keeps the
    section looking finished instead of a blank/broken box. Disappears
    automatically the moment a real Maps embed URL is set. */
 .map-embed-placeholder{
@@ -2008,7 +2005,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 .apply-link:hover{background:var(--maroon-light);transform:translateY(-1px);}
 .apply-link .lucide{width:14px;height:14px;stroke:white;}
 
-/* Download advert button â€” sits alongside Apply via Email in job footer */
+/* Download advert button — sits alongside Apply via Email in job footer */
 .job-footer-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .download-advert-btn{
   display:inline-flex;align-items:center;gap:6px;
@@ -2087,7 +2084,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 .gallery-item:hover .gallery-item-overlay{opacity:1;}
 .gallery-item-label{color:white;font-size:13px;font-weight:700;letter-spacing:.4px;}
 
-/* "See More" card â€” same grid cell as gallery-item */
+/* "See More" card — same grid cell as gallery-item */
 .gallery-see-more{
   position:relative;
   border-radius:16px;
@@ -2141,7 +2138,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 .gallery-lightbox.open{display:flex;}
 .lightbox-img{max-width:90vw;max-height:85vh;border-radius:12px;object-fit:contain;}
 
-/* Highly visible close button â€” maroon pill with white X, impossible to miss */
+/* Highly visible close button — maroon pill with white X, impossible to miss */
 .lightbox-close{
   position:fixed;top:18px;right:20px;
   display:inline-flex;align-items:center;gap:6px;
@@ -2230,7 +2227,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 }
 .remark-photo img{
   width:100%;height:100%;
-  object-fit:cover;display:block;
+  object-fit:contain;display:block;
 }
 .remark-photo-placeholder{
   width:100%;height:100%;
@@ -3121,7 +3118,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 }
 
 
-/* ===== KIHARU AI — PREMIUM COLOR LAYER ===== */
+/* ===== KIHARU AI � PREMIUM COLOR LAYER ===== */
 
 .assistant-chat-button {
   background: #176b68;
@@ -3289,4 +3286,8 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 }
 
 /* ===== END KIHARU AI PREMIUM COLOR LAYER ===== */
+
+
+
+
 
