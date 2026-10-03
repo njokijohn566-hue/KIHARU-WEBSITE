@@ -1,4 +1,4 @@
-/* ===== LONG COURSES DATA ===== */
+﻿/* ===== LONG COURSES DATA ===== */
 const longCourses=[
   {name:"Building & Civil Engineering",slug:"building-civil-engineering",image:"building.webp",icon:"hard-hat"},
   {name:"Business & Liberal Studies",slug:"business-liberal-studies",image:"business.webp",icon:"briefcase"},
@@ -13,7 +13,7 @@ const longCourses=[
 ];
 
 const grid=document.getElementById("coursesGrid");
-/* Guarded the same way as ugGrid below â€” cheap insurance against
+/* Guarded the same way as ugGrid below Ã¢â‚¬â€ cheap insurance against
    this exact class of "one missing element kills the whole script"
    bug happening again. */
 if(grid){
@@ -43,10 +43,10 @@ const ugCourses=[
 const ugGrid=document.getElementById("ugGrid");
 /* FIX: #ugGrid does not exist anywhere in this HTML file. Calling
    .appendChild on the null result of getElementById used to throw
-   here, which is a synchronous top-level error â€” it killed every
+   here, which is a synchronous top-level error Ã¢â‚¬â€ it killed every
    line of JS that came AFTER it in this <script> block, including
    the join-modal listener, dark-mode init, mobile drawer, gallery,
-   carousel speed controls, and â€” critically â€” the entire Formspree
+   carousel speed controls, and Ã¢â‚¬â€ critically Ã¢â‚¬â€ the entire Formspree
    contact-form submit handler further down the file. That is the
    real reason the contact form did not work: its event listener
    was never attached, so clicking "Send Message" fell through to
@@ -84,7 +84,7 @@ window.addEventListener('popstate', function(e){
   showPage(id, false);
 });
 
-/* "Explore Courses" hero button â€” the Courses Offered / Short Courses
+/* "Explore Courses" hero button Ã¢â‚¬â€ the Courses Offered / Short Courses
    section lives on the Home page. If we're already on Home, just
    smooth-scroll there; if we're on another page, switch to Home first
    (without its own top-of-page scroll fighting ours) and then smooth-
@@ -113,7 +113,7 @@ function goToCourses(){
   const hash = location.hash.replace('#','');
 
   // Deep link from an external page (e.g. course-detail.html's
-  // "Back to Courses" button linking to index.html#courses) â€” land on
+  // "Back to Courses" button linking to index.html#courses) Ã¢â‚¬â€ land on
   // Home and smooth-scroll straight to the Courses Offered & Short
   // Courses section instead of the top of the page.
   if(hash === 'courses' || hash === 'courses-section'){
@@ -142,7 +142,7 @@ function closeModal(){const m=document.getElementById("joinModal"); if(m) m.clas
 
 /* ===== DARK / LIGHT MODE =====
    The actual first-paint decision (saved choice, else system preference)
-   already ran in <head> before the page rendered â€” this just syncs the
+   already ran in <head> before the page rendered Ã¢â‚¬â€ this just syncs the
    toggle button's icon/label to whatever data-theme is already set. */
 (function(){
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -152,7 +152,7 @@ function closeModal(){const m=document.getElementById("joinModal"); if(m) m.clas
   // chosen a theme on this site (no saved preference yet).
   if(window.matchMedia){
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e){
-      if(localStorage.getItem('kiharuTheme')) return; // user has an explicit choice â€” don't override it
+      if(localStorage.getItem('kiharuTheme')) return; // user has an explicit choice Ã¢â‚¬â€ don't override it
       applyTheme('light', false);
     });
   }
@@ -205,7 +205,7 @@ function filterGallery(cat, btn){
 /* ===== GALLERY LIGHTBOX ===== */
 function openLightbox(el){
   const img = el.querySelector('img');
-  /* Only open if a real image is present and loaded â€” never open on placeholders */
+  /* Only open if a real image is present and loaded Ã¢â‚¬â€ never open on placeholders */
   if(!img || !img.src || img.src === window.location.href || img.style.display==='none') return;
   document.getElementById('lightboxImg').src = img.src;
   document.getElementById('lightboxImg').alt = img.alt;
@@ -241,24 +241,24 @@ function setCarouselSpeed(seconds, e){
 }
 
 /* ================================================================
-   CONTACT FORM â€” FORMSPREE INTEGRATION
+   CONTACT FORM Ã¢â‚¬â€ FORMSPREE INTEGRATION
    ================================================================
    Endpoint is live and wired to the college's email address.
    To change the recipient email, log in to https://formspree.io,
-   open the form dashboard, and update the email there â€” no code
+   open the form dashboard, and update the email there Ã¢â‚¬â€ no code
    change needed.
 
    If you ever need to point this to a different Formspree form,
    update FORMSPREE_ENDPOINT below. That is the only line to edit.
    ================================================================ */
 
-/* â”€â”€ â‘  THE ONLY LINE TO EDIT if you ever change forms â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Ã¢â€˜Â  THE ONLY LINE TO EDIT if you ever change forms Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 
 (function () {
 
-  /* â”€â”€ â‘¡ Grab the form and all UI elements by their existing ids â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Ã¢â€˜Â¡ Grab the form and all UI elements by their existing ids Ã¢â€â‚¬ */
   var form       = document.getElementById('contactForm');
   if (!form) return; /* bail safely if the form isn't on this page */
 
@@ -268,18 +268,18 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
   var msgError   = document.getElementById('form-error');
   var errDetail  = document.getElementById('form-error-detail');
 
-  /* â”€â”€ â‘¢ Field references (used for validation and error display) â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Ã¢â€˜Â¢ Field references (used for validation and error display) Ã¢â€â‚¬ */
   var fName    = document.getElementById('cf-name');
   var fEmail   = document.getElementById('cf-email');
   var fSubject = document.getElementById('cf-subject');
   var fMessage = document.getElementById('cf-message');
 
-  /* â”€â”€ â‘£ Duplicate-submission guard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Ã¢â€˜Â£ Duplicate-submission guard Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
      Set to true while a fetch is in flight; reset in finally().
      Prevents double-clicks and rapid re-submissions.            */
   var isSubmitting = false;
 
-  /* â”€â”€ â‘¤ Validation helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Ã¢â€˜Â¤ Validation helpers Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 
   /* Shows or hides the inline error below a field */
   function setFieldError(inputEl, errId, hasError) {
@@ -313,7 +313,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     return !nameEmpty && !emailBad && !subjectEmpty && !msgShort;
   }
 
-  /* â”€â”€ â‘¥ Live error clearing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Ã¢â€˜Â¥ Live error clearing Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
      Each required field clears its own error the moment the user
      starts typing/changing, giving immediate positive feedback.  */
   var fieldErrMap = {
@@ -334,11 +334,11 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     });
   });
 
-  /* â”€â”€ â‘¦ Form submit handler â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* Ã¢â€â‚¬Ã¢â€â‚¬ Ã¢â€˜Â¦ Form submit handler Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
   form.addEventListener('submit', function (e) {
     e.preventDefault(); /* stop the default browser page reload    */
 
-    /* â”€â”€ Honeypot: bots fill this hidden field; humans leave it blank.
+    /* Ã¢â€â‚¬Ã¢â€â‚¬ Honeypot: bots fill this hidden field; humans leave it blank.
        If it has any value, silently discard the submission.      */
     var hp = form.querySelector('input[name="_gotcha"]');
     if (hp && hp.value.length > 0) {
@@ -346,10 +346,10 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
       return;
     }
 
-    /* â”€â”€ Duplicate-submission guard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬ Duplicate-submission guard Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     if (isSubmitting) { return; }
 
-    /* â”€â”€ Client-side validation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬ Client-side validation Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     if (!validateForm()) {
       /* Hide any stale feedback banners                          */
       msgSuccess.classList.remove('show');
@@ -362,22 +362,22 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
       return;
     }
 
-    /* â”€â”€ Lock the form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬ Lock the form Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     isSubmitting      = true;
     btn.disabled      = true;
-    btnText.textContent = 'Sending\u2026'; /* "Sendingâ€¦"           */
+    btnText.textContent = 'Sending\u2026'; /* "SendingÃ¢â‚¬Â¦"           */
 
     /* Hide any previously shown feedback banners                */
     msgSuccess.classList.remove('show');
     msgError.classList.remove('show');
 
-    /* â”€â”€ Build the payload â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    /* Ã¢â€â‚¬Ã¢â€â‚¬ Build the payload Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
        FormData automatically collects every named <input>,
        <select>, and <textarea> inside the form, including:
          name, phone, email, subject, message, _gotcha, _subject  */
     var payload = new FormData(form);
 
-    /* â”€â”€ Send to Formspree via fetch â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    /* Ã¢â€â‚¬Ã¢â€â‚¬ Send to Formspree via fetch Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
        'Accept: application/json' tells Formspree to reply in
        JSON rather than redirecting, which is required for AJAX. */
     fetch(FORMSPREE_ENDPOINT, {
@@ -386,15 +386,15 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
       headers: { 'Accept': 'application/json' }
     })
 
-    /* â”€â”€ Handle the response â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬ Handle the response Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     .then(function (response) {
       if (response.ok) {
-        /* â”€â”€ SUCCESS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        /* Ã¢â€â‚¬Ã¢â€â‚¬ SUCCESS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
         form.reset();                          /* clear all fields */
         msgSuccess.classList.add('show');      /* show green banner */
         msgSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       } else {
-        /* â”€â”€ HTTP-level failure (4xx / 5xx) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        /* Ã¢â€â‚¬Ã¢â€â‚¬ HTTP-level failure (4xx / 5xx) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
         return response.json().then(function (body) {
           /* Formspree puts a human-readable reason in body.error */
           var reason = (body && body.error)
@@ -405,7 +405,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
       }
     })
 
-    /* â”€â”€ Handle network errors or thrown errors â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬ Handle network errors or thrown errors Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     .catch(function (err) {
       errDetail.textContent = err.message
         ? err.message + ' Please try again or contact us by phone.'
@@ -414,7 +414,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
       msgError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     })
 
-    /* â”€â”€ Always unlock the form when done â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬ Always unlock the form when done Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     .finally(function () {
       isSubmitting        = false;
       btn.disabled        = false;
@@ -431,15 +431,15 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
 (function initLocationPage(){
   try{
 
-    /* â”€â”€ â‘  The only two lines to edit once you have the real links â”€â”€
-       Embed URL: on Google Maps, search the college â†’ Share â†’
-       Embed a map â†’ Copy HTML â†’ take the "src" value out of the
+    /* Ã¢â€â‚¬Ã¢â€â‚¬ Ã¢â€˜Â  The only two lines to edit once you have the real links Ã¢â€â‚¬Ã¢â€â‚¬
+       Embed URL: on Google Maps, search the college Ã¢â€ â€™ Share Ã¢â€ â€™
+       Embed a map Ã¢â€ â€™ Copy HTML Ã¢â€ â€™ take the "src" value out of the
        <iframe> tag and paste it below.
-       Directions URL: on Google Maps, search the college â†’ Share â†’
+       Directions URL: on Google Maps, search the college Ã¢â€ â€™ Share Ã¢â€ â€™
        copy the plain maps.google.com link and paste it below.     */
     var EMBED_SRC = ''; /* Replace with official Google Maps Embed URL */
     var MAP_LINK  = ''; /* Replace with official Google Maps Directions Link */
-    /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 
     var iframe      = document.getElementById('mapIframe');
     var placeholder = document.getElementById('mapEmbedPlaceholder');
@@ -539,11 +539,30 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
   ? 'http://127.0.0.1:5000/api/ai/chat'
   : 'https://kiharu-website.onrender.com/api/ai/chat';
 
+  var conversationStorageKey = 'kiharu_ai_conversation_v1';
+
+  function getConversation(){
+    try {
+      var saved = JSON.parse(localStorage.getItem(conversationStorageKey) || '[]');
+      return Array.isArray(saved) ? saved : [];
+    } catch(e){
+      return [];
+    }
+  }
+
+  function saveConversation(conversation){
+    try {
+      localStorage.setItem(conversationStorageKey, JSON.stringify(conversation.slice(-100)));
+    } catch(e){
+      /* Ignore storage errors and keep the live chat working. */
+    }
+  }
+
   function scrollMessages(){
     messages.scrollTop = messages.scrollHeight;
   }
 
-  function addMessage(role, text, attachment){
+  function addMessage(role, text, attachment, skipSave){
     var messageEl = document.createElement('div');
     messageEl.className = 'assistant-chat-message ' + role;
 
@@ -574,7 +593,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
           return;
         }
 
-        var bulletMatch = trimmed.match(/^[-•]\s+(.*)$/);
+        var bulletMatch = trimmed.match(/^[-â€¢]\s+(.*)$/);
         var numberMatch = trimmed.match(/^\d+[.)]\s+(.*)$/);
 
         if(bulletMatch){
@@ -665,6 +684,23 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     messages.appendChild(messageEl);
     scrollMessages();
   }
+  function restoreConversation(){
+    var conversation = getConversation();
+    if(!conversation.length){ return false; }
+
+    var welcome = document.querySelector('.assistant-chat-welcome');
+    if(welcome){ welcome.remove(); }
+
+    conversation.forEach(function(item){
+      if(item && (item.role === 'user' || item.role === 'assistant')){
+        addMessage(item.role, item.text || '', item.attachment || null, true);
+      }
+    });
+    return true;
+  }
+
+  restoreConversation();
+
   function setStatus(text, error){
     status.textContent = text;
     status.style.color = error ? 'var(--danger)' : 'var(--muted)';
