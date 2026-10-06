@@ -1,4 +1,4 @@
-﻿/* ===== LONG COURSES DATA ===== */
+/* ===== LONG COURSES DATA ===== */
 const longCourses=[
   {name:"Building & Civil Engineering",slug:"building-civil-engineering",image:"building.webp",icon:"hard-hat"},
   {name:"Business & Liberal Studies",slug:"business-liberal-studies",image:"business.webp",icon:"briefcase"},
@@ -701,6 +701,50 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
 
   restoreConversation();
 
+  function findFrontendKnowledge(query){
+    var knowledge = window.KIHARU_KNOWLEDGE;
+    if(!knowledge || !query){ return null; }
+
+    var q = query.toLowerCase().trim();
+    var terms = q.split(/[^a-z0-9]+/).filter(function(word){
+      return word.length >= 3;
+    });
+
+    var results = [];
+
+    function searchValue(value, path){
+      if(typeof value === 'string'){
+        var haystack = value.toLowerCase();
+        var score = 0;
+        terms.forEach(function(term){
+          if(haystack.indexOf(term) !== -1){ score += 1; }
+        });
+        if(score > 0){
+          results.push({ path: path, value: value, score: score });
+        }
+      } else if(Array.isArray(value)){
+        value.forEach(function(item, index){
+          searchValue(item, path + '[' + index + ']');
+        });
+      } else if(value && typeof value === 'object'){
+        Object.keys(value).forEach(function(key){
+          searchValue(value[key], path ? path + '.' + key : key);
+        });
+      }
+    }
+
+    searchValue(knowledge, '');
+
+    if(!results.length){ return null; }
+
+    results.sort(function(a,b){ return b.score - a.score; });
+
+    var best = results[0];
+
+    if(best.score < 1){ return null; }
+
+    return best.value;
+  }
   function setStatus(text, error){
     status.textContent = text;
     status.style.color = error ? 'var(--danger)' : 'var(--muted)';
@@ -741,7 +785,15 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     input.value = '';
     setStatus('Sending...', false);
 
-    fetch(aiChatUrl, {
+    var frontendAnswer = findFrontendKnowledge(value);
+
+  if(frontendAnswer){
+    addMessage('assistant', frontendAnswer);
+    setStatus('Answered from Kiharu knowledge.', false);
+    return;
+  }
+
+  fetch(aiChatUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: value })
@@ -777,4 +829,3 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
 
 /* ===== INIT LUCIDE ===== */
 lucide.createIcons();
-
