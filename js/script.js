@@ -515,10 +515,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
   });
 })();
 
-/* ===== KIHARU AI CHAT WIDGET (local dev/testing) =====
-   Frontend-only: opens/closes the panel, sends the typed message to the
-   AI backend, and renders the response. Does not touch any backend file.
-   Local dev vs production URL detection: */
+/* ===== KIHARU AI CHAT WIDGET (backend API) ===== */
 (function(){
   var panel = document.getElementById('assistantChatPanel');
   var button = document.getElementById('assistantChatButton');
@@ -529,16 +526,12 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
   var status = document.getElementById('assistantChatStatus');
   if(!panel || !button || !form || !input || !messages || !status){ return; }
 
-  var isLocalStaticFrontend =
-    location.protocol === 'file:' ||
-    location.hostname === '127.0.0.1' ||
-    location.hostname === 'localhost' ||
+  var isLocalStaticFrontend = location.protocol === 'file:' ||
+    location.hostname === '127.0.0.1' || location.hostname === 'localhost' ||
     location.hostname === '192.168.0.104';
-
   var aiChatUrl = isLocalStaticFrontend
-  ? 'http://127.0.0.1:5000/api/ai/chat'
-  : 'https://kiharu-website.onrender.com/api/ai/chat';
-
+    ? 'http://127.0.0.1:5000/api/ai/chat'
+    : 'https://kiharu-website.onrender.com/api/ai/chat';
   var conversationStorageKey = 'kiharu_ai_conversation_v1';
 
   function getConversation(){
@@ -593,7 +586,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
           return;
         }
 
-        var bulletMatch = trimmed.match(/^[-â€¢]\s+(.*)$/);
+        var bulletMatch = trimmed.match(/^[-•]\s+(.*)$/);
         var numberMatch = trimmed.match(/^\d+[.)]\s+(.*)$/);
 
         if(bulletMatch){
@@ -682,6 +675,11 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
 
     messageEl.appendChild(bubble);
     messages.appendChild(messageEl);
+    if(!skipSave){
+      var conversation = getConversation();
+      conversation.push({ role: role, text: String(text || ''), attachment: attachment || null });
+      saveConversation(conversation);
+    }
     scrollMessages();
   }
   function restoreConversation(){
@@ -701,50 +699,6 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
 
   restoreConversation();
 
-  function findFrontendKnowledge(query){
-    var knowledge = window.KIHARU_KNOWLEDGE;
-    if(!knowledge || !query){ return null; }
-
-    var q = query.toLowerCase().trim();
-    var terms = q.split(/[^a-z0-9]+/).filter(function(word){
-      return word.length >= 3;
-    });
-
-    var results = [];
-
-    function searchValue(value, path){
-      if(typeof value === 'string'){
-        var haystack = value.toLowerCase();
-        var score = 0;
-        terms.forEach(function(term){
-          if(haystack.indexOf(term) !== -1){ score += 1; }
-        });
-        if(score > 0){
-          results.push({ path: path, value: value, score: score });
-        }
-      } else if(Array.isArray(value)){
-        value.forEach(function(item, index){
-          searchValue(item, path + '[' + index + ']');
-        });
-      } else if(value && typeof value === 'object'){
-        Object.keys(value).forEach(function(key){
-          searchValue(value[key], path ? path + '.' + key : key);
-        });
-      }
-    }
-
-    searchValue(knowledge, '');
-
-    if(!results.length){ return null; }
-
-    results.sort(function(a,b){ return b.score - a.score; });
-
-    var best = results[0];
-
-    if(best.score < 1){ return null; }
-
-    return best.value;
-  }
   function setStatus(text, error){
     status.textContent = text;
     status.style.color = error ? 'var(--danger)' : 'var(--muted)';
@@ -783,32 +737,37 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyeggrnw';
     if(welcome){ welcome.remove(); }
     addMessage('user', value);
     input.value = '';
-    setStatus('Sending...', false);
+    if(navigator.onLine === false){
+      addMessage('assistant', "You're currently offline. Please connect to the internet to use Kiharu AI.");
+      setStatus('Offline', true);
+      return;
+    }
 
-    var frontendAnswer = findFrontendKnowledge(value);
-
-  if(frontendAnswer){
-    addMessage('assistant', frontendAnswer);
-    setStatus('Answered from Kiharu knowledge.', false);
-    return;
-  }
-
-  fetch(aiChatUrl, {
+    setStatus('Connecting to Kiharu AI...', false);
+    fetch(aiChatUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: value })
     }).then(function(response){
-      return response.json().then(function(data){
-        if(!response.ok || !data.success){
-          throw new Error(data.message || 'AI request failed');
+      return response.json().catch(function(){ return null; }).then(function(data){
+        if(!response.ok){
+          addMessage('assistant', 'Kiharu AI could not process this request. Please try again.');
+          setStatus('Request failed. Please try again.', true);
+          return null;
         }
-        var hasDocument = data.document && typeof data.document.url === 'string' && data.document.url.length > 0;
-        addMessage('assistant', data.message || 'Sorry, I could not find an answer.', hasDocument ? data.document : null);
+        if(!data || data.success !== true || typeof data.message !== 'string' || !data.message.trim()){
+          addMessage('assistant', 'Kiharu AI returned an unexpected response. Please try again.');
+          setStatus('Unexpected response from Kiharu AI.', true);
+          return null;
+        }
+        var attachment = data.document && typeof data.document.url === 'string' && data.document.url ? data.document : null;
+        addMessage('assistant', data.message, attachment);
         setStatus('Ready for another question.', false);
+        return data;
       });
-    }).catch(function(err){
-      addMessage('assistant', 'Sorry, the AI assistant is unavailable right now. Please try again later.');
-      setStatus(err.message || 'Request failed.', true);
+    }).catch(function(){
+      addMessage('assistant', "I can't reach Kiharu AI right now. Please check your internet connection and try again.");
+      setStatus('Unable to reach Kiharu AI.', true);
     });
   });
 

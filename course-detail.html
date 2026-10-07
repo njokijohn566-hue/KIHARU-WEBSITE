@@ -2026,418 +2026,7 @@
 <script src="js/kiharu-knowledge.js"></script>
 <script>
   // Course data with modules and units
-  const courses = {
-    "building-civil-engineering": {
-      name: "Building & Civil Engineering",
-      modules: [
-        {
-          title: "Module 1",
-          subtitle: "Introduction to Building Construction",
-          topics: ["Basic building materials", "Safety regulations", "Tools and equipment", "Site preparation"],
-          units: ["Unit 1.1: Building Materials Classification", "Unit 1.2: Safety Standards and Regulations", "Unit 1.3: Hand Tools and Equipment", "Unit 1.4: Site Preparation and Marking"]
-        },
-        {
-          title: "Module 2",
-          subtitle: "Masonry and Concrete Work",
-          topics: ["Brickwork techniques", "Concrete mixing and casting", "Structural calculations", "Quality control"],
-          units: ["Unit 2.1: Brickwork and Blockwork", "Unit 2.2: Concrete Production", "Unit 2.3: Structural Calculations", "Unit 2.4: Quality Assurance"]
-        },
-        {
-          title: "Module 3",
-          subtitle: "Carpentry and Timber Work",
-          topics: ["Timber selection", "Joinery techniques", "Roof construction", "Interior finishing"],
-          units: ["Unit 3.1: Timber Selection and Properties", "Unit 3.2: Joinery Techniques", "Unit 3.3: Roof Framing", "Unit 3.4: Interior Finishes"]
-        },
-        {
-          title: "Module 4",
-          subtitle: "Surveying and Site Engineering",
-          topics: ["Land surveying basics", "Level measurement", "Building layout", "Mapping"],
-          units: ["Unit 4.1: Surveying Instruments", "Unit 4.2: Level and Height Measurement", "Unit 4.3: Setting Out Buildings", "Unit 4.4: Site Plans"]
-        },
-        {
-          title: "Module 5",
-          subtitle: "Electrical and Plumbing Installation",
-          topics: ["Electrical wiring", "Water supply systems", "Drainage systems", "Safety compliance"],
-          units: ["Unit 5.1: Electrical Wiring Systems", "Unit 5.2: Water Supply Installation", "Unit 5.3: Drainage Systems", "Unit 5.4: Safety Compliance"]
-        },
-        {
-          title: "Module 6",
-          subtitle: "Project Management and Documentation",
-          topics: ["Project planning", "Cost estimation", "Bill of quantities", "Project supervision"],
-          units: ["Unit 6.1: Project Planning", "Unit 6.2: Cost Estimation", "Unit 6.3: Bill of Quantities", "Unit 6.4: Project Supervision"]
-        }
-      ]
-    },
-    "business-liberal-studies": {
-      name: "Business & Liberal Studies",
-      modules: [
-        {
-          title: "Module 1",
-          subtitle: "Business Fundamentals",
-          topics: ["Business types", "Entrepreneurship basics", "Market analysis", "Business plans"],
-          units: ["Unit 1.1: Business Environment", "Unit 1.2: Entrepreneurship", "Unit 1.3: Market Research", "Unit 1.4: Business Planning"]
-        },
-        {
-          title: "Module 2",
-          subtitle: "Accounting Principles",
-          topics: ["Basic bookkeeping", "Journal entries", "Ledger accounts", "Trial balance"],
-          units: ["Unit 2.1: Recording Transactions", "Unit 2.2: Ledger Accounts", "Unit 2.3: Trial Balance", "Unit 2.4: Financial Records"]
-        },
-        {
-          title: "Module 3",
-          subtitle: "Financial Management",
-          topics: ["Budgeting", "Cash flow management", "Financial statements", "Ratio analysis"],
-          units: ["Unit 3.1: Budgeting Techniques", "Unit 3.2: Cash Flow Management", "Unit 3.3: Financial Statements", "Unit 3.4: Financial Analysis"]
-        },
-        {
-          title: "Module 4",
-          subtitle: "Management and Organization",
-          topics: ["Organizational structures", "Leadership styles", "Decision making", "Team management"],
-          units: ["Unit 4.1: Organizational Design", "Unit 4.2: Leadership Styles", "Unit 4.3: Decision Making", "Unit 4.4: Team Dynamics"]
-        },
-        {
-          title: "Module 5",
-          subtitle: "Marketing and Sales",
-          topics: ["Market segmentation", "Pricing strategies", "Promotion methods", "Customer relations"],
-          units: ["Unit 5.1: Market Segmentation", "Unit 5.2: Product and Pricing", "Unit 5.3: Promotion Strategy", "Unit 5.4: Customer Relations"]
-        },
-        {
-          title: "Module 6",
-          subtitle: "Business Ethics and Communication",
-          topics: ["Professional ethics", "Business writing", "Public speaking", "Workplace communication"],
-          units: ["Unit 6.1: Business Ethics", "Unit 6.2: Communication Skills", "Unit 6.3: Presentation Skills", "Unit 6.4: Professional Conduct"]
-        }
-      ]
-    },
-    "mechanical-automotive-engineering": {
-      name: "Mechanical & Automotive Engineering",
-      modules: [
-        {
-          title: "Module 1",
-          subtitle: "Engine Fundamentals",
-          topics: ["Engine types", "Combustion process", "Engine components", "Operating principles"],
-          units: ["Unit 1.1: Engine Classification", "Unit 1.2: Combustion Process", "Unit 1.3: Engine Components", "Unit 1.4: Operating Principles"]
-        },
-        {
-          title: "Module 2",
-          subtitle: "Engine Systems",
-          topics: ["Fuel systems", "Ignition systems", "Cooling systems", "Lubrication systems"],
-          units: ["Unit 2.1: Fuel Delivery Systems", "Unit 2.2: Ignition Systems", "Unit 2.3: Cooling Systems", "Unit 2.4: Lubrication Systems"]
-        },
-        {
-          title: "Module 3",
-          subtitle: "Transmission and Drivetrain",
-          topics: ["Clutch systems", "Gearboxes", "Differentials", "Drive shafts"],
-          units: ["Unit 3.1: Clutch Operation", "Unit 3.2: Manual and Automatic Gearboxes", "Unit 3.3: Differential Systems", "Unit 3.4: Drive Transmission"]
-        },
-        {
-          title: "Module 4",
-          subtitle: "Suspension and Steering",
-          topics: ["Suspension types", "Springs and dampers", "Steering systems", "Wheel alignment"],
-          units: ["Unit 4.1: Suspension Design", "Unit 4.2: Spring and Damper Systems", "Unit 4.3: Steering Mechanisms", "Unit 4.4: Wheel Alignment"]
-        },
-        {
-          title: "Module 5",
-          subtitle: "Braking Systems",
-          topics: ["Brake types", "Hydraulic systems", "Disc and drum brakes", "ABS technology"],
-          units: ["Unit 5.1: Brake Design", "Unit 5.2: Hydraulic Systems", "Unit 5.3: Brake Components", "Unit 5.4: Advanced Braking Systems"]
-        },
-        {
-          title: "Module 6",
-          subtitle: "Vehicle Maintenance and Repair",
-          topics: ["Diagnostic procedures", "Maintenance schedules", "Component replacement", "Testing procedures"],
-          units: ["Unit 6.1: Diagnostics", "Unit 6.2: Maintenance Schedules", "Unit 6.3: Repair Procedures", "Unit 6.4: Testing and Verification"]
-        }
-      ]
-    },
-    "electrical-electronics-engineering": {
-      name: "Electrical & Electronics Engineering",
-      modules: [
-        {
-          title: "Module 1",
-          subtitle: "Electrical Fundamentals",
-          topics: ["Voltage and current", "Ohm's law", "Resistance", "Power and energy"],
-          units: ["Unit 1.1: Electrical Quantities", "Unit 1.2: Ohm's Law", "Unit 1.3: Resistance and Conductance", "Unit 1.4: Power Calculations"]
-        },
-        {
-          title: "Module 2",
-          subtitle: "AC and DC Circuits",
-          topics: ["DC circuits", "AC circuits", "Transformers", "Power factor"],
-          units: ["Unit 2.1: DC Circuit Analysis", "Unit 2.2: AC Circuit Analysis", "Unit 2.3: Transformers", "Unit 2.4: Power Factor"]
-        },
-        {
-          title: "Module 3",
-          subtitle: "Electrical Installation",
-          topics: ["Wiring systems", "Cable selection", "Circuit breakers", "Earthing systems"],
-          units: ["Unit 3.1: Wiring Methods", "Unit 3.2: Cable Selection", "Unit 3.3: Circuit Protection", "Unit 3.4: Earthing and Grounding"]
-        },
-        {
-          title: "Module 4",
-          subtitle: "Electronics Basics",
-          topics: ["Semiconductors", "Diodes and transistors", "Logic gates", "Digital circuits"],
-          units: ["Unit 4.1: Semiconductor Theory", "Unit 4.2: Diodes and Transistors", "Unit 4.3: Logic Gates", "Unit 4.4: Digital Circuits"]
-        },
-        {
-          title: "Module 5",
-          subtitle: "Power Distribution",
-          topics: ["Power generation", "Transmission systems", "Distribution networks", "Load management"],
-          units: ["Unit 5.1: Power Generation", "Unit 5.2: Transmission Lines", "Unit 5.3: Distribution Systems", "Unit 5.4: Load Management"]
-        },
-        {
-          title: "Module 6",
-          subtitle: "Electrical Safety and Maintenance",
-          topics: ["Safety standards", "PPE usage", "Testing and troubleshooting", "Preventive maintenance"],
-          units: ["Unit 6.1: Safety Standards", "Unit 6.2: Personal Protection", "Unit 6.3: Troubleshooting", "Unit 6.4: Preventive Maintenance"]
-        }
-      ]
-    },
-    "computing-informatics": {
-      name: "Computing & Informatics",
-      modules: [
-        {
-          title: "Module 1",
-          subtitle: "Computer Fundamentals",
-          topics: ["Hardware components", "Operating systems", "File management", "System utilities"],
-          units: ["Unit 1.1: Computer Hardware", "Unit 1.2: Operating Systems", "Unit 1.3: File Management", "Unit 1.4: System Administration"]
-        },
-        {
-          title: "Module 2",
-          subtitle: "Programming Basics",
-          topics: ["Programming concepts", "Variables and data types", "Control structures", "Functions"],
-          units: ["Unit 2.1: Programming Fundamentals", "Unit 2.2: Data Types", "Unit 2.3: Control Flow", "Unit 2.4: Functions and Procedures"]
-        },
-        {
-          title: "Module 3",
-          subtitle: "Database Management",
-          topics: ["Database concepts", "SQL queries", "Table design", "Data integrity"],
-          units: ["Unit 3.1: Database Design", "Unit 3.2: SQL Queries", "Unit 3.3: Data Normalization", "Unit 3.4: Data Security"]
-        },
-        {
-          title: "Module 4",
-          subtitle: "Networking",
-          topics: ["Network basics", "TCP/IP protocols", "Network configuration", "Security basics"],
-          units: ["Unit 4.1: Network Architecture", "Unit 4.2: TCP/IP Protocol", "Unit 4.3: Network Configuration", "Unit 4.4: Network Security"]
-        },
-        {
-          title: "Module 5",
-          subtitle: "Web Development",
-          topics: ["HTML markup", "CSS styling", "JavaScript programming", "Responsive design"],
-          units: ["Unit 5.1: HTML Fundamentals", "Unit 5.2: CSS Styling", "Unit 5.3: JavaScript Programming", "Unit 5.4: Responsive Design"]
-        },
-        {
-          title: "Module 6",
-          subtitle: "IT Support and Troubleshooting",
-          topics: ["Technical support", "Troubleshooting procedures", "System administration", "Backup and recovery"],
-          units: ["Unit 6.1: User Support", "Unit 6.2: Troubleshooting", "Unit 6.3: System Administration", "Unit 6.4: Disaster Recovery"]
-        }
-      ]
-    },
-    "fashion-design": {
-      name: "Fashion & Design",
-      modules: [
-        {
-          title: "Module 1",
-          subtitle: "Fashion Design Basics",
-          topics: ["Design principles", "Color theory", "Fabric types", "Fashion sketching"],
-          units: ["Unit 1.1: Design Principles", "Unit 1.2: Color Theory", "Unit 1.3: Fabric Knowledge", "Unit 1.4: Fashion Illustration"]
-        },
-        {
-          title: "Module 2",
-          subtitle: "Pattern Making",
-          topics: ["Basic patterns", "Grading techniques", "Pattern drafting", "Fitting adjustments"],
-          units: ["Unit 2.1: Basic Pattern Blocks", "Unit 2.2: Grading System", "Unit 2.3: Pattern Development", "Unit 2.4: Fitting Techniques"]
-        },
-        {
-          title: "Module 3",
-          subtitle: "Garment Construction",
-          topics: ["Sewing techniques", "Seam finishes", "Button and zip application", "Pressing methods"],
-          units: ["Unit 3.1: Sewing Techniques", "Unit 3.2: Seam Finishes", "Unit 3.3: Fastening Methods", "Unit 3.4: Pressing and Finishing"]
-        },
-        {
-          title: "Module 4",
-          subtitle: "Textile Design",
-          topics: ["Fabric printing", "Weaving basics", "Dyeing techniques", "Embellishments"],
-          units: ["Unit 4.1: Textile Printing", "Unit 4.2: Weaving Techniques", "Unit 4.3: Dyeing Methods", "Unit 4.4: Embellishment Techniques"]
-        },
-        {
-          title: "Module 5",
-          subtitle: "Fashion Collections",
-          topics: ["Collection development", "Mood boards", "Design briefs", "Trend forecasting"],
-          units: ["Unit 5.1: Collection Planning", "Unit 5.2: Mood Boards", "Unit 5.3: Design Concepts", "Unit 5.4: Trend Analysis"]
-        },
-        {
-          title: "Module 6",
-          subtitle: "Fashion Business",
-          topics: ["Business planning", "Production management", "Marketing strategies", "Costing"],
-          units: ["Unit 6.1: Business Planning", "Unit 6.2: Production Management", "Unit 6.3: Marketing", "Unit 6.4: Costing and Pricing"]
-        }
-      ]
-    },
-    "cosmetology": {
-      name: "Cosmetology",
-      modules: [
-        {
-          title: "Module 1",
-          subtitle: "Skin Anatomy and Care",
-          topics: ["Skin structure", "Skin types", "Facial treatments", "Skincare products"],
-          units: ["Unit 1.1: Skin Anatomy", "Unit 1.2: Skin Assessment", "Unit 1.3: Facial Treatments", "Unit 1.4: Product Knowledge"]
-        },
-        {
-          title: "Module 2",
-          subtitle: "Hair Care and Styling",
-          topics: ["Hair structure", "Hair washing", "Styling techniques", "Color treatments"],
-          units: ["Unit 2.1: Hair Structure", "Unit 2.2: Hair Care Procedures", "Unit 2.3: Styling Techniques", "Unit 2.4: Hair Coloring"]
-        },
-        {
-          title: "Module 3",
-          subtitle: "Makeup Application",
-          topics: ["Makeup products", "Application techniques", "Color matching", "Special effects makeup"],
-          units: ["Unit 3.1: Makeup Principles", "Unit 3.2: Application Techniques", "Unit 3.3: Color Correction", "Unit 3.4: Special Effects"]
-        },
-        {
-          title: "Module 4",
-          subtitle: "Nail Care and Design",
-          topics: ["Nail anatomy", "Manicure and pedicure", "Nail art", "Gel and acrylic nails"],
-          units: ["Unit 4.1: Nail Anatomy", "Unit 4.2: Manicure and Pedicure", "Unit 4.3: Nail Art Design", "Unit 4.4: Advanced Nail Services"]
-        },
-        {
-          title: "Module 5",
-          subtitle: "Health and Safety",
-          topics: ["Hygiene standards", "Sterilization", "Safety regulations", "Infection control"],
-          units: ["Unit 5.1: Health and Hygiene", "Unit 5.2: Sterilization Methods", "Unit 5.3: Safety Compliance", "Unit 5.4: Infection Control"]
-        },
-        {
-          title: "Module 6",
-          subtitle: "Salon Operations",
-          topics: ["Customer service", "Product knowledge", "Pricing and billing", "Business management"],
-          units: ["Unit 6.1: Customer Service", "Unit 6.2: Product Sales", "Unit 6.3: Financial Management", "Unit 6.4: Salon Management"]
-        }
-      ]
-    },
-    "hospitality": {
-      name: "Hospitality",
-      modules: [
-        {
-          title: "Module 1",
-          subtitle: "Hospitality Fundamentals",
-          topics: ["Industry overview", "Service standards", "Customer relations", "Professionalism"],
-          units: ["Unit 1.1: Hospitality Industry", "Unit 1.2: Service Standards", "Unit 1.3: Guest Relations", "Unit 1.4: Professional Conduct"]
-        },
-        {
-          title: "Module 2",
-          subtitle: "Front Office Operations",
-          topics: ["Reception duties", "Booking systems", "Guest communication", "Checkout procedures"],
-          units: ["Unit 2.1: Reception Skills", "Unit 2.2: Reservation Systems", "Unit 2.3: Guest Communication", "Unit 2.4: Checkout Procedures"]
-        },
-        {
-          title: "Module 3",
-          subtitle: "Food Preparation",
-          topics: ["Kitchen safety", "Food hygiene", "Cooking techniques", "Menu planning"],
-          units: ["Unit 3.1: Kitchen Safety", "Unit 3.2: Food Hygiene", "Unit 3.3: Cooking Skills", "Unit 3.4: Menu Development"]
-        },
-        {
-          title: "Module 4",
-          subtitle: "Food Service",
-          topics: ["Table setting", "Service techniques", "Wine knowledge", "Special diets"],
-          units: ["Unit 4.1: Table Service", "Unit 4.2: Service Procedures", "Unit 4.3: Beverage Service", "Unit 4.4: Dietary Requirements"]
-        },
-        {
-          title: "Module 5",
-          subtitle: "Housekeeping",
-          topics: ["Room cleaning", "Linen management", "Waste disposal", "Maintenance"],
-          units: ["Unit 5.1: Room Cleaning", "Unit 5.2: Linen Management", "Unit 5.3: Cleaning Materials", "Unit 5.4: Maintenance Procedures"]
-        },
-        {
-          title: "Module 6",
-          subtitle: "Event Management",
-          topics: ["Event planning", "Catering management", "Setup and breakdown", "Guest coordination"],
-          units: ["Unit 6.1: Event Planning", "Unit 6.2: Catering Coordination", "Unit 6.3: Setup and Breakdown", "Unit 6.4: Guest Management"]
-        }
-      ]
-    },
-    "social-work": {
-      name: "Social Work",
-      modules: [
-        {
-          title: "Module 1",
-          subtitle: "Social Work Foundations",
-          topics: ["Social work values", "Ethical principles", "Professional roles", "Service users"],
-          units: ["Unit 1.1: Professional Values", "Unit 1.2: Ethics and Confidentiality", "Unit 1.3: Professional Roles", "Unit 1.4: Service Users"]
-        },
-        {
-          title: "Module 2",
-          subtitle: "Community Development",
-          topics: ["Community needs", "Project planning", "Capacity building", "Stakeholder engagement"],
-          units: ["Unit 2.1: Community Assessment", "Unit 2.2: Project Planning", "Unit 2.3: Capacity Building", "Unit 2.4: Stakeholder Engagement"]
-        },
-        {
-          title: "Module 3",
-          subtitle: "Counseling Skills",
-          topics: ["Active listening", "Empathy", "Problem-solving", "Crisis intervention"],
-          units: ["Unit 3.1: Active Listening", "Unit 3.2: Empathetic Response", "Unit 3.3: Problem Solving", "Unit 3.4: Crisis Management"]
-        },
-        {
-          title: "Module 4",
-          subtitle: "Child and Family Services",
-          topics: ["Child protection", "Family dynamics", "Welfare assessment", "Support services"],
-          units: ["Unit 4.1: Child Protection", "Unit 4.2: Family Assessment", "Unit 4.3: Welfare Procedures", "Unit 4.4: Support Services"]
-        },
-        {
-          title: "Module 5",
-          subtitle: "Mental Health and Wellbeing",
-          topics: ["Mental health awareness", "Support strategies", "Therapeutic approaches", "Referral systems"],
-          units: ["Unit 5.1: Mental Health Awareness", "Unit 5.2: Support Strategies", "Unit 5.3: Therapeutic Approaches", "Unit 5.4: Referral Networks"]
-        },
-        {
-          title: "Module 6",
-          subtitle: "Social Policy and Advocacy",
-          topics: ["Social policies", "Rights and advocacy", "Case documentation", "Organizational work"],
-          units: ["Unit 6.1: Social Policy", "Unit 6.2: Advocacy Skills", "Unit 6.3: Documentation", "Unit 6.4: Organizational Practice"]
-        }
-      ]
-    },
-    "tourism-management": {
-      name: "Tourism Management",
-      modules: [
-        {
-          title: "Module 1",
-          subtitle: "Tourism Industry Basics",
-          topics: ["Tourism overview", "Destinations", "Tourism organizations", "Sustainability"],
-          units: ["Unit 1.1: Tourism Industry", "Unit 1.2: Destination Management", "Unit 1.3: Tourism Organizations", "Unit 1.4: Sustainable Tourism"]
-        },
-        {
-          title: "Module 2",
-          subtitle: "Tour Guiding",
-          topics: ["Guide preparation", "Interpretation skills", "Group management", "Safety procedures"],
-          units: ["Unit 2.1: Guide Training", "Unit 2.2: Interpretation Skills", "Unit 2.3: Group Management", "Unit 2.4: Safety Procedures"]
-        },
-        {
-          title: "Module 3",
-          subtitle: "Travel Planning",
-          topics: ["Itinerary planning", "Booking systems", "Transportation", "Accommodation selection"],
-          units: ["Unit 3.1: Itinerary Planning", "Unit 3.2: Booking Systems", "Unit 3.3: Transportation", "Unit 3.4: Accommodation"]
-        },
-        {
-          title: "Module 4",
-          subtitle: "Tourism Marketing",
-          topics: ["Destination marketing", "Digital marketing", "Promotional strategies", "Customer research"],
-          units: ["Unit 4.1: Marketing Strategy", "Unit 4.2: Digital Marketing", "Unit 4.3: Promotion", "Unit 4.4: Customer Analysis"]
-        },
-        {
-          title: "Module 5",
-          subtitle: "Hotel and Resort Management",
-          topics: ["Property management", "Revenue management", "Quality assurance", "Staff coordination"],
-          units: ["Unit 5.1: Property Management", "Unit 5.2: Revenue Management", "Unit 5.3: Quality Assurance", "Unit 5.4: Human Resources"]
-        },
-        {
-          title: "Module 6",
-          subtitle: "Adventure and Eco-Tourism",
-          topics: ["Adventure activities", "Environmental conservation", "Cultural tourism", "Risk management"],
-          units: ["Unit 6.1: Adventure Activities", "Unit 6.2: Environmental Conservation", "Unit 6.3: Cultural Tourism", "Unit 6.4: Risk Management"]
-        }
-      ]
-    }
-  };
+  const courses = window.KIHARU_KNOWLEDGE.courseCatalogue;
 
   // Get course from URL - FIXED VERSION
   function getCoursSlug() {
@@ -2689,10 +2278,7 @@
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
-/* ===== KIHARU AI CHAT WIDGET (local dev/testing) =====
-   Frontend-only: opens/closes the panel, sends the typed message to the
-   AI backend, and renders the response. Does not touch any backend file.
-   Local dev vs production URL detection: */
+/* ===== KIHARU AI CHAT WIDGET (backend API) ===== */
 (function(){
   var panel = document.getElementById('assistantChatPanel');
   var button = document.getElementById('assistantChatButton');
@@ -2703,16 +2289,12 @@
   var status = document.getElementById('assistantChatStatus');
   if(!panel || !button || !form || !input || !messages || !status){ return; }
 
-  var isLocalStaticFrontend =
-    location.protocol === 'file:' ||
-    location.hostname === '127.0.0.1' ||
-    location.hostname === 'localhost' ||
+  var isLocalStaticFrontend = location.protocol === 'file:' ||
+    location.hostname === '127.0.0.1' || location.hostname === 'localhost' ||
     location.hostname === '192.168.0.104';
-
   var aiChatUrl = isLocalStaticFrontend
-  ? 'http://127.0.0.1:5000/api/ai/chat'
-  : 'https://kiharu-website.onrender.com/api/ai/chat';
-
+    ? 'http://127.0.0.1:5000/api/ai/chat'
+    : 'https://kiharu-website.onrender.com/api/ai/chat';
   var conversationStorageKey = 'kiharu_ai_conversation_v1';
 
   function getConversation(){
@@ -2767,7 +2349,7 @@
           return;
         }
 
-        var bulletMatch = trimmed.match(/^[-â€¢]\s+(.*)$/);
+        var bulletMatch = trimmed.match(/^[-\u2022]\s+(.*)$/);
         var numberMatch = trimmed.match(/^\d+[.)]\s+(.*)$/);
 
         if(bulletMatch){
@@ -2856,6 +2438,11 @@
 
     messageEl.appendChild(bubble);
     messages.appendChild(messageEl);
+    if(!skipSave){
+      var conversation = getConversation();
+      conversation.push({ role: role, text: String(text || ''), attachment: attachment || null });
+      saveConversation(conversation);
+    }
     scrollMessages();
   }
   function restoreConversation(){
@@ -2913,24 +2500,37 @@
     if(welcome){ welcome.remove(); }
     addMessage('user', value);
     input.value = '';
-    setStatus('Sending...', false);
+    if(navigator.onLine === false){
+      addMessage('assistant', "You're currently offline. Please connect to the internet to use Kiharu AI.");
+      setStatus('Offline', true);
+      return;
+    }
 
+    setStatus('Connecting to Kiharu AI...', false);
     fetch(aiChatUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: value })
     }).then(function(response){
-      return response.json().then(function(data){
-        if(!response.ok || !data.success){
-          throw new Error(data.message || 'AI request failed');
+      return response.json().catch(function(){ return null; }).then(function(data){
+        if(!response.ok){
+          addMessage('assistant', 'Kiharu AI could not process this request. Please try again.');
+          setStatus('Request failed. Please try again.', true);
+          return null;
         }
-        var hasDocument = data.document && typeof data.document.url === 'string' && data.document.url.length > 0;
-        addMessage('assistant', data.message || 'Sorry, I could not find an answer.', hasDocument ? data.document : null);
+        if(!data || data.success !== true || typeof data.message !== 'string' || !data.message.trim()){
+          addMessage('assistant', 'Kiharu AI returned an unexpected response. Please try again.');
+          setStatus('Unexpected response from Kiharu AI.', true);
+          return null;
+        }
+        var attachment = data.document && typeof data.document.url === 'string' && data.document.url ? data.document : null;
+        addMessage('assistant', data.message, attachment);
         setStatus('Ready for another question.', false);
+        return data;
       });
-    }).catch(function(err){
-      addMessage('assistant', 'Sorry, the AI assistant is unavailable right now. Please try again later.');
-      setStatus(err.message || 'Request failed.', true);
+    }).catch(function(){
+      addMessage('assistant', "I can't reach Kiharu AI right now. Please check your internet connection and try again.");
+      setStatus('Unable to reach Kiharu AI.', true);
     });
   });
 

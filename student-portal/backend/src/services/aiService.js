@@ -206,6 +206,23 @@ const intentEntryIds = [
   }
 ];
 
+// Give an explicitly named subject more weight than generic wording such as
+// "available", which is also a course synonym and may be expanded above.
+const explicitDomainIntents = [
+  {
+    terms: ['jobs', 'job', 'vacancy', 'vacancies', 'employment'],
+    ids: ['jobs']
+  },
+  {
+    terms: ['tender', 'tenders', 'procurement'],
+    ids: ['tenders']
+  },
+  {
+    terms: ['course', 'courses', 'programme', 'programmes', 'program', 'programs'],
+    ids: ['programmes']
+  }
+];
+
 const GREETING_RESPONSES = {
   english: [
     "Hello! 👋 Welcome to Kiharu TVC. How may I help you today?",
@@ -384,6 +401,15 @@ const findBestEntry = (message) => {
         intent.terms.some((term) => queryTokens.has(term))
       ) {
         score += 5;
+      }
+    }
+
+    for (const intent of explicitDomainIntents) {
+      if (
+        intent.ids.includes(entry.id) &&
+        intent.terms.some((term) => queryTokenList.includes(term))
+      ) {
+        score += 20;
       }
     }
 
