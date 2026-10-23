@@ -2516,12 +2516,15 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 /* Main assistant */
 .assistant-chat-panel {
   position: fixed;
-  left: 5vw;
-  right: 5vw;
-  bottom: 92px;
+  right: 20px;
+  bottom: 146px;
   z-index: 4991;
-  width: auto;
-  height: min(76vh, 700px);
+  width: min(430px, calc(100vw - 40px));
+  height: min(620px, 68vh);
+  max-height: calc(100vh - 170px);
+  max-height: calc(100dvh - 170px);
+  min-height: min(320px, calc(100vh - 170px));
+  min-height: min(320px, calc(100dvh - 170px));
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -2544,6 +2547,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 /* Header */
 .assistant-chat-header {
   min-height: 76px;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2852,6 +2856,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 
 /* Input */
 .assistant-chat-form {
+  flex: 0 0 auto;
   padding: 14px 24px 7px;
   border-top: 1px solid #e5edf3;
   background: #fff;
@@ -2922,6 +2927,7 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 }
 
 .assistant-chat-status {
+  flex: 0 0 auto;
   min-height: 22px;
   padding: 0 20px 9px;
   background: #fff;
@@ -2933,9 +2939,14 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 /* Tablet */
 @media (max-width: 900px) {
   .assistant-chat-panel {
-    left: 2.5vw;
-    right: 2.5vw;
-    height: min(78vh, 680px);
+    right: 16px;
+    bottom: 138px;
+    width: min(430px, calc(100vw - 32px));
+    height: min(620px, 68vh);
+    max-height: calc(100vh - 158px);
+    max-height: calc(100dvh - 158px);
+    min-height: min(320px, calc(100vh - 158px));
+    min-height: min(320px, calc(100dvh - 158px));
   }
 
   .assistant-suggestions {
@@ -2968,11 +2979,16 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   }
 
   .assistant-chat-panel {
-    left: 8px;
-    right: 8px;
-    bottom: 66px;
-    height: calc(100vh - 82px);
-    max-height: none;
+    left: 12px;
+    right: auto;
+    bottom: 130px;
+    width: calc(100vw - 24px);
+    height: min(62vh, 600px);
+    height: min(62dvh, 600px);
+    max-height: calc(100vh - 150px);
+    max-height: calc(100dvh - 150px);
+    min-height: min(260px, calc(100vh - 150px));
+    min-height: min(260px, calc(100dvh - 150px));
     border-radius: 20px;
   }
 
@@ -3004,6 +3020,9 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
   }
 
   .assistant-chat-messages {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 20px 13px;
   }
 
@@ -3286,8 +3305,6 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 }
 
 /* ===== END KIHARU AI PREMIUM COLOR LAYER ===== */
-
-
 
 
 
