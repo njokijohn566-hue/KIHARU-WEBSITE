@@ -1397,6 +1397,48 @@ footer{
 }
 
 @media(max-width:600px){
+  .header-inner{
+    gap:8px;
+    padding:10px 12px;
+  }
+  .brand{
+    flex:1 1 auto;
+    min-width:0;
+    gap:8px;
+  }
+  .brand .logo{
+    width:48px;
+    height:48px;
+    flex:0 0 48px;
+  }
+  .brand-text{
+    min-width:0;
+  }
+  .brand-text .main{
+    font-size:12px;
+  }
+  .brand-text .sub,
+  .header-inner > .join-btn{
+    display:none;
+  }
+  .hamburger{
+    width:44px;
+    height:44px;
+    flex:0 0 44px;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    padding:0;
+    border-radius:10px;
+    background:var(--maroon);
+  }
+  .hamburger span{
+    background:#fff;
+  }
+  .hamburger:focus-visible{
+    outline:3px solid var(--orange);
+    outline-offset:2px;
+  }
   .stats{gap:0;}
   .stat-item{padding:16px 20px;}
   .footer-inner{grid-template-columns:1fr;}
@@ -3305,6 +3347,5 @@ i.notice-tag[data-lucide]{display:inline-block;width:12px;height:12px;vertical-a
 }
 
 /* ===== END KIHARU AI PREMIUM COLOR LAYER ===== */
-
 
 
